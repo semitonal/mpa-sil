@@ -3964,9 +3964,8 @@ void place_trap(int y, int x)
 			}
 			case FEAT_TRAP_GAS_MEMORY:
 			{
-				// 14-
-				if (p_ptr->depth < 14) continue;
-				break;
+				// Don't place these.
+				continue;
 			}
 			case FEAT_TRAP_ALARM:
 			{
