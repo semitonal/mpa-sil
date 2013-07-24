@@ -1340,14 +1340,10 @@ void describe_monster(int r_idx, bool spoilers)
 	const monster_race *r_ptr = &r_info[r_idx];
 	monster_lore *l_ptr = &l_list[r_idx];
 
-	/* Cheat -- know everything */
-	if ((cheat_know) || p_ptr->active_ability[S_PER][PER_LORE2])
-	{
-		/* XXX XXX XXX */
+	/* XXX XXX XXX */
 
-		/* Hack -- save memory */
-		COPY(&save_mem, l_ptr, monster_lore);
-	}
+	/* Hack -- save memory */
+	COPY(&save_mem, l_ptr, monster_lore);
 
 	/* Hack -- create a copy of the monster-memory */
 	COPY(&lore, l_ptr, monster_lore);
@@ -1365,11 +1361,7 @@ void describe_monster(int r_idx, bool spoilers)
 		lore.flags1 |= (r_ptr->flags1 & (RF1_FORCE_DEPTH));
 	}
 
-	/* Cheat -- know everything */
-	if ((cheat_know) || p_ptr->active_ability[S_PER][PER_LORE2] || spoilers)
-	{
-		cheat_monster_lore(r_idx, &lore);
-	}
+	cheat_monster_lore(r_idx, &lore);
 
 	/* Show kills of monster vs. player(s) */
 	if (!spoilers)
@@ -1405,12 +1397,8 @@ void describe_monster(int r_idx, bool spoilers)
 	/* All done */
 	text_out("\n");
 
-	/* Cheat -- know everything */
-	if ((cheat_know) || p_ptr->active_ability[S_PER][PER_LORE2])
-	{
-		/* Hack -- restore memory */
-		COPY(l_ptr, &save_mem, monster_lore);
-	}
+	/* Hack -- restore memory */
+	COPY(l_ptr, &save_mem, monster_lore);
 }
 
 
