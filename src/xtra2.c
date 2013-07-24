@@ -2552,8 +2552,7 @@ void verify_panel(void)
 
 
 	/* Scroll screen vertically when off-center */
-	if (center_player && (!p_ptr->running || !run_avoid_center) &&
-	    (py != wy + SCREEN_HGT / 2))
+	if (center_player && (!p_ptr->running || !run_avoid_center))
 	{
 		wy = py - SCREEN_HGT / 2;
 	}
@@ -2572,10 +2571,9 @@ void verify_panel(void)
 		wy = ((py - PANEL_HGT / 2) / PANEL_HGT) * PANEL_HGT;
 	}
 
-
 	/* Scroll screen horizontally when off-center */
 	if (center_player && (!p_ptr->running || !run_avoid_center) &&
-	    (px != wx + SCREEN_WID / 2))
+	    (py != wy + SCREEN_WID / 2))
 	{
 		wx = px - SCREEN_WID / 2;
 	}
