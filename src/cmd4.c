@@ -8777,10 +8777,6 @@ static int collect_objects(int grp_cur, object_list_entry object_idx[])
 		/*not in allocation table*/
 		if (!(k))  continue;
 
-		/* Require objects ever seen*/
-		//if (!(k_ptr->aware && k_ptr->everseen)) continue;
-		if (!(k_ptr->everseen)) continue;
-
 		/* Check for object in the group */
 		if (k_ptr->tval == group_tval)
 		{
@@ -8814,9 +8810,6 @@ static int collect_objects(int grp_cur, object_list_entry object_idx[])
 
 		/* Skip empty objects */
 		if (!e_ptr->name) continue;
-
-		/* Require objects ever seen*/
-		if (!(e_ptr->everseen)) continue;
 
 		/* Check for object in the group */
 		for (j = 0; j < EGO_TVALS_MAX; j++)
@@ -8855,7 +8848,6 @@ static int collect_artefacts(int grp_cur, int object_idx[])
 {
 	int i, object_cnt = 0;
 	bool *okay;
-	bool know_all = cheat_know || p_ptr->active_ability[S_PER][PER_LORE2];
 
 	/* Get a list of x_char in this group */
 	byte group_tval = object_group_tval[grp_cur];
@@ -8874,12 +8866,6 @@ static int collect_artefacts(int grp_cur, int object_idx[])
 
 		/* Skip "empty" artefacts */
 		if (a_ptr->tval + a_ptr->sval == 0) continue;
-
-		/* Skip "unfound" artefacts, unless in wizard mode or with Lore Mastery or cheating */
-		if (!know_all && !p_ptr->wizard && !a_ptr->found_num) continue;
-
-		/* Skip "ungenerated" artefacts, unless with Lore Mastery or cheating */
-		if (!know_all && !a_ptr->cur_num) continue;
 
 		/* Skip the later versions of the Iron Crown */
 		if ((i == ART_MORGOTH_0) || (i == ART_MORGOTH_1) || (i == ART_MORGOTH_2)) continue;
@@ -9489,9 +9475,6 @@ static int collect_monsters(int grp_cur, monster_list_entry *mon_idx, int mode)
 
 		if (grp_unique && !(unique)) continue;
 
-		/* Require known monsters */
-		if (!(mode & 0x02) && (!cheat_know) && (!p_ptr->active_ability[S_PER][PER_LORE2]) && (!(l_ptr->tsights))) continue;
-
 		// Ignore monsters that can't be generated
 		if (r_ptr->level > 25) continue;
 
@@ -9538,25 +9521,14 @@ static void display_monster_list(int col, int row, int per_page, monster_list_en
 		/* Require non-unique monsters */
 		if (r_ptr->flags1 & RF1_UNIQUE)
 		{
-			/*Count if we have seen the unique*/
-			if (l_ptr->tsights)
-			{
-				known_uniques++;
+			known_uniques++;
 
-				/*Count if the unique is dead*/
-				if (r_ptr->max_num == 0)
-				{
-					dead_uniques++;
-					slay_count++;
-				}
-			}
-			
-			// increase the uniques count anyway for loremasters or cheaters
-			else if (p_ptr->active_ability[S_PER][PER_LORE2] || cheat_know)
+			/*Count if the unique is dead*/
+			if (r_ptr->max_num == 0)
 			{
-				known_uniques++;
+				dead_uniques++;
+				slay_count++;
 			}
-
 		}
 
 		/* Collect "appropriate" monsters */
