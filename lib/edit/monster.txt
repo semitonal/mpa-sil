@@ -589,7 +589,7 @@ B:CLAW:WOUND:(+8,3d4)
 F:DROP_100 | OPEN_DOOR | UNLOCK_DOOR | BASH_DOOR | SMART
 F:NO_FEAR
 S:SPELL_PCT_20
-S:SCARE | FORGET
+S:SCARE
 D:An evil swamp dwelling creature that feeds on the bones
 D: of those who draw near.
 
