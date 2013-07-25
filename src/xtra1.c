@@ -2816,7 +2816,7 @@ void notice_stuff(void)
 void update_lore_aux(object_type *o_ptr)
 {
 	// identify seen items with Lore-Master
-	if (!object_known_p(o_ptr) && p_ptr->active_ability[S_PER][PER_LORE2])
+	if (!object_known_p(o_ptr) && (p_ptr->active_ability[S_PER][PER_LORE2] || o_ptr->name1))
 	{
 		ident(o_ptr);
 	}
