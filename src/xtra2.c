@@ -2858,9 +2858,6 @@ bool target_able(int m_idx)
 	/* Hack -- no targeting hallucinations */
 	if (p_ptr->image) return (FALSE);
 
-	/* Hack -- no targeting things out of sight when raging */
-	if (!(p_ptr->is_dead) && (p_ptr->rage) && !(cave_info[m_ptr->fy][m_ptr->fx] & (CAVE_SEEN))) return (FALSE);
-
 	/* Hack -- Never target trappers XXX XXX XXX */
 	/* if (CLEAR_ATTR && (CLEAR_CHAR)) return (FALSE); */
 
@@ -3146,9 +3143,6 @@ static bool target_set_interactive_accept(int y, int x)
 	/* Handle hallucination */
 	if (p_ptr->image) return (FALSE);
 
-	/* No looking at things out of sight when raging */
-	if (!(p_ptr->is_dead) && (p_ptr->rage) && !(cave_info[y][x] & (CAVE_SEEN))) return (FALSE);
-
 	/* Visible monsters */
 	if (cave_m_idx[y][x] > 0)
 	{
@@ -3361,15 +3355,8 @@ static int target_set_interactive_aux(int y, int x, int mode, cptr info)
 				/* Not boring */
 				boring = FALSE;
 
-                if (p_ptr->rage)
-                {
-                    my_strcpy(m_name, "an enemy", sizeof(m_name));
-                }
-                else
-                {
-                    /* Get the monster name ("a kobold") */
-                    monster_desc(m_name, sizeof(m_name), m_ptr, 0x08);
-                }
+                /* Get the monster name ("a kobold") */
+                monster_desc(m_name, sizeof(m_name), m_ptr, 0x08);
                 
                 /* Hack -- track this monster race */
                 monster_race_track(m_ptr->r_idx);
