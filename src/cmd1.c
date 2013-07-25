@@ -1499,22 +1499,22 @@ extern void ident_passive(void)
 				notice = TRUE;
 				my_strcpy(effect_string, "You notice that you are recovering much faster than usual.", sizeof (effect_string));
 			}
-			else if ((f2 & (TR2_HUNGER)))
+			else if (f2 & (TR2_HUNGER))
 			{
 				notice = TRUE;
 				my_strcpy(effect_string, "You notice that you are growing hungry much faster than before.", sizeof (effect_string));
 			}
-			else if ((f2 & (TR2_SLOW_DIGEST)))
+			else if (f2 & (TR2_SLOW_DIGEST))
 			{
 				notice = TRUE;
 				my_strcpy(effect_string, "You notice that you are growing hungry more slowly than before.", sizeof (effect_string));
 			}
-			else if ((f2 & (TR2_AGGRAVATE)))
+			else if (f2 & (TR2_AGGRAVATE))
 			{
 				notice = TRUE;
 				my_strcpy(effect_string, "You notice that you are enraging your enemies.", sizeof (effect_string));
 			}
-			else if ((f2 & (TR2_DANGER)))
+			else if (f2 & (TR2_DANGER))
 			{
 				notice = TRUE;
 				my_strcpy(effect_string, "You notice that you are attracting more powerful enemies.", sizeof (effect_string));
