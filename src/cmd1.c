@@ -2574,7 +2574,17 @@ void py_pickup(int pickup)
 		if ((!pickup) || (do_not_pickup))
 		{
 			// skip notes
-			if (o_ptr->tval != TV_NOTE) msg_format("You see %s.", o_name);			
+			if (o_ptr->tval != TV_NOTE)
+			{
+				char weight[80] = "";
+				if (o_ptr->weight)
+				{
+					int wgt = o_ptr->weight * o_ptr->number;
+					sprintf(weight, " (%d.%1d lb)", wgt / 10, wgt % 10);
+				}
+
+				msg_format("You see %s%s.", o_name, weight);
+			}
 
 			if ((o_ptr->name1 == ART_MORGOTH_3) && !(p_ptr->crown_hint))
 			{
