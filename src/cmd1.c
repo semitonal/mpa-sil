@@ -1364,82 +1364,82 @@ extern void ident_resist(u32b flag)
 			/* Short, pre-identification object description */
 			object_desc(o_short_name, sizeof(o_short_name), o_ptr, FALSE, 0);
 			
-			if ((flag == TR2_RES_COLD) && (f2 & (TR2_RES_COLD)) && ident_by_use_perception_check(5))
+			if ((flag == TR2_RES_COLD) && (f2 & (TR2_RES_COLD)))
 			{
 				notice = TRUE;
 				strnfmt(effect_string, sizeof(effect_string), "Your %s partly protects you from the chill.", o_short_name);
 			}
-			else if ((flag == TR2_RES_FIRE) && (f2 & (TR2_RES_FIRE)) && ident_by_use_perception_check(5))
+			else if ((flag == TR2_RES_FIRE) && (f2 & (TR2_RES_FIRE)))
 			{
 				notice = TRUE;
 				strnfmt(effect_string, sizeof(effect_string), "Your %s partly protects you from the flame.", o_short_name);
 			}
-			else if ((flag == TR2_RES_POIS) && (f2 & (TR2_RES_POIS)) && ident_by_use_perception_check(5))
+			else if ((flag == TR2_RES_POIS) && (f2 & (TR2_RES_POIS)))
 			{
 				notice = TRUE;
 				strnfmt(effect_string, sizeof(effect_string), "Your %s partly protects you from the poison.", o_short_name);
 			}
-			else if ((flag == TR2_RES_COLD) && (f2 & (TR2_VUL_COLD)) && ident_by_use_perception_check(5))
+			else if ((flag == TR2_RES_COLD) && (f2 & (TR2_VUL_COLD)))
 			{
 				notice = TRUE;
 				strnfmt(effect_string, sizeof(effect_string), "Your %s intensifies the chill.", o_short_name);
 			}
-			else if ((flag == TR2_RES_FIRE) && (f2 & (TR2_VUL_FIRE)) && ident_by_use_perception_check(5))
+			else if ((flag == TR2_RES_FIRE) && (f2 & (TR2_VUL_FIRE)))
 			{
 				notice = TRUE;
 				strnfmt(effect_string, sizeof(effect_string), "Your %s intensifies the flame.", o_short_name);
 			}
-			else if ((flag == TR2_RES_POIS) && (f2 & (TR2_VUL_POIS)) && ident_by_use_perception_check(5))
+			else if ((flag == TR2_RES_POIS) && (f2 & (TR2_VUL_POIS)))
 			{
 				notice = TRUE;
 				strnfmt(effect_string, sizeof(effect_string), "Your %s intensifies the poison.", o_short_name);
 			}
-			else if ((flag == TR2_RES_FEAR) && (f2 & (TR2_RES_FEAR)) && ident_by_use_perception_check(5))
+			else if ((flag == TR2_RES_FEAR) && (f2 & (TR2_RES_FEAR)))
 			{
 				notice = TRUE;
 				strnfmt(effect_string, sizeof(effect_string), "Your %s fills you with courage.", o_short_name);
 			}
-			else if ((flag == TR2_RES_BLIND) && (f2 & (TR2_RES_BLIND)) && ident_by_use_perception_check(5))
+			else if ((flag == TR2_RES_BLIND) && (f2 & (TR2_RES_BLIND)))
 			{
 				notice = TRUE;
 				strnfmt(effect_string, sizeof(effect_string), "Your %s protects your sight.", o_short_name);
 			}
-			else if ((flag == TR2_RES_HALLU) && (f2 & (TR2_RES_HALLU)) && ident_by_use_perception_check(5))
+			else if ((flag == TR2_RES_HALLU) && (f2 & (TR2_RES_HALLU)))
 			{
 				notice = TRUE;
 				strnfmt(effect_string, sizeof(effect_string), "Your %s protects your sight.", o_short_name);
 			}
-			else if ((flag == TR2_RES_CONFU) && (f2 & (TR2_RES_CONFU)) && ident_by_use_perception_check(5))
+			else if ((flag == TR2_RES_CONFU) && (f2 & (TR2_RES_CONFU)))
 			{
 				notice = TRUE;
 				strnfmt(effect_string, sizeof(effect_string), "Your %s fills you with calm.", o_short_name);
 			}
-			else if ((flag == TR2_RES_STUN) && (f2 & (TR2_RES_STUN)) && ident_by_use_perception_check(5))
+			else if ((flag == TR2_RES_STUN) && (f2 & (TR2_RES_STUN)))
 			{
 				notice = TRUE;
 				strnfmt(effect_string, sizeof(effect_string), "Your %s fills you with calm.", o_short_name);
 			}
-			else if ((flag == TR2_FREE_ACT) && (f2 & (TR2_FREE_ACT)) && ident_by_use_perception_check(5))
+			else if ((flag == TR2_FREE_ACT) && (f2 & (TR2_FREE_ACT)))
 			{
 				notice = TRUE;
 				strnfmt(effect_string, sizeof(effect_string), "Your %s glows softly.", o_short_name);
 			}
-			else if ((flag == TR2_SUST_STR) && (f2 & (TR2_SUST_STR)) && ident_by_use_perception_check(5))
+			else if ((flag == TR2_SUST_STR) && (f2 & (TR2_SUST_STR)))
 			{
 				notice = TRUE;
 				strnfmt(effect_string, sizeof(effect_string), "Your %s sustains your strength.", o_short_name);
 			}
-			else if ((flag == TR2_SUST_DEX) && (f2 & (TR2_SUST_DEX)) && ident_by_use_perception_check(5))
+			else if ((flag == TR2_SUST_DEX) && (f2 & (TR2_SUST_DEX)))
 			{
 				notice = TRUE;
 				strnfmt(effect_string, sizeof(effect_string), "Your %s sustains your dexterity.", o_short_name);
 			}
-			else if ((flag == TR2_SUST_CON) && (f2 & (TR2_SUST_CON)) && ident_by_use_perception_check(5))
+			else if ((flag == TR2_SUST_CON) && (f2 & (TR2_SUST_CON)))
 			{
 				notice = TRUE;
 				strnfmt(effect_string, sizeof(effect_string), "Your %s sustains your constitution.", o_short_name);
 			}
-			else if ((flag == TR2_SUST_GRA) && (f2 & (TR2_SUST_GRA)) && ident_by_use_perception_check(5))
+			else if ((flag == TR2_SUST_GRA) && (f2 & (TR2_SUST_GRA)))
 			{
 				notice = TRUE;
 				strnfmt(effect_string, sizeof(effect_string), "Your %s sustains your grace.", o_short_name);
@@ -1494,27 +1494,27 @@ extern void ident_passive(void)
 		
 		if (!object_known_p(o_ptr))
 		{			
-			if ((f2 & (TR2_REGEN)) && (p_ptr->chp < p_ptr->mhp) && ident_by_use_perception_check(10))
+			if ((f2 & (TR2_REGEN)) && (p_ptr->chp < p_ptr->mhp))
 			{
 				notice = TRUE;
 				my_strcpy(effect_string, "You notice that you are recovering much faster than usual.", sizeof (effect_string));
 			}
-			else if ((f2 & (TR2_HUNGER)) && ident_by_use_perception_check(10))
+			else if ((f2 & (TR2_HUNGER)))
 			{
 				notice = TRUE;
 				my_strcpy(effect_string, "You notice that you are growing hungry much faster than before.", sizeof (effect_string));
 			}
-			else if ((f2 & (TR2_SLOW_DIGEST)) && ident_by_use_perception_check(10))
+			else if ((f2 & (TR2_SLOW_DIGEST)))
 			{
 				notice = TRUE;
 				my_strcpy(effect_string, "You notice that you are growing hungry more slowly than before.", sizeof (effect_string));
 			}
-			else if ((f2 & (TR2_AGGRAVATE)) && ident_by_use_perception_check(10))
+			else if ((f2 & (TR2_AGGRAVATE)))
 			{
 				notice = TRUE;
 				my_strcpy(effect_string, "You notice that you are enraging your enemies.", sizeof (effect_string));
 			}
-			else if ((f2 & (TR2_DANGER)) && ident_by_use_perception_check(10))
+			else if ((f2 & (TR2_DANGER)))
 			{
 				notice = TRUE;
 				my_strcpy(effect_string, "You notice that you are attracting more powerful enemies.", sizeof (effect_string));
@@ -1571,7 +1571,7 @@ extern void ident_see_invisible(const monster_type *m_ptr)
 		
 		if (!object_known_p(o_ptr))
 		{
-			if ((f2 & (TR2_SEE_INVIS)) && ident_by_use_perception_check(10))
+			if (f2 & (TR2_SEE_INVIS))
 			{
 				notice = TRUE;
 			}
@@ -1628,7 +1628,7 @@ extern void ident_haunted(void)
 		
 		if (!object_known_p(o_ptr))
 		{
-			if ((f2 & (TR2_HAUNTED)) && ident_by_use_perception_check(10))
+			if (f2 & (TR2_HAUNTED))
 			{
 				notice = TRUE;
 			}
@@ -1683,7 +1683,7 @@ extern void ident_cowardice(void)
 		
 		if (!object_known_p(o_ptr))
 		{
-			if ((f2 & (TR2_FEAR)) && ident_by_use_perception_check(5))
+			if (f2 & (TR2_FEAR))
 			{
 				notice = TRUE;
 			}
@@ -1824,15 +1824,6 @@ void ident_bow_arrow_by_use(object_type *j_ptr, object_type *i_ptr, object_type 
 
 
 /*
- * Determines if the player perceives the true nature of an item through use
- */
-extern bool ident_by_use_perception_check(int difficulty)
-{
-	return (skill_check(PLAYER, p_ptr->skill_use[S_PER], difficulty, NULL) > 0);
-}
-
-
-/*
  * Makes checks against perception to see if the weapon becomes identified
  *
  * Returns the flag that was noticed, the calling function can send this to
@@ -1843,7 +1834,7 @@ u32b maybe_notice_slay(const object_type *o_ptr, u32b flag)
 {
 	u32b noticed_flag = 0L;
 	
-	if (!object_known_p(o_ptr) && ident_by_use_perception_check(10))
+	if (!object_known_p(o_ptr))
 	{
 		noticed_flag = flag;
 	}

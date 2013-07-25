@@ -338,7 +338,6 @@ extern void ident_cowardice(void);
 extern void ident_bow_arrow_by_use(object_type *j_ptr, object_type *i_ptr, object_type *o_ptr,
                        const monster_type *m_ptr, u32b bow_flag, u32b arrow_flag);
 extern void ident_weapon_by_use(object_type *o_ptr, const monster_type *m_ptr, u32b flag);
-extern bool ident_by_use_perception_check(int difficulty);
 extern int slay_bonus(const object_type *o_ptr, const monster_type *m_ptr, u32b *noticed_flag);
 extern int prt_after_sharpness(const object_type *o_ptr, u32b *noticed_flag);
 extern void search(void);

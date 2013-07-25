@@ -2334,7 +2334,7 @@ static void process_player(void)
 		{
 			if (!(cave_info[p_ptr->py][p_ptr->px] & (CAVE_GLOW)))
 			{
-				if (!object_known_p(o_ptr) && one_in_(10) && ident_by_use_perception_check(5))
+				if (!object_known_p(o_ptr) && one_in_(10))
 				{
 					char o_short_name[80];
 					char o_full_name[80];

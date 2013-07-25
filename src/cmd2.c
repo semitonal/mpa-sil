@@ -1858,23 +1858,20 @@ static bool do_cmd_tunnel_aux(int y, int x)
 		// Possibly identify the digger
 		if (!object_known_p(o_ptr) && (f1 & (TR1_TUNNEL)))
 		{ 
-			if (ident_by_use_perception_check(10))
-			{
-				char o_short_name[80];
-				char o_full_name[80];
-				
-				/* Short, pre-identification object description */
-				object_desc(o_short_name, sizeof(o_short_name), o_ptr, FALSE, 0);
-				
-				ident(o_ptr);
-				
-				/* Full object description */
-				object_desc(o_full_name, sizeof(o_full_name), o_ptr, TRUE, 3);
-				
-				/* Print the messages */
-				msg_format("You notice that your %s is especially suited to tunneling.", o_short_name);
-				msg_format("You are wielding %s.", o_full_name);
-			}
+			char o_short_name[80];
+			char o_full_name[80];
+			
+			/* Short, pre-identification object description */
+			object_desc(o_short_name, sizeof(o_short_name), o_ptr, FALSE, 0);
+			
+			ident(o_ptr);
+			
+			/* Full object description */
+			object_desc(o_full_name, sizeof(o_full_name), o_ptr, TRUE, 3);
+			
+			/* Print the messages */
+			msg_format("You notice that your %s is especially suited to tunneling.", o_short_name);
+			msg_format("You are wielding %s.", o_full_name);
 		}
 	}
 	else
