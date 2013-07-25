@@ -956,13 +956,6 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 	/* Cave flags */
 	info = cave_info[y][x];
 
-	bool hide_square = FALSE;
-	bool blood_red = FALSE;
-	
-	// 'rage' effects...
-	if ((!p_ptr->is_dead) && p_ptr->rage && !(info & (CAVE_SEEN))) hide_square = TRUE;
-	if ((!p_ptr->is_dead) && p_ptr->rage)                          blood_red = TRUE;
-
 	/* make sure not to display things off screen */
 	if ((y < 0) || (x < 0) || (y >= p_ptr->cur_map_hgt) || (x >= p_ptr->cur_map_wid))
 	{
@@ -991,17 +984,6 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 			c = PICT_C(i);
 		}
 	}
-	else if (hide_square)
-	{
-		/* Get the darkness feature */
-		f_ptr = &f_info[FEAT_NONE];
-		
-		/* Normal attr */
-		a = f_ptr->x_attr;
-		
-		/* Normal char */
-		c = f_ptr->x_char;
-	}
 	/* Boring grids (floors, etc) */
 	else if (cave_floorlike_bold(y,x))
 	{
@@ -1020,6 +1002,11 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 
 			/* Special lighting effects */
 			special_lighting_floor(&a, &c, info);
+
+			if (!p_ptr->is_dead && p_ptr->rage && (info & (CAVE_SEEN)))
+			{
+				a = TERM_RED;
+			}
 		}
 
 		/* Unknown */
@@ -1056,6 +1043,11 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 
 			/* Special lighting effects (walls only) */
 			special_lighting_wall(&a, &c, feat, info);
+
+			if (!p_ptr->is_dead && p_ptr->rage && (info & (CAVE_SEEN)))
+			{
+				a = TERM_RED;
+			}
 		}
 
 		/* Unknown */
@@ -1083,7 +1075,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 		{
 			
 			/* Memorized objects */
-			if (o_ptr->marked && !hide_square)
+			if (o_ptr->marked)
 			{
 				
 				/* Normal attr */
@@ -1121,7 +1113,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 	}
 
 	/* Monsters */
-	if ((m_idx > 0) && !hide_square)
+	if (m_idx > 0)
 	{
 		monster_type *m_ptr = &mon_list[m_idx];
 
@@ -1208,11 +1200,6 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 			{
 				/* Normal attr */
 				a = da;
-			}
-			
-			if (blood_red)
-			{
-				a = TERM_RED;
 			}
 			
 			if (use_background_colors)
