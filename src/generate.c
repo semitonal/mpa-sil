@@ -1277,6 +1277,13 @@ static bool alloc_stairs(int feat, int num)
 			else cave_set_feat(yy, xx, choose_up_stairs());
 		}
 
+		// Always place upshafts instead of upstairs on the ascent.
+		else if (p_ptr->on_the_run && p_ptr->depth >= 2)
+		{
+			if (feat == FEAT_LESS)
+				cave_set_feat(yy, xx, FEAT_LESS_SHAFT);
+		}
+
 		/* Requested type */
 		else
 		{
