@@ -2816,7 +2816,13 @@ void notice_stuff(void)
 void update_lore_aux(object_type *o_ptr)
 {
 	// identify seen items with Lore-Master
-	if (!object_known_p(o_ptr) && (p_ptr->active_ability[S_PER][PER_LORE2] || o_ptr->name1))
+	// also artefacts and potions of miruvor or orcish liquor
+	if (!object_known_p(o_ptr) &&
+		(p_ptr->active_ability[S_PER][PER_LORE2]
+		 || o_ptr->name1
+		 || o_ptr->tval == TV_POTION
+			&& (o_ptr->sval == SV_POTION_MIRUVOR
+				|| o_ptr->sval == SV_POTION_ORCISH_LIQUOR)))
 	{
 		ident(o_ptr);
 	}
