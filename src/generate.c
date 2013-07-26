@@ -3041,12 +3041,6 @@ static bool cave_gen(void)
 		alloc_object(ALLOC_SET_ROOM, ALLOC_TYP_OBJECT, obj_room_gen, FALSE);
 	}
 	
-	// add a curved sword near the player if this is the beginning of the game
-	if (playerturn == 0)
-	{
-		place_item_randomly(TV_SWORD, SV_CURVED_SWORD, TRUE);
-	}
-	
 	// place a bow and arrows on the second ever dungeon level
 	//if (p_ptr->stairs_taken == 1)
 	//{
