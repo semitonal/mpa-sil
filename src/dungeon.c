@@ -757,8 +757,6 @@ static bool enter_wizard_mode(void)
  */
 static bool verify_debug_mode(void)
 {
-	char buf[80] = "It is not mellon";
-	
 	/* Ask first time */
 	if (!(p_ptr->noscore & 0x0008))
 	{
