@@ -494,7 +494,10 @@ static void player_wipe(void)
 		sprintf(history, "%s", p_ptr->history);
 		for (i = 0; i < A_MAX; i++)
 		{
-			stat[i] = p_ptr->stat_base[i] - (rp_ptr->r_adj[i] + hp_ptr->h_adj[i]);
+			if (!(p_ptr->noscore & 0x0008))
+				stat[i] = p_ptr->stat_base[i] - (rp_ptr->r_adj[i] + hp_ptr->h_adj[i]);
+			else
+				stat[i] = 0;
 		}
 	}
 
