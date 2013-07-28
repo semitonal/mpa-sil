@@ -582,7 +582,6 @@ T:40:0:99  # Amulet
 
 N:143:Song of Freedom
 I:7:3:4
-P:7/0
 D:Discovers and overcomes nearby doors and traps.
 T:33:0:99  # Crown
 T:40:0:99  # Amulet
@@ -602,7 +601,6 @@ T:40:0:99  # Amulet
 
 N:146:Song of Staying
 I:7:6:7
-P:7/1:7/4
 D:Provides protection from opponents' blows and
 D: strengthens your will.
 T:33:0:99  # Crown
@@ -610,14 +608,12 @@ T:40:0:99  # Amulet
 
 N:147:Song of Lorien
 I:7:7:8
-P:7/2
 D:Gradually puts nearby opponents to sleep.
 T:33:0:99  # Crown
 T:40:0:99  # Amulet
 
 N:148:Song of Este
 I:7:8:9
-P:7/4
 D:Significantly speeds your regeneration and your recovery
 D: from all negative timed effects (such as confusion or poison).
 T:33:0:99  # Crown
@@ -625,7 +621,6 @@ T:40:0:99  # Amulet
 
 N:149:Song of Sharpness
 I:7:9:10
-P:7/1:7/5
 D:Helps your attacks cut through your opponents' armour.
 D: Works for edged weapons, axes, polearms, and arrows.
 T:33:0:99  # Crown
@@ -633,7 +628,6 @@ T:40:0:99  # Amulet
 
 N:150:Song of Mastery
 I:7:10:13
-P:7/0:7/7
 D:Occasionally prevents nearby opponents from moving or acting.
 T:33:0:99  # Crown
 T:40:0:99  # Amulet
