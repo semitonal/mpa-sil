@@ -2153,6 +2153,7 @@
 #define MFLAG_AGGRESSIVE	0x00010000  /* Monster will be Aggressive instead of Confident */
 #define MFLAG_HIT_BY_RANGED	0x00020000  /* Monster has been hit with a spell */
 #define MFLAG_HIT_BY_MELEE	0x00040000	/* Monster was just meleed by player last turn */
+#define MFLAG_IMMOBILE_SEEN	0x00080000  /* Monster has been seen once (for immobile monsters) */
 
 
 /*

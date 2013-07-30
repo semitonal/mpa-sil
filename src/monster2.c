@@ -1295,6 +1295,12 @@ void update_mon(int m_idx, bool full)
 	/* Seen by vision */
 	bool easy = FALSE;
 
+	// Seen once (for immobile monsters).
+	bool immobile_seen = FALSE;
+
+	if (m_ptr->mflag & (MFLAG_IMMOBILE_SEEN))
+		immobile_seen = TRUE;
+
 	/* Compute distance */
 	if (full)
 	{
@@ -1414,13 +1420,16 @@ void update_mon(int m_idx, bool full)
 			{
 				/* Memorize flags */
 				if (do_invisible) l_ptr->flags2 |= (RF2_INVISIBLE);
+
+				// Mark immobile monsters as seen.
+				if (r_ptr->flags1 & (RF1_NEVER_MOVE))
+					m_ptr->mflag |= (MFLAG_IMMOBILE_SEEN);
 			}
 		}
 	}
 
-
 	/* The monster is now visible */
-	if (flag)
+	if (flag || immobile_seen)
 	{
 		/* It was previously unseen */
 		if (!m_ptr->ml)
