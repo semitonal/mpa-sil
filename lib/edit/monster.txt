@@ -1102,7 +1102,7 @@ D:It is a great black spider wreathed in shadow.
 
 N:133:Shadow
 W:13:3
-G:W:d
+G:W:D
 I:2:3d4:0:0
 A:0:8:10:8
 P:[+13,3d4]
@@ -1246,7 +1246,7 @@ D: Noxious vapours surround it.
 
 N:152:Oathwraith
 W:15:4
-G:W:D
+G:W:g
 I:2:12d4:30:0
 A:10:11:10:10
 P:[+14,3d4]
