@@ -4244,7 +4244,43 @@ void move_player(int dir)
 			
 			return;
 		}
-		
+				int i;
+		int fy, fx;
+		monster_type *m_ptr;
+		monster_race *r_ptr;
+
+		// Look for immobile monsters.
+		for (i = 0; i < 8; i++)
+		{
+			fy = y + ddy_ddd[i];
+			fx = x + ddx_ddd[i];
+
+			if (!in_bounds(fy, fx))
+				continue;
+
+			if ((cave_m_idx[fy][fx] > 0) && !p_ptr->confused)
+			{
+				m_ptr = &mon_list[cave_m_idx[fy][fx]];
+				r_ptr = &r_info[m_ptr->r_idx];
+
+				// Just check for molds, not Silent watchers.
+				if (m_ptr->ml && m_ptr->r_idx != R_IDX_SILENT_WATCHER
+					&& (r_ptr->flags1 & (RF1_NEVER_MOVE)))
+				{
+					disturb(0, 0);
+					flush();
+
+					if (!get_check_force_uppercase("Are you sure you want to step next to that monster? ", hjkl_movement))
+					{
+						p_ptr->energy_use = 0;
+						return;
+					}
+					else
+						break;
+				}
+			}
+		}
+
 		/* Check before walking on known traps/chasms on movement */
 		if ((!p_ptr->confused) && (cave_info[y][x] & (CAVE_MARK)))
 		{
