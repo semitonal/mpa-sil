@@ -3461,6 +3461,8 @@ void py_attack_aux(int y, int x, int attack_type)
 	// Warning about breaking the truce
 	if (p_ptr->truce && !get_check("Are you sure you wish to attack? "))
 	{
+		p_ptr->previous_action[0] = ACTION_NOTHING;
+		p_ptr->energy_use = 0;
 		/* Done */
 		return;
 	}
@@ -3468,6 +3470,32 @@ void py_attack_aux(int y, int x, int attack_type)
 	/* Get the weapon */
 	o_ptr = &inventory[INVEN_WIELD];
 	
+	if (o_ptr->obj_note && !p_ptr->truce)
+	{
+		cptr s;
+		/* Find a '!' */
+		s = strchr(quark_str(o_ptr->obj_note), '!');
+
+		/* Process inscription */
+		while (s)
+		{
+			if (s[1] == 'a')
+			{
+				if (!get_check("Are you sure you wish to attack? "))
+				{
+					p_ptr->previous_action[0] = ACTION_NOTHING;
+					p_ptr->energy_use = 0;
+					return;
+				}
+				else
+					break;
+			}
+
+			/* Find another '!' */
+			s = strchr(s + 1, '!');
+		}
+	}
+
 	// fighting with fists is equivalent to a 4 lb weapon for the purpose of criticals
 	weapon_weight = o_ptr->weight ? o_ptr->weight : 40;
 
