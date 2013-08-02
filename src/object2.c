@@ -1512,6 +1512,10 @@ void object_prep(object_type *o_ptr, int k_idx)
 			if (o_ptr->weight < (k_ptr->weight*2 / 3)) o_ptr->weight = k_ptr->weight*2 / 3;
 			if (o_ptr->weight > (k_ptr->weight*3 / 2)) o_ptr->weight = k_ptr->weight*3 / 2;
 			
+			// Round to a multiple of 0.5.
+			o_ptr->weight = div_round(o_ptr->weight * 2, 10);
+			o_ptr->weight *= 5;
+
 			break;
 		}
 		default:
