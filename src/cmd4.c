@@ -2273,9 +2273,11 @@ int wgt_max(void)
  */
 int wgt_min(void)
 {
+	int min;
 	object_kind *k_ptr = &k_info[smith_o_ptr->k_idx];
+	min = (k_ptr->weight + 1) / 2;
 	
-	return ((k_ptr->weight + 1) / 2);
+	return (min > 5 ? min : 5);
 }
 
 
@@ -3427,8 +3429,9 @@ void modify_numbers(int choice)
 		case SMT_NUM_MENU_D_PS:		smith_o_ptr->ps--;		break;
 		case SMT_NUM_MENU_I_PVAL:	smith_o_ptr->pval++;	break;
 		case SMT_NUM_MENU_D_PVAL:	smith_o_ptr->pval--;	break;
-		case SMT_NUM_MENU_I_WGT:	smith_o_ptr->weight++;	break;
-		case SMT_NUM_MENU_D_WGT:	smith_o_ptr->weight--;	break;
+		// Modify weights in increments of 0.5 lb.
+		case SMT_NUM_MENU_I_WGT:	smith_o_ptr->weight += 5;	break;
+		case SMT_NUM_MENU_D_WGT:	smith_o_ptr->weight -= 5;	break;
 	}
 	
 	return;
