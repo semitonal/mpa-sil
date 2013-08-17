@@ -2818,6 +2818,7 @@ void update_lore_aux(object_type *o_ptr)
 	// identify seen items with Lore-Master
 	// also artefacts and potions of miruvor or orcish liquor
 	if (!object_known_p(o_ptr) &&
+		o_ptr->tval != TV_CHEST &&
 		(p_ptr->active_ability[S_PER][PER_LORE2]
 		 || o_ptr->name1
 		 || o_ptr->tval == TV_POTION
