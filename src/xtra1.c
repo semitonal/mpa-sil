@@ -2856,8 +2856,8 @@ void notice_stuff(void)
  */
 void update_lore_aux(object_type *o_ptr)
 {
-	// identify seen items with Lore-Master
-	// also artefacts and potions of miruvor or orcish liquor
+	// Identify seen items with Lore-Master (but not chests).
+	// Artefacts and potions of Miruvor/Orcish Liquor are identified on sight
 	if (!object_known_p(o_ptr)
             && (p_ptr->active_ability[S_PER][PER_LORE2]
 		|| o_ptr->name1
