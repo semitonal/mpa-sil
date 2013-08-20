@@ -2299,7 +2299,7 @@ static void calc_bonuses(void)
 
 	if (p_ptr->active_ability[S_WIL][WIL_STRENGTH_IN_ADVERSITY])
 	{
-		// if <= 50% health, give a bonus to strerngth and grace
+		// if <= 50% health, give a bonus to strength and grace
 		if (health_level(p_ptr->chp, p_ptr->mhp) <= HEALTH_BADLY_WOUNDED)
 		{
 			p_ptr->stat_misc_mod[A_STR]++;
@@ -2472,9 +2472,13 @@ static void calc_bonuses(void)
 	if (p_ptr->pspeed < 1) p_ptr->pspeed = 1;
 	if (p_ptr->pspeed > 3) p_ptr->pspeed = 3;
 	
-	// Increase food consumption if regenerating
+	// Increase food consumption if (actively) regenerating.
 	// note that each item with the speed flag has already increased hunger
-	if (p_ptr->regenerate) p_ptr->hunger += 1;
+	if (p_ptr->regenerate &&
+		health_level(p_ptr->chp, p_ptr->mhp) < HEALTH_UNHURT)
+	{
+		p_ptr->hunger += 1;
+	}
 
 	/* armour weight (not inventory weight reduces stealth */
 	/* by 1 point per 10 pounds (rounding down) */
