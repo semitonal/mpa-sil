@@ -2475,7 +2475,7 @@ static void calc_bonuses(void)
 	// Increase food consumption if (actively) regenerating.
 	// note that each item with the speed flag has already increased hunger
 	if (p_ptr->regenerate &&
-		health_level(p_ptr->chp, p_ptr->mhp) < HEALTH_UNHURT)
+		(p_ptr->chp < p_ptr->mhp || p_ptr->csp < p_ptr->msp))
 	{
 		p_ptr->hunger += 1;
 	}
