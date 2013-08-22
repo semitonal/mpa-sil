@@ -540,7 +540,7 @@ D: order with displays of violence.
 
 N:61:Orc warrior
 W:6:1
-G:o:W
+G:o:w
 I:2:9d4:0:0
 A:15:4:1:4
 P:[+5,2d4]
