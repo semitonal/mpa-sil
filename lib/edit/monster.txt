@@ -1262,7 +1262,7 @@ D: in shadow.  It reaches out at you.
 
 N:153:Deathblade
 W:15:8
-G:|:D
+G:|:v
 I:3:10d4:0:0
 A:0:10:20:10
 P:[+18,5d4]
@@ -1598,7 +1598,7 @@ D: yet young.
 
 N:185:The Deathblade 'Delmereth'
 W:18:50
-G:|:D
+G:|:R
 I:3:10d4:0:0
 A:0:10:20:13
 P:[+22,5d4]
