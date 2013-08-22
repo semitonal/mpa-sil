@@ -335,7 +335,7 @@ D: attract attention. It has a crude sword.
 
 N:12:Wolf
 W:1:1
-G:C:u
+G:C:W
 I:3:6d4:0:0
 A:20:4:3:1
 P:[+2,1d4]
@@ -825,7 +825,7 @@ D: on the floor. Darkness enshrouds it.
 
 N:102:Warg
 W:10:1
-G:C:s
+G:C:D
 I:3:10d4:0:0
 A:20:8:4:6
 P:[+11,1d4]
@@ -1296,7 +1296,7 @@ D: speed and agility.
 
 N:161:Greater werewolf
 W:16:1
-G:C:D1
+G:C:y
 I:3:14d4:0:0
 A:15:10:5:10
 P:[+17,2d4]
@@ -1798,7 +1798,7 @@ D: side when his black banner was raised in defiance of Iluvatar.
 
 N:205:Draugluin, Sire of Werewolves
 W:20:15
-G:C:W
+G:C:v
 I:3:22d4:0:0
 A:20:14:5:13
 P:[+24,3d4]
@@ -2128,7 +2128,7 @@ D: hoard he has gathered around him.
 
 N:244:Gorthaur, Servant of Morgoth
 W:24:3
-G:C:u
+G:C:o
 I:3:30d4:30:0
 A:10:18:5:21
 P:[+29,3d4]
@@ -2241,7 +2241,7 @@ F:UNIQUE | MALE
 
 N:305:Huan, Hound of Valinor
 W:30:5
-G:C:y1
+G:C:R
 F:UNIQUE | MALE
 
 
