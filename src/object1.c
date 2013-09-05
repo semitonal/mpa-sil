@@ -97,41 +97,6 @@ static void flavor_assign_random(byte tval)
 	}
 }
 
-// Is the current day between Easter Sunday?
-// if so, herbs become easter eggs
-bool easter_time(void)
-{
-	time_t c;       // time variables
-	struct tm *tp;  //
-	
-	c = time((time_t *)0);
-	tp = localtime(&c);
-
-	if (TRUE)
-	{
-		int y = tp->tm_year + 1900;
-		int a = y % 19;
-		int b = y / 100;
-		int c = y % 100;
-		int d = b / 4;
-		int e = b % 4;
-		int f = (b + 8) / 25;
-		int g = (b - f + 1) / 3;
-		int h = (19 * a + b - d - g + 15) % 30;
-		int i = c / 4;
-		int k = c % 4;
-		int l = (32 + 2 * e + 2 * i - h - k) % 7;
-		int m = (a + 11 * h + 22 * l) / 451;
-		int month = (h + l - 7 * m + 114) / 31;		// counting from 1
-		int day = ((h + l - 7 * m + 114) % 31) + 1; // counting from 1
-
-		// we need to add 1 to the month as they count from 0
-		if ((tp->tm_mon+1 == month) && (tp->tm_mday == day)) return (TRUE);
-	}
-
-	return (FALSE);
-}
-
 /*
  * Prepare the "variable" part of the "k_info" array.
  *
@@ -180,12 +145,6 @@ void flavor_init(void)
 
 		/*No flavor yields aware*/
 		if (!k_ptr->flavor) k_ptr->aware = TRUE;
-		
-		// Easter Eggs
-		if (easter_time() && (k_ptr->tval == TV_FOOD) && k_ptr->flavor)
-		{
-			k_ptr->flavor += 20;
-		}
 	}
 }
 
@@ -771,9 +730,6 @@ void object_desc(char *buf, size_t max, const object_type *o_ptr, int pref, int 
 			modstr = flavor_text + flavor_info[k_ptr->flavor].text;
 			if (aware) append_name = TRUE;
 			basenm = (flavor ? "& # Herb~" : "& Herb~");
-			
-			// Easter Eggs
-			if (easter_time()) basenm = (flavor ? "& # Easter Egg~" : "& Easter Egg~");
 
 			break;
 		}
@@ -958,7 +914,7 @@ void object_desc(char *buf, size_t max, const object_type *o_ptr, int pref, int 
 
 
 		/* Not searched yet */
-		if (!known || (o_ptr->sval == SV_CHEST_PRESENT))
+		if (!known)
 		{
 			/* Nothing */
 		}

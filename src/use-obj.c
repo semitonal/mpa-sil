@@ -13,13 +13,6 @@
 
 static bool eat_food(object_type *o_ptr, bool *ident)
 {
-	// Easter Eggs
-	if ((o_ptr->sval < SV_FOOD_MIN_FOOD) && easter_time())
-	{
-		msg_print("You unwrap the foil and eat the chocolate egg.");
-		msg_print("It is delicious!");
-	}
-	
 	/* Analyze the food */
 	switch (o_ptr->sval)
 	{

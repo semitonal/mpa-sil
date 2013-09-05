@@ -332,51 +332,6 @@ D:Pale
 #G:,:g1
 #D:Leafy
 
-N:141:81
-G:,:r1
-D:Bright Red
-
-N:142:81
-G:,:G
-D:Bright Green
-
-N:143:81
-G:,:y1
-D:Golden
-
-N:144:81
-G:,:B
-D:Sky Blue
-
-N:145:81
-G:,:U
-D:Copper
-
-N:146:81
-G:,:r
-D:Ruby
-
-N:147:81
-G:,:v
-D:Pink
-
-N:148:81
-G:,:o
-D:Orange
-
-N:149:81
-G:,:v1
-D:Violet
-
-N:150:81
-G:,:b1
-D:Bright Blue
-
-
-
-
-
-
 ##### Potions #####
 
 # Fixed: miruvor

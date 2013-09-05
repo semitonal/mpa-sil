@@ -1041,7 +1041,6 @@
 #define TV_POTION       75  /* ! Potions                             */
 #define TV_FLASK        77  /* ! Flasks of Oil                       */
 #define TV_FOOD         80  /* , Food                                */
-#define TV_EASTER       81  /* , Easter Eggs (replacement for herbs) */
 
 
 /* The "sval" codes for TV_USELESS */
@@ -1278,8 +1277,6 @@
 #define SV_CHEST_LARGE_WOODEN	11
 #define SV_CHEST_LARGE_STEEL	12
 #define SV_CHEST_LARGE_JEWELLED	13
-
-#define SV_CHEST_PRESENT         4
 
 
 /*Squelch Modes for k_info->squelch*/

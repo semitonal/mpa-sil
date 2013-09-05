@@ -705,32 +705,6 @@ static void player_outfit(void)
 
 	}
 
-	// Christmas presents:
-	
-	/* Make sure it is Dec 20-31 */
-	c = time((time_t *)0);
-	tp = localtime(&c);
-	if ((tp->tm_mon == 11) && (tp->tm_mday >= 20) && (tp->tm_mday <= 31))
-	{
-		/* Get local object */
-		i_ptr = &object_type_body;
-		
-		/* Get the object_kind */
-		s16b k_idx = lookup_kind(TV_CHEST, SV_CHEST_PRESENT);
-		
-		/* Prepare the item */
-		object_prep(i_ptr, k_idx);
-		i_ptr->number = 1;
-		i_ptr->pval = -20;
-		
-		//object_aware(i_ptr);
-		//object_known(i_ptr);
-		
-		/*put it in the inventory*/
-		inven_slot = inven_carry(i_ptr);
-	}
-
-
 	/* Recalculate bonuses */
 	p_ptr->update |= (PU_BONUS);
 
