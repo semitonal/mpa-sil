@@ -2410,6 +2410,7 @@ void py_pickup_aux(int o_idx)
 	int slot;
 
 	char o_name[80];
+	char depth[80];
 	object_type *o_ptr;
 
 	o_ptr = &o_list[o_idx];
@@ -2422,6 +2423,16 @@ void py_pickup_aux(int o_idx)
 
 		/* Get the object again */
 		o_ptr = &inventory[slot];
+
+		// Inscribe consumables with current depth.
+		if (!object_known_p(o_ptr)
+			&& !o_ptr->obj_note
+			&& (o_ptr->tval == TV_POTION
+				|| o_ptr->tval == TV_FOOD))
+		{
+			sprintf(depth, "%d ft", p_ptr->depth * 50);
+			add_autoinscription(o_ptr->k_idx, depth);
+		}
 
 		/* Describe the object */
 		object_desc(o_name, sizeof(o_name), o_ptr, TRUE, 3);
