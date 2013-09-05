@@ -553,7 +553,7 @@ D: He wears hardened leathers and wields a battle axe.
 
 N:62:Gorcrow
 W:6:2
-G:b:D
+G:b:r
 I:4:1d4:0:0
 A:15:4:3:3
 P:[+11]
@@ -811,7 +811,7 @@ D: Morgoth's sway.
 
 N:101:Shadow worm mass
 W:10:1
-G:w:s
+G:w:D
 I:1:6d4:0:-1
 A:10:3:5:5
 P:[+5]
@@ -866,7 +866,7 @@ D:A vast, iridescent violet dragonfly.
 
 N:105:Uldor, the Accursed
 W:10:10
-G:@:U1
+G:@:y
 I:2:14d4:0:1
 A:15:6:1:9
 P:[+8,5d4]
@@ -951,7 +951,7 @@ D: armed with a great club.
 
 N:115:Ulfang the Black
 W:11:10
-G:@:s
+G:@:w
 I:2:15d4:0:1
 A:15:6:1:10
 P:[+12,4d4]
@@ -984,7 +984,7 @@ D: of the black enemy for many years.
 
 N:121:Nether worm mass
 W:12:4
-G:w:D
+G:w:B
 I:1:6d4:0:0
 A:10:4:5:8
 P:[+7]
@@ -1358,7 +1358,7 @@ D: teeth, and the mesmerising eyes...
 
 N:165:Grotesque
 W:16:5
-G:H:W
+G:H:w
 I:4:10d4:0:0
 A:0:10:10:10
 P:[-5,8d4]
@@ -1432,7 +1432,7 @@ D: to the very darkest parts of the stronghold.
 
 N:172:Troll guard
 W:17:1
-G:T:s
+G:T:D
 I:2:20d4:0:0
 A:15:5:0:5
 P:[+12,3d4]
@@ -1613,7 +1613,7 @@ D: 'Horror-feast' is its name. You can feel its hunger.
 
 N:186:Tevildo, Prince of Cats
 W:18:10
-G:f:u
+G:f:R
 I:3:14d4:0:0
 A:15:14:10:8
 P:[+22,1d4]
@@ -1667,7 +1667,7 @@ D: Frost covers it from head to tail.
 
 N:192:Vampire
 W:19:1
-G:v:W
+G:v:w
 I:3:10d4:0:0
 A:20:10:7:12
 P:[+24,1d4]
@@ -1706,7 +1706,7 @@ D: He leads a patrol of the feared Troll Guard.
 
 N:195:Maeglin, Betrayer of Gondolin
 W:19:100
-G:@:D1
+G:@:r
 I:2:15d4:0:2
 A:15:15:5:18
 P:[+23,5d4]
@@ -1930,7 +1930,7 @@ D: do they move with such active malice...
 
 N:224:Shelob, Spider of Darkness
 W:22:30
-G:M:D1
+G:M:v
 I:2:22d4:0:-3
 A:10:9:3:14
 P:[+20,2d4]
@@ -2041,7 +2041,7 @@ D: with great thunder, and lightning, and a tempest of fire.
 
 N:234:Thuringwethil, the Vampire Messenger
 W:23:3
-G:v:D1
+G:v:v
 I:4:16d4:0:0
 A:10:13:7:16
 P:[+30,1d4]
@@ -2084,7 +2084,7 @@ D: Ungoliant's rage.
 
 N:242:Ungoliant, the Gloomweaver
 W:24:3
-G:M:D
+G:M:R
 I:2:36d4:30:-4
 A:10:10:3:17
 P:[+20,3d4]
