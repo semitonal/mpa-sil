@@ -606,7 +606,6 @@ extern void note_info_screen(const object_type *o_ptr);
 extern void object_info_screen(const object_type *o_ptr);
 
 /* object1.c */
-extern bool easter_time(void);
 extern void flavor_init(void);
 extern void reset_visuals(bool prefs);
 extern void object_flags(const object_type *o_ptr, u32b *f1, u32b *f2, u32b *f3);
