@@ -2525,6 +2525,8 @@ void py_pickup(int pickup)
 
 	char o_name[80];
 
+	bool done_pickup = FALSE;
+
  	/* Automatically destroy squelched items in pile if necessary */
 	do_squelch_pile(py, px);
 
@@ -2624,8 +2626,15 @@ void py_pickup(int pickup)
 
 		/* Pick up the object */
 		py_pickup_aux(this_o_idx);
+		done_pickup = TRUE;
 	}
 
+	// Don't spend a turn if we couldn't pick anything up.
+	if (!done_pickup)
+	{
+		p_ptr->previous_action[0] = ACTION_NOTHING;
+		p_ptr->energy_use = 0;
+	}
 }
 
 
