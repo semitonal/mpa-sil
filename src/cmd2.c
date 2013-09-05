@@ -566,11 +566,6 @@ static void chest_death(int y, int x, s16b o_idx)
 
 	/*the theme of the chest is created during object generation*/
 	chesttheme = (o_ptr->xtra1);
-
-	if (o_ptr->sval == SV_CHEST_PRESENT)
-	{
-		number = 1;
-	}
 	
 	/* Drop some objects (non-chests) */
 	for (; number > 0; --number)
@@ -594,10 +589,6 @@ static void chest_death(int y, int x, s16b o_idx)
 		if ((o_ptr->sval == SV_CHEST_SMALL_JEWELLED) || (o_ptr->sval == SV_CHEST_LARGE_JEWELLED))
 		{
 			quality += 10;
-		}
-		if (o_ptr->sval == SV_CHEST_PRESENT)
-		{
-			quality += 20;
 		}
 		
 		/* Regular objects in chests will become quite
@@ -840,26 +831,6 @@ static bool do_cmd_open_chest(int y, int x, s16b o_idx)
 
 	time_t c;      // time variables
 	struct tm *tp; //
-
-	if (o_ptr->sval == SV_CHEST_PRESENT)
-	{		
-		c = time((time_t *)0);
-		tp = localtime(&c);
-		
-		// cause problems opening presents before Christmas day
-		if ((tp->tm_mon == 11) && (tp->tm_mday >= 20) && (tp->tm_mday < 25))// && !((tp->tm_mday == 24) && (strncmp(tp->tm_zone,"CET",4) == 0)))
-		{
-			if (get_check("Are you sure you wish to open your present before Christmas? "))
-			{
-				msg_print("You have a very bad feeling about this.");
-				p_ptr->cursed = TRUE;
-			}
-			else
-			{
-				return (FALSE);
-			}
-		}
-	}
 
 	/* Attempt to unlock it */
 	if (o_ptr->pval > 0)

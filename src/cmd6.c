@@ -157,19 +157,9 @@ void do_cmd_eat_food(object_type *default_o_ptr, int default_item)
 	// allow autoinscribing of the herb
 	if (!ident && !aware)
 	{
-		if (easter_time())
+		if (get_check("Autoinscribe this herb type? "))
 		{
-			if (get_check("Autoinscribe this easter egg type? "))
-			{
-				do_cmd_autoinscribe_item(kind_index);
-			}
-		}
-		else
-		{
-			if (get_check("Autoinscribe this herb type? "))
-			{
-				do_cmd_autoinscribe_item(kind_index);
-			}
+			do_cmd_autoinscribe_item(kind_index);
 		}
 	}
 		

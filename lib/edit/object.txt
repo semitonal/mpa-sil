@@ -1442,15 +1442,6 @@ A:24/8
 F:IGNORE_ALL
 
 
-N:378:& Finely wrapped present~
-G:~:r
-I:7:4:0
-W:25:0:100:250
-P:0:0d0:0:0d0
-F:IGNORE_ALL | EASY_KNOW
-
-
-
 ##### Herbs #####
 
 
@@ -2198,6 +2189,5 @@ D:An enchanted glowing jewel, akin to a Silmaril, but much less
 D: powerful.
 D: You can equip it as a light source with a radius of 1 square.
 D: It will shine forever.
-
 
 

@@ -2075,7 +2075,7 @@ void drop_loot(monster_type *m_ptr)
 	}
 	
 	// Favoured drops 2: torches from easterlings
-	if ((number > 0) && (r_ptr->d_char == '@') && (r_ptr->light == 1) && (easter_time() || one_in_(3)))
+	if ((number > 0) && (r_ptr->d_char == '@') && (r_ptr->light == 1) && one_in_(3))
 	{
 		/* Get local object */
 		i_ptr = &object_type_body;
@@ -2083,29 +2083,14 @@ void drop_loot(monster_type *m_ptr)
 		/* Wipe the object */
 		object_wipe(i_ptr);
 		
-		// Special treat for Easter time
-		if (easter_time())
-		{
-			/* Hack	-- Give the player an object */
-			/* Get the object_kind */
-			s16b k_idx  = lookup_kind(TV_FOOD, rand_int(9));
-			
-			/* Prepare the item */
-			object_prep(i_ptr, k_idx);
-		}
+		/* Hack	-- Give the player an object */
+		/* Get the object_kind */
+		s16b k_idx = lookup_kind(TV_LIGHT, SV_LIGHT_TORCH);
 		
-		// Normally just go for a torch
-		else
-		{
-			/* Hack	-- Give the player an object */
-			/* Get the object_kind */
-			s16b k_idx = lookup_kind(TV_LIGHT, SV_LIGHT_TORCH);
-			
-			/* Prepare the item */
-			object_prep(i_ptr, k_idx);
-			
-			i_ptr->timeout = rand_range(500,3000);
-		}
+		/* Prepare the item */
+		object_prep(i_ptr, k_idx);
+
+		i_ptr->timeout = rand_range(500,3000);
 		
 		/* Assume seen XXX XXX XXX */
 		dump_item++;
