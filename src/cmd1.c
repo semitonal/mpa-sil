@@ -2525,7 +2525,7 @@ void do_cmd_pickup_from_pile(void)
  *
  * If "pickup" is FALSE then nothing will be picked up.
  */
-void py_pickup(int pickup)
+void py_pickup(int pickup, bool moving)
 {
 	int py = p_ptr->py;
 	int px = p_ptr->px;
@@ -2641,7 +2641,7 @@ void py_pickup(int pickup)
 	}
 
 	// Don't spend a turn if we couldn't pick anything up.
-	if (!done_pickup)
+	if (!moving && !done_pickup)
 	{
 		p_ptr->previous_action[0] = ACTION_NOTHING;
 		p_ptr->energy_use = 0;
@@ -4258,7 +4258,7 @@ void move_player(int dir, int jumping)
 		perceive();
 
 		/* Handle "objects" */
-		py_pickup(jumping != always_pickup);
+		py_pickup(jumping != always_pickup, TRUE);
 
 		p_ptr->previous_action[0] = dir;	
 		

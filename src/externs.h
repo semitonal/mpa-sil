@@ -342,7 +342,7 @@ extern int slay_bonus(const object_type *o_ptr, const monster_type *m_ptr, u32b 
 extern int prt_after_sharpness(const object_type *o_ptr, u32b *noticed_flag);
 extern void search(void);
 extern void do_cmd_pickup_from_pile(void);
-extern void py_pickup(int pickup);
+extern void py_pickup(int pickup, bool moving);
 extern void hit_trap(int y, int x);
 extern void display_hit(int y, int x, int net_dam, int dam_type);
 extern int concentration_bonus(int y, int x);

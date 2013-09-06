@@ -2923,7 +2923,7 @@ void do_cmd_pickup(void)
 		p_ptr->energy_use = 100;
 				
 		/* Handle "objects" */
-		py_pickup(TRUE);
+		py_pickup(TRUE, FALSE);
 	}
 	
 	else
