@@ -2041,7 +2041,7 @@ D: with great thunder, and lightning, and a tempest of fire.
 
 N:234:Thuringwethil, the Vampire Messenger
 W:23:3
-G:v:v
+G:v:r
 I:4:16d4:0:0
 A:10:13:7:16
 P:[+30,1d4]
