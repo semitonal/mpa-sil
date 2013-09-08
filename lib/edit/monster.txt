@@ -1698,7 +1698,7 @@ I:2:24d4:0:0
 A:15:6:0:8
 P:[+17,4d4]
 B:HIT:BATTER:(+17,4d10)
-F:UNIQUE | ESCORT | DROP_1D2 | DROP_GOOD | REGENERATE | NO_FEAR
+F:UNIQUE | MALE | ESCORT | DROP_1D2 | DROP_GOOD | REGENERATE | NO_FEAR
 F:OPEN_DOOR | BASH_DOOR | TROLL | HURT_LITE | SMART
 D:A mountain of a troll, clad in deep-red iron plates.
 D: He leads a patrol of the feared Troll Guard.
