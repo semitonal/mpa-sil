@@ -3490,6 +3490,16 @@ void py_attack_aux(int y, int x, int attack_type)
 	/* Get the weapon */
 	o_ptr = &inventory[INVEN_WIELD];
 	
+	// Prompt for attacking while unarmed.
+	if (!o_ptr->k_idx
+		&& !get_check("Are you sure you wish to attack while unarmed? "))
+	{
+		p_ptr->previous_action[0] = ACTION_NOTHING;
+		p_ptr->energy_use = 0;
+		return;
+	}
+
+	// Prompt for attacking while wielding a weapon inscribed with !a.
 	if (o_ptr->obj_note && !p_ptr->truce)
 	{
 		cptr s;
