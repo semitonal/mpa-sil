@@ -1009,11 +1009,11 @@ static void describe_monster_skills(int r_idx, const monster_lore *l_ptr)
 					
 		if (r_ptr->sleep > 20)				// 21 +
 		{
-			act = "usually found asleep";
+			act = "is usually found asleep";
 		}
 		else if (r_ptr->sleep > 15)			// 16 to 20
 		{
-			act = "often found asleep";
+			act = "is often found asleep";
 		}
 		else if (r_ptr->sleep > 10)			// 11 to 15
 		{
