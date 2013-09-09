@@ -1828,7 +1828,8 @@ void unapply_autoinscription(object_type *o_ptr, cptr note)
 }
 
 /*
- *  Removes an autoinscription from the database and from all objects
+ *  Removes an autoinscription from the database and from all objects of that
+ *  kind.
  */
 extern void obliterate_autoinscription(s16b kind)
 {
@@ -1846,16 +1847,16 @@ extern void obliterate_autoinscription(s16b kind)
 		/* Get the next object from the dungeon */
 		o_ptr = &o_list[i];
 		
-		/* Skip dead objects */
-		if (!o_ptr->k_idx) continue;
+		// Don't remove inscriptions from different object kinds.
+		if (o_ptr->k_idx != kind) continue;
 		
 		/* Apply an autoinscription */
 		unapply_autoinscription(o_ptr, note);
 	}
 	for (i = INVEN_PACK; i > 0; i--)
 	{
-		/* Skip empty items */
-		if(!inventory[i].k_idx) continue;
+		// Don't remove inscriptions from different object kinds.
+		if (inventory[i].k_idx != kind) continue;
 		
 		unapply_autoinscription(&inventory[i], note);
 	}
