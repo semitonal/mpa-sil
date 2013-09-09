@@ -285,7 +285,7 @@ D:A shirt of armour formed from linked rings.
 ##### Shields #####
 
 N:43:& Round Shield~
-G:}:s
+G:{:s
 I:34:3:0
 W:3:0:50:50
 P:0:0d0:0:1d3
@@ -293,7 +293,7 @@ A:3/2
 
 
 N:44:& Kite Shield~
-G:}:b
+G:{:b
 I:34:5:0
 W:6:0:80:200
 P:-2:0d0:0:1d6
@@ -301,7 +301,7 @@ A:6/1
 
 
 N:46:& Mithril Shield~
-G:}:B
+G:{:B
 I:34:10:0
 W:14:0:40:10000
 P:-1:0d0:0:1d6
