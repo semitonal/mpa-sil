@@ -208,7 +208,7 @@ bool set_poisoned(int v)
 		{
 			if (change >= 20)
 			{
-				msg_print("You have been severly poisoned.");
+				msg_print("You have been severely poisoned.");
 				notice = TRUE;
 			}
 			else if (change >= 10)
@@ -226,7 +226,7 @@ bool set_poisoned(int v)
 		{
 			if (change >= 20)
 			{
-				msg_print("You have been severly poisoned.");
+				msg_print("You have been severely poisoned.");
 				notice = TRUE;
 			}
 			else if (change >= 10)
