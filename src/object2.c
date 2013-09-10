@@ -776,9 +776,6 @@ void object_known(object_type *o_ptr)
 	/* The object is not "sensed" */
 	o_ptr->ident &= ~(IDENT_SENSE);
 
-	/* Clear the "Empty" info */
-	o_ptr->ident &= ~(IDENT_EMPTY);
-
 	/* Now we know about the item */
 	o_ptr->ident |= (IDENT_KNOWN);
 }
@@ -3906,10 +3903,10 @@ void place_object(int y, int x, bool good, bool great, int droptype)
 }
 
 /*
- * Choose a trap type, place it in the dungeon at the given grid and 'hide' it
+ * Choose a trap type, place it in the dungeon at the given grid
  *
  */
-void place_trap(int y, int x)
+void place_trap(int y, int x, bool hidden)
 {
 	int feat;
 
@@ -4034,9 +4031,12 @@ void place_trap(int y, int x)
 
 	/* Activate the trap */
 	cave_set_feat(y, x, feat);
-	
-	// Hide the trap
-	cave_info[y][x] |= (CAVE_HIDDEN);
+
+	if (hidden)
+	{
+		// Hide the trap
+		cave_info[y][x] |= (CAVE_HIDDEN);
+	}
 }
 
 /*

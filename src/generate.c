@@ -477,7 +477,7 @@ static void alloc_object(int set, int typ, int num, bool out_of_sight)
 
 			case ALLOC_TYP_TRAP:
 			{
-				place_trap(y, x);
+				place_trap(y, x, TRUE);
 				break;
 			}
 
@@ -2045,7 +2045,7 @@ static bool build_vault(int y0, int x0, int ymax, int xmax, cptr data)
 				/* Trap */
 				case '^':
 				{
-					if (one_in_(2)) place_trap(y, x);
+					if (one_in_(2)) place_trap(y, x, FALSE);
 					break;
 				}
 
@@ -2056,12 +2056,6 @@ static bool build_vault(int y0, int x0, int ymax, int xmax, cptr data)
 					{
 						/* Place a web trap */
 						cave_set_feat(y, x, FEAT_TRAP_WEB);
-						
-						// Hide it half the time
-						if (one_in_(2))
-						{
-							cave_info[y][x] |= (CAVE_HIDDEN);
-						}
 					}
 					break;
 				}
@@ -3130,7 +3124,9 @@ static void gates_gen(void)
 	
 	/* Place the player */
 	player_place(py, px);
-	
+
+	// Map the level.
+	map_area();
 }
 
 
@@ -3202,6 +3198,9 @@ static void throne_gen(void)
 	
 	/* Place the player */
 	player_place(py, px);
+
+	// Map the level.
+	map_area();
 }
 
 /*

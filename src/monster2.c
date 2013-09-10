@@ -1431,6 +1431,16 @@ void update_mon(int m_idx, bool full)
 	/* The monster is now visible */
 	if (flag || immobile_seen)
 	{
+		// Untarget if this is an out-of-LOS
+		// stationary monster.
+		if (immobile_seen && !flag)
+		{
+			if (p_ptr->target_who == m_idx)
+				target_set_monster(0);
+			if (p_ptr->health_who == m_idx)
+				health_track(0);
+		}
+
 		/* It was previously unseen */
 		if (!m_ptr->ml)
 		{

@@ -292,16 +292,18 @@ static void prt_stat(int stat)
 	if (p_ptr->stat_drain[stat] < 0)
 	{
 		put_str(stat_names_reduced[stat], ROW_STAT + stat, 0);
-		cnv_stat(p_ptr->stat_use[stat], tmp);
-		c_put_str(TERM_YELLOW, tmp, ROW_STAT + stat, COL_STAT + 10);
+		sprintf(tmp, "%2d (%d)",
+				p_ptr->stat_use[stat],
+				p_ptr->stat_use[stat] - p_ptr->stat_drain[stat]);
+		c_put_str(TERM_YELLOW, tmp, ROW_STAT + stat, COL_STAT + 5);
 	}
 
 	/* Display "healthy" stat */
 	else
 	{
 		put_str(stat_names[stat], ROW_STAT + stat, 0);
-		cnv_stat(p_ptr->stat_use[stat], tmp);
-		c_put_str(TERM_L_GREEN, tmp, ROW_STAT + stat, COL_STAT + 10);
+		sprintf(tmp, "%2d     ", p_ptr->stat_use[stat]);
+		c_put_str(TERM_L_GREEN, tmp, ROW_STAT + stat, COL_STAT + 5);
 	}
 
 	/* Indicate temporary modifiers */
@@ -415,7 +417,10 @@ static void prt_hp(void)
 	int len;
 	byte color;
 
-	put_str("Health      ", ROW_HP, COL_HP);
+	if (p_ptr->mhp >= 100)
+		put_str("Hlth        ", ROW_HP, COL_HP);
+	else
+		put_str("Health      ", ROW_HP, COL_HP);
 
 	len = sprintf(tmp, "%d:%d", p_ptr->chp, p_ptr->mhp);
 
@@ -449,7 +454,10 @@ static void prt_sp(void)
 	byte color;
 	int len;
 
-	put_str("Voice       ", ROW_SP, COL_SP);
+	if (p_ptr->msp >= 100)
+		put_str("Vce         ", ROW_SP, COL_SP);
+	else
+		put_str("Voice       ", ROW_SP, COL_SP);
 
 	len = sprintf(tmp, "%d:%d", p_ptr->csp, p_ptr->msp);
 
