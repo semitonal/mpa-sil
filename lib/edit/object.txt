@@ -1385,7 +1385,7 @@ D:It reduces your grace by one point.
 # give higher chances of good and great items
 
 N:372:& Small wooden chest~
-G:~:D1
+G:&:D
 I:7:1:0
 W:5:0:200:20
 P:0:0d0:0:0d0
@@ -1393,7 +1393,7 @@ A:5/4
 
 
 N:373:& Small steel chest~
-G:~:s
+G:&:s
 I:7:2:0
 W:12:0:250:200
 P:0:0d0:0:0d0
@@ -1402,7 +1402,7 @@ F:IGNORE_ALL
 
 
 N:374:& Small jewelled chest~
-G:~:v1
+G:&:v
 I:7:3:0
 W:19:0:750:250
 P:0:0d0:0:0d0
@@ -1411,7 +1411,7 @@ F:IGNORE_ALL
 
 
 N:375:& Large wooden chest~
-G:~:u
+G:&:u
 I:7:11:0
 W:10:0:500:60
 P:0:0d0:0:0d0
@@ -1419,7 +1419,7 @@ A:10/8
 
 
 N:376:& Large steel chest~
-G:~:s
+G:&:b
 I:7:12:0
 W:17:0:750:250
 P:0:0d0:0:0d0
@@ -1428,7 +1428,7 @@ F:IGNORE_ALL
 
 
 N:377:& Large jewelled chest~
-G:~:v
+G:&:R
 I:7:13:0
 W:24:0:750:250
 P:0:0d0:0:0d0
