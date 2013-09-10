@@ -738,7 +738,7 @@
 #define COL_SPEED		56	/* "Slow" or "Fast" */
 
 #define ROW_DEPTH		(Term->hgt - 1)
-#define COL_DEPTH		73	/* "Lev NNN" / "NNNN ft" */
+#define COL_DEPTH		72	/* "Lev NNN" / "NNNN ft" */
 
 
 /*** General index values ***/
