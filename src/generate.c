@@ -3349,7 +3349,9 @@ static void gates_gen(void)
 	
 	/* Place the player */
 	player_place(py, px);
-	
+
+	// Map the level.
+	map_area();
 }
 
 
@@ -3417,6 +3419,9 @@ static void throne_gen(void)
 	
 	/* Place the player */
 	player_place(py, px);
+
+	// Map the level.
+	map_area();
 }
 
 /*
