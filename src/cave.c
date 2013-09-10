@@ -660,8 +660,11 @@ bool feat_supports_lighting(int feat)
 
 static byte darken(byte a, byte c)
 {
-	// don't darken the symbols for traps
-	if (c == '^') return (a);
+	// don't darken the symbols for traps or stairs
+	if (c == '^' || c == '>' || c == '<')
+	{
+		return (a);
+	}
 
 	if (a == TERM_WHITE)    return (TERM_SLATE);
 	if (a == TERM_L_WHITE)  return (TERM_L_DARK);
