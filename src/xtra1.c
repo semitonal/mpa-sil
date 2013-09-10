@@ -417,7 +417,10 @@ static void prt_hp(void)
 	int len;
 	byte color;
 
-	put_str("Health      ", ROW_HP, COL_HP);
+	if (p_ptr->mhp >= 100)
+		put_str("Hlth        ", ROW_HP, COL_HP);
+	else
+		put_str("Health      ", ROW_HP, COL_HP);
 
 	len = sprintf(tmp, "%d:%d", p_ptr->chp, p_ptr->mhp);
 
@@ -451,7 +454,10 @@ static void prt_sp(void)
 	byte color;
 	int len;
 
-	put_str("Voice       ", ROW_SP, COL_SP);
+	if (p_ptr->msp >= 100)
+		put_str("Vce         ", ROW_SP, COL_SP);
+	else
+		put_str("Voice       ", ROW_SP, COL_SP);
 
 	len = sprintf(tmp, "%d:%d", p_ptr->csp, p_ptr->msp);
 
