@@ -662,7 +662,7 @@ extern s16b floor_carry(int y, int x, object_type *j_ptr);
 extern void drop_near(object_type *j_ptr, int chance, int y, int x);
 extern void acquirement(int y1, int x1, int num, bool great);
 extern void place_object(int y, int x, bool good, bool great, int droptype);
-extern void place_trap(int y, int x);
+extern void place_trap(int y, int x, bool hidden);
 extern void reveal_trap(int y, int x);
 extern void place_secret_door(int y, int x);
 extern void place_closed_door(int y, int x);

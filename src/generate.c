@@ -477,7 +477,7 @@ static void alloc_object(int set, int typ, int num, bool out_of_sight)
 
 			case ALLOC_TYP_TRAP:
 			{
-				place_trap(y, x);
+				place_trap(y, x, TRUE);
 				break;
 			}
 
@@ -2317,7 +2317,7 @@ static bool build_vault(int y0, int x0, vault_type *v_ptr, bool flip_d)
 				/* Trap */
 				case '^':
 				{
-					if (one_in_(2)) place_trap(y, x);
+					if (one_in_(2)) place_trap(y, x, FALSE);
 					break;
 				}
 
