@@ -553,7 +553,7 @@ static bool use_staff(object_type *o_ptr, bool *ident)
 			for (k = 0; k < damroll(2,4); k++)
 			{
 				random_unseen_floor(&ry, &rx);
-				(void) place_trap(ry, rx);
+				(void) place_trap(ry, rx, TRUE);
 			}
 			break;
 		}
