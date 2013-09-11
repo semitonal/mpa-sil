@@ -2827,16 +2827,22 @@ void notice_stuff(void)
  */
 void update_lore_aux(object_type *o_ptr)
 {
-	// Identify seen items with Lore-Master (but not chests).
-	// Artefacts and potions of Miruvor/Orcish Liquor are identified on sight
-	// even without Lore-Master.
-	if (!object_known_p(o_ptr) &&
-		o_ptr->tval != TV_CHEST &&
-		(p_ptr->active_ability[S_PER][PER_LORE2]
-		 || o_ptr->name1
-		 || o_ptr->tval == TV_POTION
-			&& (o_ptr->sval == SV_POTION_MIRUVOR
-				|| o_ptr->sval == SV_POTION_ORCISH_LIQUOR)))
+	// Always identify artefacts and potions of Miruvor/Orcish Liquor.
+	bool always_identify = artefact_p(o_ptr)
+						   || (o_ptr->tval == TV_POTION
+							   && (o_ptr->sval == SV_POTION_MIRUVOR
+								   || o_ptr->sval == SV_POTION_ORCISH_LIQUOR));
+
+	// Lore-Keeper identifies consumables, Lore-Master identifies everything.
+	bool lore_identify = p_ptr->active_ability[S_PER][PER_LORE2]
+						 || (p_ptr->active_ability[S_PER][PER_LORE1]
+							 && (o_ptr->tval == TV_FOOD
+								 || o_ptr->tval == TV_POTION
+								 || o_ptr->tval == TV_STAFF
+								 || o_ptr->tval == TV_TRUMPET));
+
+	if (!object_known_p(o_ptr) && o_ptr->tval != TV_CHEST
+		&& (always_identify || lore_identify))
 	{
 		ident(o_ptr);
 	}
