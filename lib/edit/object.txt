@@ -332,7 +332,7 @@ F:THROWING
 
 
 N:57:& Curved Sword~
-G:|:y
+G:|:s
 I:23:7:0
 W:1:0:40:10
 P:-1:2d5:1:0d0
@@ -364,7 +364,7 @@ F:IGNORE_ALL | NO_SMITHING
 
 
 N:64:& Longsword~
-G:|:o
+G:|:s
 I:23:17:0
 W:3:0:30:300
 P:0:2d5:1:0d0
