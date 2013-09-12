@@ -787,6 +787,10 @@ void self_knowledge(void)
 		{
 			info[i++] = "Your weapon is especially deadly against dragons.";
 		}
+
+		// Identify fully.
+		if (!object_known_p(o_ptr))
+			ident(o_ptr);
 	}
 
 	// *******************************************
@@ -861,6 +865,10 @@ void self_knowledge(void)
 		{
 			info[i++] = "Your off-hand weapon is especially deadly against dragons.";
 		}
+
+		// Identify fully.
+		if (!object_known_p(o_ptr))
+			ident(o_ptr);
 	}
 	
 	// *******************************************
@@ -922,6 +930,10 @@ void self_knowledge(void)
 		{
 			info[i++] = "Your bow is especially deadly against dragons.";
 		}
+
+		// Identify fully.
+		if (!object_known_p(o_ptr))
+			ident(o_ptr);
 	}
 	
 	// *******************************************
