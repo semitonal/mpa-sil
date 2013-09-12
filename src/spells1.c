@@ -1651,6 +1651,7 @@ static bool project_f(int who, int y, int x, int dist, int dd, int ds, int dif, 
 					cave_set_feat(y, x, FEAT_DOOR_HEAD + 0x00);				
 
 					msg_print("You hear a 'click'.");
+					obvious = TRUE;
 				} 
 				else if (result <= 10)
 				{
@@ -1706,16 +1707,11 @@ static bool project_f(int who, int y, int x, int dist, int dd, int ds, int dif, 
 				if (result <= 0)
 				{
 					/* Do nothing */
-					
-					if (cave_info[y][x] & (CAVE_SEEN))
-					{
-						msg_print("The rubble shakes a little.");
-					}
 				} 
 				
 				else
 				{
-					/* Disburse the rubble */
+					/* Disperse the rubble */
 					cave_set_feat(y, x, FEAT_FLOOR);
 					
 					obvious = TRUE;
@@ -1865,6 +1861,7 @@ static bool project_f(int who, int y, int x, int dist, int dd, int ds, int dif, 
 						cave_set_feat(y, x, FEAT_DOOR_HEAD + lock_level);
 						
 						msg_print("You hear a 'click'.");
+						obvious = TRUE;
 					}
 										
 					/* Update the flow code and visuals */
@@ -4821,7 +4818,7 @@ void sing(void)
 							result = skill_check(PLAYER, score, difficulty, NULL);
 							if (result > 0)
 							{
-								/* Disburse the rubble */
+								/* Disperse the rubble */
 								cave_set_feat(y, x, FEAT_FLOOR);
 																
 								/* Update the flow code */
