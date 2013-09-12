@@ -1521,6 +1521,9 @@ bool set_food(int v)
 
 		/* Change */
 		notice = TRUE;
+
+		// Maybe identify hunger.
+		ident_hunger();
 	}
 
 	/* Use the value */

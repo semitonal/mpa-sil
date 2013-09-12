@@ -1505,11 +1505,6 @@ extern void ident_passive(void)
 				notice = TRUE;
 				my_strcpy(effect_string, "You notice that you are recovering much faster than usual.", sizeof (effect_string));
 			}
-			else if (f2 & (TR2_HUNGER))
-			{
-				notice = TRUE;
-				my_strcpy(effect_string, "You notice that you are growing hungry much faster than before.", sizeof (effect_string));
-			}
 			else if (f2 & (TR2_SLOW_DIGEST))
 			{
 				notice = TRUE;
@@ -1716,7 +1711,59 @@ extern void ident_cowardice(void)
 	return;
 }
 
+extern void ident_hunger(void)
+{
+	u32b f1, f2, f3;
 
+	int i;
+
+	bool notice = FALSE;
+
+	char o_full_name[80];
+	char o_short_name[80];
+
+	object_type *o_ptr;
+
+	/* Scan the equipment */
+	for (i = INVEN_WIELD; i < INVEN_TOTAL; i++)
+	{
+		o_ptr = &inventory[i];
+
+		/* Skip non-objects */
+		if (!o_ptr->k_idx) continue;
+
+		/* Extract the item flags */
+		object_flags(o_ptr, &f1, &f2, &f3);
+
+		if (!object_known_p(o_ptr))
+		{
+			if (f2 & (TR2_HUNGER))
+			{
+				notice = TRUE;
+			}
+		}
+
+		if (notice)
+		{
+			/* Short, pre-identification object description */
+			object_desc(o_short_name, sizeof(o_short_name), o_ptr, FALSE, 0);
+
+			/* identify the object */
+			ident(o_ptr);
+
+			/* Full object description */
+			object_desc(o_full_name, sizeof(o_full_name), o_ptr, TRUE, 3);
+
+			/* Print the messages */
+			msg_print("You notice that you are growing hungry much faster than before.");
+			msg_format("You realize that your %s is %s.", o_short_name, o_full_name);
+
+			return;
+		}
+	}
+
+	return;
+}
 
 /*
  * Identifies a weapon from one of its slays being active and prints a message

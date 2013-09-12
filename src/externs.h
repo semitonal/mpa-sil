@@ -335,6 +335,7 @@ extern void ident_passive(void);
 extern void ident_see_invisible(const monster_type *m_ptr);
 extern void ident_haunted(void);
 extern void ident_cowardice(void);
+extern void ident_hunger(void);
 extern void ident_bow_arrow_by_use(object_type *j_ptr, object_type *i_ptr, object_type *o_ptr,
                        const monster_type *m_ptr, u32b bow_flag, u32b arrow_flag);
 extern void ident_weapon_by_use(object_type *o_ptr, const monster_type *m_ptr, u32b flag);
