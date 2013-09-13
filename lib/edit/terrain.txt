@@ -363,24 +363,24 @@ M:56
 # 0x3C --> iron wall -- basic (perm)
 
 N:60:iron wall
-G:#:b
+G:#:s
 
 # 0x3D --> iron wall -- inner (perm)
 
 N:61:iron wall
-G:#:b
+G:#:s
 M:60
 
 # 0x3E --> iron wall -- outer (perm)
 
 N:62:iron wall
-G:#:b
+G:#:s
 M:60
 
 # 0x3F --> iron wall -- solid (perm)
 
 N:63:iron wall
-G:#:b
+G:#:s
 M:60
 
 # 0x40 --> forge -- 0 uses
