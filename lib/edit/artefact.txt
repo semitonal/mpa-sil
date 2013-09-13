@@ -1423,8 +1423,7 @@ F:SUST_DEX
 B:0/2
 D:The fabled hunting gloves of the forest of Brethil.
 D: They are little to look at, but when you don them
-D: your hand is swift and accurate
-D: thrown dagger or spear.
+D: your hand is swift and accurate.
 
 
 ## The Set of Gauntlets of Gamil Zirak
