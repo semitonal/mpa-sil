@@ -1764,6 +1764,7 @@ static bool do_cmd_tunnel_aux(int y, int x)
 	int difficulty;
 	char success_message[80];
 	char failure_message[80];
+	char weak_message[80];
 	object_type *o_ptr = &inventory[INVEN_WIELD];
 	
 	/* Verify legality */
@@ -1775,6 +1776,7 @@ static bool do_cmd_tunnel_aux(int y, int x)
 		difficulty = 10;
 		my_strcpy(success_message, "You somehow break the iron.", sizeof (success_message));
 		my_strcpy(failure_message, "You are unable to break the iron.", sizeof (failure_message));
+		my_strcpy(weak_message, "You are too weak to break the iron.", sizeof (weak_message));
 	}
 	/* Granite */
 	else if (cave_feat[y][x] >= FEAT_WALL_EXTRA)
@@ -1782,6 +1784,7 @@ static bool do_cmd_tunnel_aux(int y, int x)
 		difficulty = 3;
 		my_strcpy(success_message, "You break through the granite.", sizeof (success_message));
 		my_strcpy(failure_message, "You are unable to break the granite with this weapon.", sizeof (failure_message));
+		my_strcpy(weak_message, "You are too weak to break the granite.", sizeof (weak_message));
 	}
 	/* Quartz */
 	else if (cave_feat[y][x] >= FEAT_QUARTZ)
@@ -1789,6 +1792,7 @@ static bool do_cmd_tunnel_aux(int y, int x)
 		difficulty = 2;
 		my_strcpy(success_message, "You shatter the quartz.", sizeof (success_message));
 		my_strcpy(failure_message, "You are unable to break the quartz with this weapon.", sizeof (failure_message));
+		my_strcpy(weak_message, "You are too weak to break the quartz.", sizeof (weak_message));
 	}
 	/* Rubble */
 	else if (cave_feat[y][x] == FEAT_RUBBLE)
@@ -1796,6 +1800,7 @@ static bool do_cmd_tunnel_aux(int y, int x)
 		difficulty = 1;
 		my_strcpy(success_message, "You clear the rubble.", sizeof (success_message));
 		my_strcpy(failure_message, "You are unable to shift the rubble with this weapon.", sizeof (failure_message));
+		my_strcpy(weak_message, "You are too weak to shift the rubble.", sizeof (weak_message));
 	}
 	/* Secret doors */
 	else
@@ -1803,19 +1808,11 @@ static bool do_cmd_tunnel_aux(int y, int x)
 		difficulty = 3;
 		my_strcpy(success_message, "You smash through a secret door.", sizeof (success_message));
 		my_strcpy(failure_message, "You are unable to break the granite with this weapon.", sizeof (failure_message));
-	}
-
-
-	/* The weight limit depends on the your strength */
-	// need strength +2 to wield the average mattock 
-	if (o_ptr->weight > (9 + p_ptr->stat_use[A_STR] * 2) * 10)
-	{
-		msg_print("You have trouble digging with such a heavy item.");
-		difficulty++;
+		my_strcpy(weak_message, "You are too weak to break the granite.", sizeof (weak_message));
 	}
 
 	/* test for success */
-	if (p_ptr->dig >= difficulty)
+	if (p_ptr->dig >= difficulty && p_ptr->stat_use[A_STR] >= difficulty)
 	{
 		u32b f1, f2, f3;
 		object_flags(o_ptr, &f1, &f2, &f3);
@@ -1849,8 +1846,10 @@ static bool do_cmd_tunnel_aux(int y, int x)
 	{		
 		/* Make some noise */
 		monster_perception(TRUE, FALSE, -5);
-		
-		msg_print(failure_message);
+		if (p_ptr->dig < difficulty)
+			msg_print(failure_message);
+		else
+			msg_print(weak_message);
 	}
 
 	// Break the truce if creatures see
