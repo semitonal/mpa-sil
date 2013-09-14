@@ -1015,7 +1015,7 @@ extern void target_set_monster(int m_idx);
 extern void target_set_location(int y, int x);
 extern bool target_set_interactive(int mode, int range);
 extern int dir_from_delta(int deltay, int deltax);
-extern bool get_aim_dir(int *dp, int range);
+extern bool get_aim_dir(int *dp, int range, bool allow_up_down);
 extern bool get_rep_dir(int *dp);
 extern bool confuse_dir(int *dp);
 extern const char tutorial_leave_text[][100];
