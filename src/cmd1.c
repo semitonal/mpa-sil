@@ -2398,32 +2398,8 @@ static bool auto_pickup_okay(const object_type *o_ptr)
 	/* It can't be carried */
 	if (!inven_carry_okay(o_ptr)) return (FALSE);
 
-	/*object is marked to not pickup*/
-	if ((k_info[o_ptr->k_idx].squelch == NO_SQUELCH_NEVER_PICKUP) &&
-	    object_aware_p(o_ptr)) return (FALSE);
-
-	/*object is marked to not pickup*/
-	if ((k_info[o_ptr->k_idx].squelch == NO_SQUELCH_ALWAYS_PICKUP) &&
-	    object_aware_p(o_ptr)) return (TRUE);
-		
 	/* object has pickup flag set */
 	if (o_ptr->pickup) return (TRUE);
-
-	/* No inscription */
-	if (!o_ptr->obj_note) return (FALSE);
-
-	/* Find a '=' */
-	s = strchr(quark_str(o_ptr->obj_note), '=');
-
-	/* Process inscription */
-	while (s)
-	{
-		/* Auto-pickup on "=g" */
-		if (s[1] == 'g') return (TRUE);
-
-		/* Find another '=' */
-		s = strchr(s + 1, '=');
-	}
 
 	/* Don't auto pickup */
 	return (FALSE);
@@ -4321,7 +4297,7 @@ void move_player(int dir, int jumping)
 		perceive();
 
 		/* Handle "objects" */
-		py_pickup(jumping != always_pickup, TRUE);
+		py_pickup(FALSE, TRUE);
 
 		p_ptr->previous_action[0] = dir;	
 		
