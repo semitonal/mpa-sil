@@ -4639,7 +4639,7 @@ int rough_direction(int y1, int x1, int y2, int x2)
  *
  * Currently this function applies confusion directly.
  */
-bool get_aim_dir(int *dp, int range)
+bool get_aim_dir(int *dp, int range, bool allow_up_down)
 {
 	int dir;
 
@@ -4680,11 +4680,17 @@ bool get_aim_dir(int *dp, int range)
 		/* Choose a prompt */
 		if (!target_okay(range))
 		{
-			p = "Direction ('f' for closest, '*' to choose a target, ESC to cancel)? ";
+			if (allow_up_down)
+				p = "Direction ('f' for closest, '<'/'>' for up/down, '*' to target, ESC to cancel)? ";
+			else
+				p = "Direction ('f' for closest, '*' to choose a target, ESC to cancel)? ";
 		}
 		else
 		{
-			p = "Direction ('f' for target, '*' to re-target, ESC to cancel)? ";
+			if (allow_up_down)
+				p = "Direction ('f' for target, '<'/'>' for up/down, '*' to re-target, ESC to cancel)? ";
+			else
+				p = "Direction ('f' for target, '*' to re-target, ESC to cancel)? ";
 		}
 
 		/* Get a command (or Cancel) */
@@ -4729,12 +4735,14 @@ bool get_aim_dir(int *dp, int range)
 			
 			case '>':
 			{
-				dir = DIRECTION_DOWN;
+				if (allow_up_down)
+					dir = DIRECTION_DOWN;
 				break;
 			}
 			case '<':
 			{
-				dir = DIRECTION_UP;
+				if (allow_up_down)
+					dir = DIRECTION_UP;
 				break;
 			}
 				

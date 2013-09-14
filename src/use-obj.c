@@ -574,8 +574,13 @@ static bool play_instrument(object_type *o_ptr, bool *ident)
     int voice_cost = p_ptr->active_ability[S_WIL][WIL_CHANNELING] ? 10 : 20;
 	int will_score;
     int dir;
-    
-    if (o_ptr->tval == TV_HORN)
+
+	// Only horns of blasting can be aimed up or down, currently.
+	bool allow_up_down = o_ptr->tval == TV_HORN
+						 && o_ptr->sval == SV_HORN_BLASTING;
+
+	/* Get a direction */
+	if (o_ptr->tval == TV_HORN)
 	{
         /* Check that you have enough voice */
         if (p_ptr->csp < voice_cost)
@@ -586,7 +591,7 @@ static bool play_instrument(object_type *o_ptr, bool *ident)
         }
 
 		/* Get a direction, allow cancel */
-		if (!get_aim_dir(&dir, 0)) return (FALSE);
+		if (!get_aim_dir(&dir, 0, allow_up_down)) return (FALSE);
 	}
 	
 	/* Base chance of success */
@@ -952,7 +957,7 @@ static bool activate_object(object_type *o_ptr)
 			case ACT_FIRE3:
 			{
 				msg_format("The %s glows deep red...", o_name);
-				if (!get_aim_dir(&dir, 0)) return FALSE;
+				if (!get_aim_dir(&dir, 0, FALSE)) return FALSE;
 				fire_ball(GF_FIRE, dir, 10, 4, -1, 3);
 				break;
 			}
@@ -960,7 +965,7 @@ static bool activate_object(object_type *o_ptr)
 			case ACT_FROST5:
 			{
 				msg_format("The %s glows bright white...", o_name);
-				if (!get_aim_dir(&dir, 0)) return FALSE;
+				if (!get_aim_dir(&dir, 0, FALSE)) return FALSE;
 				fire_ball(GF_COLD, dir, 10, 4, -1, 3);
 				break;
 			}
@@ -968,7 +973,7 @@ static bool activate_object(object_type *o_ptr)
 			case ACT_ELEC2:
 			{
 				msg_format("The %s glows deep blue...", o_name);
-				if (!get_aim_dir(&dir, 0)) return FALSE;
+				if (!get_aim_dir(&dir, 0, FALSE)) return FALSE;
 				fire_ball(GF_ELEC, dir, 10, 4, -1, 3);
 				break;
 			}
@@ -1111,7 +1116,7 @@ static bool activate_object(object_type *o_ptr)
 			case ACT_LIGHTNING_BOLT:
 			{
 				msg_format("Your %s is covered in sparks...", o_name);
-				if (!get_aim_dir(&dir, 0)) return FALSE;
+				if (!get_aim_dir(&dir, 0, FALSE)) return FALSE;
 				fire_beam(GF_ELEC, dir, 4, 8, -1);
 				break;
 			}
@@ -1159,7 +1164,7 @@ static bool activate_object(object_type *o_ptr)
 			case ACT_FROST2:
 			{
 				msg_format("Your %s is covered in frost...", o_name);
-				if (!get_aim_dir(&dir, 0)) return FALSE;
+				if (!get_aim_dir(&dir, 0, FALSE)) return FALSE;
 				fire_ball(GF_COLD, dir, 5, 4, -1, 2);
 				break;
 			}
@@ -1179,7 +1184,7 @@ static bool activate_object(object_type *o_ptr)
 			case ACT_FIRE2:
 			{
 				msg_format("Your %s rages in fire...", o_name);
-				if (!get_aim_dir(&dir, 0)) return FALSE;
+				if (!get_aim_dir(&dir, 0, FALSE)) return FALSE;
 				fire_ball(GF_FIRE, dir, 5, 4, -1, 2);
 				break;
 			}
@@ -1193,7 +1198,7 @@ static bool activate_object(object_type *o_ptr)
 			case ACT_STONE_TO_MUD:
 			{
 				msg_format("Your %s pulsates...", o_name);
-				if (!get_aim_dir(&dir, 0)) return FALSE;
+                                if (!get_aim_dir(&dir, 0, FALSE)) return FALSE;
 				blast(dir, 4, 4, 0);
 				break;
 			}
