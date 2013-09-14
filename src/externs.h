@@ -1029,7 +1029,7 @@ extern void target_set_interactive_prepare(int mode, int range);
 extern bool target_set_interactive(int mode, int range);
 extern int dir_from_delta(int deltay, int deltax);
 extern int rough_direction(int y1, int x1, int y2, int x2);
-extern bool get_aim_dir(int *dp, int range);
+extern bool get_aim_dir(int *dp, int range, bool allow_up_down);
 extern bool get_rep_dir(int *dp);
 extern bool confuse_dir(int *dp);
 extern const char tutorial_leave_text[][100];
