@@ -575,7 +575,16 @@ static bool play_instrument(object_type *o_ptr, bool *ident)
 		/* Get a direction, allow cancel */
 		if (!get_aim_dir(&dir, 0, allow_up_down)) return (FALSE);
 	}
-	
+
+	// Cancel if not enough voice.
+	if (p_ptr->csp < 20)
+	{
+		flush();
+		msg_print("You are out of breath.");
+		return (FALSE);
+	}
+
+	// Else we're definitely spending a turn:
 	// end the current song
 	change_song(SNG_NOTHING);
 	
@@ -611,14 +620,7 @@ static bool play_instrument(object_type *o_ptr, bool *ident)
 		return (FALSE);
 	}
 
-	/* Check that you have enough voice */
-	if (p_ptr->csp < 20)
-	{
-		flush();
-		msg_print("You are out of breath.");
-		return (FALSE);
-	}
-	
+	// Spend voice.
 	p_ptr->csp -= 20;
 
 	/* Redraw voice */
@@ -629,7 +631,7 @@ static bool play_instrument(object_type *o_ptr, bool *ident)
 	
 	msg_print("You sound a loud note on the trumpet.");
 	
-	/* Analyze the rod */
+	/* Analyze the trumpet */
 	switch (o_ptr->sval)
 	{
 		case SV_TRUMPET_TERROR:
