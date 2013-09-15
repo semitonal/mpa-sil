@@ -216,7 +216,7 @@ A:1/2
 
 
 N:22:& Robe~
-G:(:o
+G:(:b
 I:36:2:0
 W:5:0:30:4
 P:0:0d0:0:1d0
@@ -341,7 +341,7 @@ D:A crude blade, but better than none. It is curved in the orcish style.
 
 
 N:60:& Shortsword~
-G:|:u
+G:|:w
 I:23:10:0
 W:2:0:15:90
 P:0:1d7:1:0d0
