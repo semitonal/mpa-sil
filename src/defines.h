@@ -50,7 +50,7 @@
 /*
  * Current version string
  */
-#define VERSION_STRING	"1.2.1"
+#define VERSION_STRING	"1.2.1-mpa"
 
 
 /*
