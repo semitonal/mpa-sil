@@ -595,7 +595,7 @@ D: been changed by the fire.
 N:52:of Nargil
 I:23:4:0
 W:7:20:5:50000
-P:5:1d5:0:0d0
+P:5:1d7:0:0d0
 F:SHARPNESS
 F:THROWING
 D:'...the knife of the north, in Nogrod smithied.'
@@ -607,7 +607,7 @@ D:'...the knife of the north, in Nogrod smithied.'
 N:53:of Azaghal
 I:23:4:0
 W:13:8:10:50000
-P:1:1d6:0:0d0
+P:1:1d7:0:0d0
 F:SLAY_DRAGON | RES_FIRE | RES_FEAR
 F:THROWING
 D:Azaghal, Dwarf-king of Belegost, fell before Glaurung in the Battle of
@@ -622,7 +622,7 @@ D: was at first believed to be mortally wounded.
 N:54:'Angrist'
 I:23:4:0
 W:14:4:8:100000
-P:0:1d5:0:0d0
+P:0:1d6:0:0d0
 F:SHARPNESS2
 F:THROWING
 D:Forged from meteoric iron by Telchar, greatest of Dwarven smiths, 
