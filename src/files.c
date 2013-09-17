@@ -3092,6 +3092,7 @@ void process_player_name(bool sf)
  */
 bool get_name(void)
 {
+        return (TRUE);
 	char tmp[14];
 	char old_name[14];
 	bool name_selected = FALSE;

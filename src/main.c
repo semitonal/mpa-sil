@@ -694,7 +694,7 @@ int main(int argc, char *argv[])
 							bool name_selected = FALSE;
 							
 							// Default name
-							my_strcpy(tmp, "<name>", sizeof(tmp));
+							my_strcpy(tmp, "elliptic", sizeof(tmp));
 
 							Term_gotoxy(50, 21);
 							
