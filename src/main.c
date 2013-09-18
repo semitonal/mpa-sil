@@ -626,7 +626,7 @@ int main(int argc, char *argv[])
 	for (i = 0; i < (int)N_ELEMENTS(modules); i++)
 	{
 		/* User requested a specific module? */
-		if (!mstr || (streq(mstr, modules[i].name)))
+		if (streq("gcu", modules[i].name))
 		{
 			if (0 == modules[i].init(argc, argv))
 			{
