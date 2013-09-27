@@ -325,12 +325,6 @@ void do_cmd_play_instrument(object_type *default_o_ptr, int default_item)
 		}
 	}
 	
-	/* Take a turn */
-	p_ptr->energy_use = 100;
-	
-	// store the action type
-	p_ptr->previous_action[0] = ACTION_MISC;
-	
 	/* Not identified yet */
 	ident = FALSE;
 	

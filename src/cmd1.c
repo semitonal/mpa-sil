@@ -978,7 +978,13 @@ extern void ident_on_wield(object_type *o_ptr)
 			notice = TRUE;
 		}
 	}
-	
+
+	// Also always identify tunneling since it's never ambiguous.
+	if (f1 & (TR1_TUNNEL))
+	{
+		notice = TRUE;
+	}
+
 	if (o_ptr->name1 || o_ptr->name2)
 	{
 		// For special items and artefacts, we need to ignore the flags that are basic 
@@ -1017,6 +1023,11 @@ extern void ident_on_wield(object_type *o_ptr)
 	{
 		notice = TRUE;
 		msg_print("It speeds your movement.");
+	}
+	else if (f2 & (TR2_REGEN))
+	{
+		notice = TRUE;
+		msg_print("You notice that you are recovering much faster than usual.");
 	}
 
 	else if (f1 & (TR1_DAMAGE_SIDES))
@@ -1494,17 +1505,7 @@ extern void ident_passive(void)
 		
 		if (!object_known_p(o_ptr))
 		{			
-			if ((f2 & (TR2_REGEN)) && (p_ptr->chp < p_ptr->mhp))
-			{
-				notice = TRUE;
-				my_strcpy(effect_string, "You notice that you are recovering much faster than usual.", sizeof (effect_string));
-			}
-			else if (f2 & (TR2_HUNGER))
-			{
-				notice = TRUE;
-				my_strcpy(effect_string, "You notice that you are growing hungry much faster than before.", sizeof (effect_string));
-			}
-			else if (f2 & (TR2_SLOW_DIGEST))
+			if (f2 & (TR2_SLOW_DIGEST))
 			{
 				notice = TRUE;
 				my_strcpy(effect_string, "You notice that you are growing hungry more slowly than before.", sizeof (effect_string));
@@ -1710,7 +1711,59 @@ extern void ident_cowardice(void)
 	return;
 }
 
+extern void ident_hunger(void)
+{
+	u32b f1, f2, f3;
 
+	int i;
+
+	bool notice = FALSE;
+
+	char o_full_name[80];
+	char o_short_name[80];
+
+	object_type *o_ptr;
+
+	/* Scan the equipment */
+	for (i = INVEN_WIELD; i < INVEN_TOTAL; i++)
+	{
+		o_ptr = &inventory[i];
+
+		/* Skip non-objects */
+		if (!o_ptr->k_idx) continue;
+
+		/* Extract the item flags */
+		object_flags(o_ptr, &f1, &f2, &f3);
+
+		if (!object_known_p(o_ptr))
+		{
+			if (f2 & (TR2_HUNGER))
+			{
+				notice = TRUE;
+			}
+		}
+
+		if (notice)
+		{
+			/* Short, pre-identification object description */
+			object_desc(o_short_name, sizeof(o_short_name), o_ptr, FALSE, 0);
+
+			/* identify the object */
+			ident(o_ptr);
+
+			/* Full object description */
+			object_desc(o_full_name, sizeof(o_full_name), o_ptr, TRUE, 3);
+
+			/* Print the messages */
+			msg_print("You notice that you are growing hungry much faster than before.");
+			msg_format("You realize that your %s is %s.", o_short_name, o_full_name);
+
+			return;
+		}
+	}
+
+	return;
+}
 
 /*
  * Identifies a weapon from one of its slays being active and prints a message
@@ -2345,32 +2398,8 @@ static bool auto_pickup_okay(const object_type *o_ptr)
 	/* It can't be carried */
 	if (!inven_carry_okay(o_ptr)) return (FALSE);
 
-	/*object is marked to not pickup*/
-	if ((k_info[o_ptr->k_idx].squelch == NO_SQUELCH_NEVER_PICKUP) &&
-	    object_aware_p(o_ptr)) return (FALSE);
-
-	/*object is marked to not pickup*/
-	if ((k_info[o_ptr->k_idx].squelch == NO_SQUELCH_ALWAYS_PICKUP) &&
-	    object_aware_p(o_ptr)) return (TRUE);
-		
 	/* object has pickup flag set */
 	if (o_ptr->pickup) return (TRUE);
-
-	/* No inscription */
-	if (!o_ptr->obj_note) return (FALSE);
-
-	/* Find a '=' */
-	s = strchr(quark_str(o_ptr->obj_note), '=');
-
-	/* Process inscription */
-	while (s)
-	{
-		/* Auto-pickup on "=g" */
-		if (s[1] == 'g') return (TRUE);
-
-		/* Find another '=' */
-		s = strchr(s + 1, '=');
-	}
 
 	/* Don't auto pickup */
 	return (FALSE);
@@ -4268,7 +4297,7 @@ void move_player(int dir, int jumping)
 		perceive();
 
 		/* Handle "objects" */
-		py_pickup(jumping != always_pickup, TRUE);
+		py_pickup(FALSE, TRUE);
 
 		p_ptr->previous_action[0] = dir;	
 		

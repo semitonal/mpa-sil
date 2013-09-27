@@ -1848,6 +1848,10 @@ static void process_player(void)
 
 			do_cmd_note(note, p_ptr->depth);
 
+			// Don't give a message for the Gates or the Throne Room.
+			if (p_ptr->depth > 0 && p_ptr->depth < 20)
+				msg_format("You have entered %s.", g_vault_name);
+
 		  	g_vault_name[0] = '\0';
 		}
 

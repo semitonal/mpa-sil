@@ -564,14 +564,27 @@ static bool use_staff(object_type *o_ptr, bool *ident)
 static bool play_instrument(object_type *o_ptr, bool *ident)
 {
 	int dir, lev, will_score, difficulty;
-	
+
+	// Only trumpets of blasting can be aimed up or down, currently.
+	bool allow_up_down = o_ptr->tval == TV_TRUMPET
+						 && o_ptr->sval == SV_TRUMPET_BLASTING;
+
 	/* Get a direction */
 	if (o_ptr->tval == TV_TRUMPET)
 	{
 		/* Get a direction, allow cancel */
-		if (!get_aim_dir(&dir, 0)) return (FALSE);
+		if (!get_aim_dir(&dir, 0, allow_up_down)) return (FALSE);
 	}
-	
+
+	// Cancel if not enough voice.
+	if (p_ptr->csp < 20)
+	{
+		flush();
+		msg_print("You are out of breath.");
+		return (FALSE);
+	}
+
+	// Else we're definitely spending a turn:
 	// end the current song
 	change_song(SNG_NOTHING);
 	
@@ -607,14 +620,7 @@ static bool play_instrument(object_type *o_ptr, bool *ident)
 		return (FALSE);
 	}
 
-	/* Check that you have enough voice */
-	if (p_ptr->csp < 20)
-	{
-		flush();
-		msg_print("You are out of breath.");
-		return (FALSE);
-	}
-	
+	// Spend voice.
 	p_ptr->csp -= 20;
 
 	/* Redraw voice */
@@ -625,7 +631,7 @@ static bool play_instrument(object_type *o_ptr, bool *ident)
 	
 	msg_print("You sound a loud note on the trumpet.");
 	
-	/* Analyze the rod */
+	/* Analyze the trumpet */
 	switch (o_ptr->sval)
 	{
 		case SV_TRUMPET_TERROR:
@@ -834,7 +840,7 @@ static bool activate_object(object_type *o_ptr)
 			case ACT_FIRE3:
 			{
 				msg_format("The %s glows deep red...", o_name);
-				if (!get_aim_dir(&dir, 0)) return FALSE;
+				if (!get_aim_dir(&dir, 0, FALSE)) return FALSE;
 				fire_ball(GF_FIRE, dir, 10, 4, -1, 3);
 				break;
 			}
@@ -842,7 +848,7 @@ static bool activate_object(object_type *o_ptr)
 			case ACT_FROST5:
 			{
 				msg_format("The %s glows bright white...", o_name);
-				if (!get_aim_dir(&dir, 0)) return FALSE;
+				if (!get_aim_dir(&dir, 0, FALSE)) return FALSE;
 				fire_ball(GF_COLD, dir, 10, 4, -1, 3);
 				break;
 			}
@@ -850,7 +856,7 @@ static bool activate_object(object_type *o_ptr)
 			case ACT_ELEC2:
 			{
 				msg_format("The %s glows deep blue...", o_name);
-				if (!get_aim_dir(&dir, 0)) return FALSE;
+				if (!get_aim_dir(&dir, 0, FALSE)) return FALSE;
 				fire_ball(GF_ELEC, dir, 10, 4, -1, 3);
 				break;
 			}
@@ -993,7 +999,7 @@ static bool activate_object(object_type *o_ptr)
 			case ACT_LIGHTNING_BOLT:
 			{
 				msg_format("Your %s is covered in sparks...", o_name);
-				if (!get_aim_dir(&dir, 0)) return FALSE;
+				if (!get_aim_dir(&dir, 0, FALSE)) return FALSE;
 				fire_beam(GF_ELEC, dir, 4, 8, -1);
 				break;
 			}
@@ -1041,7 +1047,7 @@ static bool activate_object(object_type *o_ptr)
 			case ACT_FROST2:
 			{
 				msg_format("Your %s is covered in frost...", o_name);
-				if (!get_aim_dir(&dir, 0)) return FALSE;
+				if (!get_aim_dir(&dir, 0, FALSE)) return FALSE;
 				fire_ball(GF_COLD, dir, 5, 4, -1, 2);
 				break;
 			}
@@ -1061,7 +1067,7 @@ static bool activate_object(object_type *o_ptr)
 			case ACT_FIRE2:
 			{
 				msg_format("Your %s rages in fire...", o_name);
-				if (!get_aim_dir(&dir, 0)) return FALSE;
+				if (!get_aim_dir(&dir, 0, FALSE)) return FALSE;
 				fire_ball(GF_FIRE, dir, 5, 4, -1, 2);
 				break;
 			}
@@ -1075,7 +1081,7 @@ static bool activate_object(object_type *o_ptr)
 			case ACT_STONE_TO_MUD:
 			{
 				msg_format("Your %s pulsates...", o_name);
-				if (!get_aim_dir(&dir, 0)) return FALSE;
+				if (!get_aim_dir(&dir, 0, FALSE)) return FALSE;
 				blast(dir, 4, 4);
 				break;
 			}

@@ -2648,7 +2648,7 @@ static void calc_bonuses(void)
 		
 		// add off-hand specific bonuses
 		o_ptr = &inventory[INVEN_ARM];
-		p_ptr->offhand_mel_mod += o_ptr->att + blade_bonus(o_ptr) + axe_bonus(o_ptr) + polearm_bonus(o_ptr) - 2;	
+		p_ptr->offhand_mel_mod += o_ptr->att + blade_bonus(o_ptr) + axe_bonus(o_ptr) + polearm_bonus(o_ptr) - 3;	
 
 		p_ptr->mdd2 = total_mdd(o_ptr);
 		p_ptr->mds2 = total_mds(o_ptr, -3);
