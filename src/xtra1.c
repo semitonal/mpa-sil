@@ -1613,6 +1613,9 @@ bool weapon_glows(object_type *o_ptr)
 	bool viewable = FALSE;
 	
 	bool glows = FALSE;
+
+	char o_short_name[80];
+	char o_full_name[80];
 	
 	if (!character_dungeon) return (FALSE);
 
@@ -1698,7 +1701,22 @@ bool weapon_glows(object_type *o_ptr)
 		}	
 	}
 	
-	if (total_hate >= 15) glows = TRUE;
+	if (total_hate >= 15)
+	{
+		// Identify glowing weapons.
+		if (!object_known_p(o_ptr))
+		{
+			object_desc(o_short_name, sizeof(o_short_name), o_ptr, FALSE, 0);
+
+			ident(o_ptr);
+
+			object_desc(o_full_name, sizeof(o_full_name), o_ptr, FALSE, 3);
+
+			msg_format("You notice the %s glowing brightly.", o_short_name);
+			msg_format("You recognize the %s.", o_full_name);
+		}
+		glows = TRUE;
+	}
 		
 	return (glows);
 }
