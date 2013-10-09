@@ -113,6 +113,11 @@ extern int protection_roll(int typ, bool melee)
 	for (i = INVEN_WIELD; i < INVEN_TOTAL; i++)
 	{
 		o_ptr = &inventory[i];
+
+		// Don't look at off-hand weapons.
+		if (i == INVEN_ARM && o_ptr->tval != TV_SHIELD)
+			continue;
+
 		if (i >= INVEN_BODY) armour_weight += o_ptr->weight;
 
 		// fire and cold and generic 'hurt' all check the shield
@@ -182,6 +187,11 @@ extern int p_min(int typ, bool melee)
 	for (i = INVEN_WIELD; i < INVEN_TOTAL; i++)
 	{
 		o_ptr = &inventory[i];
+
+		// Don't look at off-hand weapons.
+		if (i == INVEN_ARM && o_ptr->tval != TV_SHIELD)
+			continue;
+
 		if (i >= INVEN_BODY) armour_weight += o_ptr->weight;
 
 		// fire and cold and generic 'hurt' all check the shield
@@ -249,6 +259,11 @@ extern int p_max(int typ, bool melee)
 	for (i = INVEN_WIELD; i < INVEN_TOTAL; i++)
 	{
 		o_ptr = &inventory[i];
+
+		// Don't look at off-hand weapons.
+		if (i == INVEN_ARM && o_ptr->tval != TV_SHIELD)
+			continue;
+
 		if (i >= INVEN_BODY) armour_weight += o_ptr->weight;
 
 		// fire and cold and generic 'hurt' all check the shield
