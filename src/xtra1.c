@@ -1706,7 +1706,7 @@ bool weapon_glows(object_type *o_ptr)
 	if (total_hate >= 15)
 	{
 		// Identify glowing weapons.
-		if (!object_known_p(o_ptr))
+		if (!object_known_p(o_ptr) && (cave_info[iy][ix] & (CAVE_VIEW)))
 		{
 			object_desc(o_short_name, sizeof(o_short_name), o_ptr, FALSE, 0);
 
