@@ -381,15 +381,14 @@ T:33:0:99  # Crown
 T:39:0:99  # Light Source
 
 N:83:Lore-Keeper
-I:4:3:4
+I:4:4:6
 D:Lets you identify herbs, potions, staves and trumpets,
 D: and lets you tell which items are cursed.
 T:32:0:99  # Helm
 T:33:0:99  # Crown
 
 N:84:Concentration
-I:4:4:5
-P:4/1
+I:4:3:5
 D:Gives you a +1 bonus to attack for every consecutive round
 D: spent attacking an enemy (to a maximum of perception/2).
 T:32:0:99  # Helm
@@ -403,7 +402,7 @@ D: you kill more.
 
 N:86:Lore-Master
 I:4:6:7
-P:4/3
+P:4/4
 D:Lets you identify all items.
 T:32:0:99  # Helm
 T:33:0:99  # Crown
@@ -418,7 +417,7 @@ T:33:0:99  # Crown
 
 N:88:Master Hunter
 I:4:8:9
-P:4/4:4/5
+P:4/3:4/5
 D:Gives you an attack bonus of +1 for each time you have killed
 D: an opponent of the same type (up to a maximum of perception/4).
 T:32:0:99  # Helm
