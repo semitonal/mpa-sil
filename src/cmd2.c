@@ -3759,206 +3759,6 @@ void do_cmd_fire(int quiver)
 	}	
 }
 
-/*handle special effects of throwing certain potions*/
-static bool thrown_potion_effects(object_type *o_ptr, bool *is_dead, int m_idx)
-{
-	monster_type *m_ptr = &mon_list[m_idx];
-	monster_race *r_ptr = &r_info[m_ptr->r_idx];
-	monster_lore *l_ptr = &l_list[m_ptr->r_idx];
-
-	int y = m_ptr->fy;
-	int x = m_ptr->fx;
-
-	bool ident = FALSE;
-
-	bool do_stun = FALSE;
-	bool un_confuse = FALSE;
-	bool un_stun = FALSE;
-
-	bool used_potion = TRUE;
-
-	/* Hold the monster name */
-	char m_name[80];
-	char m_poss[80];
-
-	/* Get the monster name*/
-	monster_desc(m_name, sizeof(m_name), m_ptr, 0);
-
-	/* Get the monster possessive ("his"/"her"/"its") */
-	monster_desc(m_poss, sizeof(m_name), m_ptr, 0x22);
-
-	/* Analyze the potion */
-	switch (o_ptr->sval)
-	{
-
-		case SV_POTION_SLOWNESS:
-		{
-			/*slowness explosion at the site, radius 0*/
-			ident = explosion(-1, 0, y, x, 0, 0, 10, GF_SLOW);
-			break;
-		}
-
-		case SV_POTION_CONFUSION:
-		{
-			/*confusion explosion at the site, radius 0*/
-			ident = explosion(-1, 0, y, x, 0, 0, 10, GF_CONFUSION);
-			break;
-		}
-
-		case SV_POTION_TRUE_SIGHT:
-		{
-			if ((!m_ptr->ml)&& (r_ptr->flags2 & (RF2_INVISIBLE)))
-			{
-				/* Mark as visible */
-				m_ptr->ml = TRUE;
-
-				/*re-draw the spot*/
-				lite_spot(y, x);
-
-				/* Update the monster name*/
-				monster_desc(m_name, sizeof(m_name), m_ptr, 0);
-
-				/*monster forgets player history*/
-				msg_format("%^s appears for an instant!", m_name);
-
-				/*update the lore*/
-				l_ptr->flags2 |= (RF2_INVISIBLE);
-
-				ident = TRUE;
-			}
-
-			/* Potion isn't idntified */
-			else used_potion = FALSE;
-
-			break;
-		}
-
-		case SV_POTION_QUICKNESS:
-		{
-
-			/*speed explosion at the site, radius 0*/
-			ident = explosion(-1, 0, y, x, 1, 4, -1, GF_SPEED);
-			break;
-		}
-
-		/*potion just gets thrown as normal object*/
-		default:
-		{
-			used_potion = FALSE;
-
-			break;
-		}
-	}
-
-	/*monster is now dead, skip messages below*/
-	if (cave_m_idx[y][x] == 0)
-	{
-		do_stun = FALSE;
-		un_confuse = FALSE;
-		un_stun = FALSE;
-		*is_dead = TRUE;
-	}
-
-	if (un_confuse)
-	{
-		if (m_ptr->confused)
-		{
-			/* No longer confused */
-			m_ptr->confused = 0;
-
-			/* Dump a message */
-			if (m_ptr->ml)
-			{
-				msg_format("%^s is no longer confused.", m_name);
-
-				ident = TRUE;
-			}
-		}
-	}
-
-	if (un_stun)
-	{
-		if (m_ptr->stunned)
-		{
-			/* No longer confused */
-			m_ptr->stunned = 0;
-
-			/* Dump a message */
-			if (m_ptr->ml)
-			{
-
-				msg_format("%^s is no longer stunned.", m_name);
-
-				ident = TRUE;
-			}
-		}
-	}
-
-	/* Deal with stunning */
-	if (do_stun)
-	{
-		int tmp = 0;
-
-		/*some creatures are resistant to stunning*/
-		if (r_ptr->flags3 & RF3_NO_STUN)
-		{
-			/*mark the lore*/
-			if (m_ptr->ml) l_ptr->flags3 |= (RF3_NO_STUN);
-		}
-
-		/* Get confused */
-		else if (m_ptr->stunned)
-		{
-			msg_format("%^s is more dazed.", m_name);
-			tmp = m_ptr->stunned / 2;
-		}
-		else
-		{
-			msg_format("%^s is dazed.", m_name);
-			tmp = 20;
-		}
-
-		/* Apply stun */
-		m_ptr->stunned += tmp;
-
-		ident = TRUE;
-
-	}
-
-	/*inform them of the potion, mark it as known*/
-	if ((ident) && (!(k_info[o_ptr->k_idx].aware)))
-	{
-
-		char o_name[80];
-
-		/* Identify it fully */
-		object_aware(o_ptr);
-		object_known(o_ptr);
-
-		/* Description */
-		object_desc(o_name, sizeof(o_name), o_ptr, TRUE, 3);
-
-		/* Describe the potion */
-		msg_format("You threw %s.", o_name);
-
-		/* Combine / Reorder the pack (later) */
-		p_ptr->notice |= (PN_COMBINE | PN_REORDER);
-
-		/* Window stuff */
-		p_ptr->window |= (PW_INVEN | PW_EQUIP | PW_PLAYER_0);
-
-	}
-
-	/* Redraw if necessary*/
-	if (used_potion) p_ptr->redraw |= (PR_HEALTHBAR);
-
-	/* Handle stuff */
-	handle_stuff();
-
-	return (used_potion);
-
-}
-
 /*
  * Throw an object from the pack or floor.
  *
@@ -4242,7 +4042,6 @@ void do_cmd_throw(void)
 			monster_type *m_ptr = &mon_list[cave_m_idx[y][x]];
 			monster_race *r_ptr = &r_info[m_ptr->r_idx];
 						
-			bool potion_effect = FALSE;
 			int pdam = 0;
 			bool is_dead = FALSE;
 
@@ -4367,24 +4166,6 @@ void do_cmd_throw(void)
 					if (m_ptr->ml) target_set_monster(cave_m_idx[y][x]);
 				}
 				
-				/*special effects sometimes reveal the kind of potion*/
-				if (i_ptr->tval == TV_POTION)
-				{
-					/*record monster hit points*/
-					pdam = m_ptr->hp;
-					
-					msg_print("The bottle breaks.");
-					
-					/*returns true if the damage has already been handled*/
-					potion_effect = (thrown_potion_effects(i_ptr, &is_dead, cave_m_idx[y][x]));
-					
-					/*check the change in monster hp*/
-					pdam -= m_ptr->hp;
-					
-					/*monster could have been healed*/
-					if (pdam < 0) pdam = 0;
-				}
-
 				// if a slay was noticed, then identify the weapon
 				if (noticed_flag)
 				{
@@ -4397,16 +4178,13 @@ void do_cmd_throw(void)
 				update_combat_rolls2(i_ptr->dd + total_bonus_dice, total_ds, dam, r_ptr->pd, r_ptr->ps, prt, prt_percent, GF_HURT, FALSE); 
 				display_hit(y, x, net_dam, GF_HURT);
 
-				/* Hit the monster, unless a potion effect has already been done */
-				if (!potion_effect)
-				{
-					 is_dead = (mon_take_hit(cave_m_idx[y][x], net_dam, note_dies, -1));
+				/* Hit the monster */
+				is_dead = (mon_take_hit(cave_m_idx[y][x], net_dam, note_dies, -1));
 					 
-					// gain wrath if singing song of slaying
-					if (is_dead && singing(SNG_SLAYING))
-					{
-						add_wrath();
-					}
+				// gain wrath if singing song of slaying
+				if (is_dead && singing(SNG_SLAYING))
+				{
+					add_wrath();
 				}
 
 				/* Still alive */
@@ -4438,7 +4216,7 @@ void do_cmd_throw(void)
 					}
 					
 					/* Message if applicable*/
-					if ((!potion_effect) || (pdam > 0))
+					if (pdam > 0)
 						message_pain(cave_m_idx[y][x],  (pdam ? pdam : net_dam));
 				}
 				/* Stop looking if a monster was hit */
@@ -4453,9 +4231,6 @@ void do_cmd_throw(void)
 		}		
 	}
 
-	// need to print this message even if the potion missed
-	if (!hit_body && (i_ptr->tval == TV_POTION)) msg_print("The bottle breaks.");
-	
 	/* Have to set this here as well, just in case... */
 	/* Monsters might notice */
 	player_attacked = TRUE;
