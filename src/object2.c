@@ -3659,13 +3659,9 @@ void drop_near(object_type *j_ptr, int chance, int y, int x)
 	/* Handle normal "breakage" */
 	if (!artefact_p(j_ptr) && percent_chance(chance))
 	{
-		// The potion breaking message has already been displayed
-		if (j_ptr->tval != TV_POTION)
-		{
-			/* Message */
-			msg_format("The %s break%s.",
-					   o_name, (plural ? "" : "s"));
-		}
+		/* Message */
+		msg_format("The %s break%s.",
+				   o_name, (plural ? "" : "s"));
 
 		/* Debug */
 		//if (p_ptr->wizard) msg_print("Breakage (breakage).");
