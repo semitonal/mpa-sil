@@ -985,6 +985,12 @@ extern void ident_on_wield(object_type *o_ptr)
 		notice = TRUE;
 	}
 
+	// Identify true sight if it cures blindness.
+	if (p_ptr->blind && (f2 & (TR2_SEE_INVIS)))
+	{
+		notice = TRUE;
+	}
+
 	if (o_ptr->name1 || o_ptr->name2)
 	{
 		// For special items and artefacts, we need to ignore the flags that are basic 
