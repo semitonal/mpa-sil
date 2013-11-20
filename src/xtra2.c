@@ -2164,7 +2164,7 @@ void monster_death(int m_idx)
 		msg_print("BUG: Morgoth has been defeated in combat.");
 		msg_print("But this is not possible within the fates Illuvatar has decreed.");
 		msg_print("Please post an 'ultimate bug-report' on http://angband.oook.cz/forum/ explaining how this happened.");
-		msg_print("But for now, let's run with it, since it undeniably impressive.");
+		msg_print("But for now, let's run with it, since it's undeniably impressive.");
 
 		// display the ultimate bug text
 		pause_with_text(ultimate_bug_text, 5, 15);
