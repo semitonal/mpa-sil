@@ -2634,13 +2634,39 @@ void py_pickup(int pickup, bool moving)
 				msg_format("You see %s%s.", o_name, weight);
 			}
 
-			if ((o_ptr->name1 == ART_MORGOTH_3) && !(p_ptr->crown_hint))
-			{
-				msg_print("To attempt to prise a Silmaril from the crown, use the 'destroy' command (which is 'k' by default).");
-				p_ptr->crown_hint = TRUE;
-			}
-			
 			/* Check the next object */
+			continue;
+		}
+
+		// Special case for prising Silmarils from the Iron Crown of Morgoth
+		if ((o_ptr->name1 >= ART_MORGOTH_1) && (o_ptr->name1 <= ART_MORGOTH_3))
+		{
+			// Select the melee weapon
+			o_ptr = &inventory[INVEN_WIELD];
+
+			// No weapon
+			if (!o_ptr->k_idx)
+			{
+				msg_print("To prise a Silmaril from the crown, you would need to wield a weapon.");
+			}
+
+			// Wielding a weapon
+			else
+			{
+				if (get_check("Will you try to prise a Silmaril from the Iron Crown? "))
+				{
+					prise_silmaril();
+
+					/* Take a turn */
+					p_ptr->energy_use = 100;
+
+					// store the action type
+					p_ptr->previous_action[0] = ACTION_MISC;
+
+					return;
+				}
+			}
+
 			continue;
 		}
 
