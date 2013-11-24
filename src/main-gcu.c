@@ -249,6 +249,11 @@ static int can_fix_color = FALSE;
  */
 static int colortable[16];
 
+ /*
+ * Background color we should draw with; either BLACK or DEFAULT
+ */
+static int bg_color = COLOR_BLACK;
+
 #endif
 
 
@@ -703,6 +708,12 @@ static errr Term_xtra_gcu_event(int v)
 
 #endif	/* USE_GETCH */
 
+void set_256color_table(int i, int fg)
+{
+	init_pair(16 + i, fg, bg_color);
+	colortable[i] = COLOR_PAIR(16 + i) | A_NORMAL;
+}
+
 /*
  * React to changes
  */
@@ -713,17 +724,34 @@ static errr Term_xtra_gcu_react(void)
 
 	int i;
 
-	/* Cannot handle color redefinition */
-	if (!can_fix_color) return (0);
-
-	/* Set the colors */
-	for (i = 0; i < 16; i++)
+	if (can_fix_color)
 	{
 		/* Set one color (note scaling) */
 		init_color(i,
                            angband_color_table[i][1] * 1000 / 255,
 		           angband_color_table[i][2] * 1000 / 255,
 		           angband_color_table[i][3] * 1000 / 255);
+	}
+
+	else if(COLORS == 256)
+	{
+		/* If we have 256 colors, find the best matches */
+		set_256color_table(0, 0);    /* black */
+		set_256color_table(1, 15);   /* white */
+		set_256color_table(2, 244);  /* grey */
+		set_256color_table(3, 215);  /* orange */
+		set_256color_table(4, 1);    /* red */
+		set_256color_table(5, 34);   /* green */
+		set_256color_table(6, 21);   /* blue */
+		set_256color_table(7, 130);  /* umber */
+		set_256color_table(8, 239);  /* dark-grey */
+		set_256color_table(9, 252);  /* light-grey */
+		set_256color_table(10, 5);   /* purple */
+		set_256color_table(11, 226); /* yellow */
+		set_256color_table(12, 203); /* light red */
+		set_256color_table(13, 46);  /* light green */
+		set_256color_table(14, 12);  /* light blue */
+		set_256color_table(15, 3);   /* light umber */
 	}
 
 #endif
@@ -1036,9 +1064,9 @@ errr init_gcu(int argc, char **argv)
 
 #ifdef REDEFINE_COLORS
 
-	/* Can we change colors? */
-	can_fix_color = (can_use_color && can_change_color() &&
-	                 (COLORS >= 16) && (COLOR_PAIRS > 8));
+	/* Should we use curses' "default color" */
+	if(use_default_colors() == OK)
+		bg_color = -1;
 
 #endif
 
@@ -1049,7 +1077,7 @@ errr init_gcu(int argc, char **argv)
 		for (i = 1; i <= 8; i++)
 		{
 			/* Reset the color */
-			if (init_pair(i, i - 1, 0) == ERR)
+			if (init_pair(i + 1, i, bg_color) == ERR)
 			{
 				quit("Color pair init failed");
 			}
@@ -1071,13 +1099,13 @@ errr init_gcu(int argc, char **argv)
 		/* Color-pair 0 is *always* WHITE on BLACK */
 
 		/* Prepare the color pairs */
-		init_pair(1, COLOR_RED,     COLOR_BLACK);
-		init_pair(2, COLOR_GREEN,   COLOR_BLACK);
-		init_pair(3, COLOR_YELLOW,  COLOR_BLACK);
-		init_pair(4, COLOR_BLUE,    COLOR_BLACK);
-		init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
-		init_pair(6, COLOR_CYAN,    COLOR_BLACK);
-		init_pair(7, COLOR_BLACK,   COLOR_BLACK);
+		init_pair(1, COLOR_RED,     bg_color);
+		init_pair(2, COLOR_GREEN,   bg_color);
+		init_pair(3, COLOR_YELLOW,  bg_color);
+		init_pair(4, COLOR_BLUE,    bg_color);
+		init_pair(5, COLOR_MAGENTA, bg_color);
+		init_pair(6, COLOR_CYAN,    bg_color);
+		init_pair(7, COLOR_BLACK,   bg_color);
 
 		/* Prepare the colors */
 		colortable[0] = (COLOR_PAIR(7) | A_NORMAL);	/* Black */
