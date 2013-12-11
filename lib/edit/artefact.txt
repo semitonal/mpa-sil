@@ -373,14 +373,14 @@ D: the heart in the dark places of the world.
 
 ## The Studded Leather of Aegnor
 ## 1st age namesake
-## (ability 4/4 is Concentration)
+## (ability 4/3 is Concentration)
 
 N:29:of Aegnor
 I:36:7:1
 W:4:30:100:35000
 P:1:0d0:-2:1d6
 F:WILL
-B:4/4
+B:4/3
 D:Crafted for Aegnor, a Noldorin prince who loved a mortal.
 D: It lends its wearer determination and sureness of heart.
 
