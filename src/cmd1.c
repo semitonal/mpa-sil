@@ -3603,17 +3603,17 @@ void py_attack_aux(int y, int x, int attack_type)
     // Cancel the attack if needed
     if (abort_attack)
     {
+        // The player might already have successfully attacked with rage/whirlwind
         if (!player_attacked)
         {
             // reset the action type
             p_ptr->previous_action[0] = ACTION_NOTHING;
-            
+    
             // don't take a turn
             p_ptr->energy_use = 0;
         }
-        
-        /* Done */
-        return;
+	    /* Done */
+	    return;
     }
     
 	// fighting with fists is equivalent to a 4 lb weapon for the purpose of criticals
