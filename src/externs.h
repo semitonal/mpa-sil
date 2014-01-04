@@ -907,6 +907,7 @@ extern bool term_get_string(cptr prompt, char *buf, size_t len);
 extern s16b get_quantity(cptr prompt, int max);
 extern int get_check_other(cptr prompt, char other);
 extern bool get_check(cptr prompt);
+extern bool get_check_force_uppercase(cptr prompt, bool uppercase_only);
 extern int get_menu_choice(s16b max, char *prompt);
 extern bool get_com(cptr prompt, char *command);
 extern void pause_line(int row);

@@ -3564,7 +3564,7 @@ void py_attack_aux(int y, int x, int attack_type)
         /* Process inscription */
         while (s)
         {
-            if ((s[1] == 'a') && !get_check("Are you sure you wish to attack? "))
+            if ((s[1] == 'a') && !get_check_force_uppercase("Are you sure you wish to attack? ", hjkl_movement))
             {
                 abort_attack = TRUE;
             }
@@ -3575,19 +3575,19 @@ void py_attack_aux(int y, int x, int attack_type)
     }
     
  	// Warning about breaking the truce
-	if ((p_ptr->truce) && !get_check("Are you sure you wish to attack? "))
+	if ((p_ptr->truce) && !get_check_force_uppercase("Are you sure you wish to attack? ", hjkl_movement))
 	{
         abort_attack = TRUE;
 	}
 	
     // Warn about fighting with fists
-    if ((o_ptr->weight == 0) && !get_check("Are you sure you wish to attack with no weapon? "))
+    if ((o_ptr->weight == 0) && !get_check_force_uppercase("Are you sure you wish to attack with no weapon? ", hjkl_movement))
     {
         abort_attack = TRUE;
     }
 
     // Warn about fighting with shovel
-    if ((o_ptr->tval == TV_DIGGING) && (o_ptr->sval == SV_SHOVEL) && !get_check("Are you sure you wish to attack with your shovel? "))
+    if ((o_ptr->tval == TV_DIGGING) && (o_ptr->sval == SV_SHOVEL) && !get_check_force_uppercase("Are you sure you wish to attack with your shovel? ", hjkl_movement))
     {
         abort_attack = TRUE;
     }
@@ -4343,7 +4343,7 @@ void move_player(int dir)
                         }
                         
                         // if you say 'yes' to the prompt, then try to leap
-                        if (!confirm || get_check(prompt))
+                        if (!confirm || get_check_force_uppercase(prompt, hjkl_movement))
                         {
                             // at this point attack any invisible monster that may be there
                             if (cave_m_idx[y][x] > 0)
@@ -4389,7 +4389,7 @@ void move_player(int dir)
                     /* Flush input */
                     flush();
                     
-                    if (!get_check("Step into the chasm? "))
+                    if (!get_check_force_uppercase("Step into the chasm? ", hjkl_movement))
                     {
                         // don't take a turn...
                         p_ptr->energy_use = 0;
@@ -4409,7 +4409,7 @@ void move_player(int dir)
                 /* Flush input */
                 flush();
                 
-                if (!get_check("Are you sure you want to step on the trap? "))
+                if (!get_check_force_uppercase("Are you sure you want to step on the trap? ", hjkl_movement))
                 {
                     // don't take a turn...
                     p_ptr->energy_use = 0;
