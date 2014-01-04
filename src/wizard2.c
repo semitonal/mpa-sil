@@ -1655,7 +1655,12 @@ void do_cmd_debug(void)
 		/* Create an artefact */
 		case 'C':
 		{
-			wiz_create_artefact(p_ptr->command_arg);
+			char prompt[80];
+			char buf[80];
+			sprintf(prompt, "%s", "Index: ");
+			sprintf(buf, "%d", 0);
+			if(term_get_string(prompt, buf, 0))
+				wiz_create_artefact( atoi(buf) );
 			break;
 		}
 
