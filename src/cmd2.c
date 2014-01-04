@@ -2748,8 +2748,8 @@ void do_cmd_alter(void)
 	/* Bash doors */
 	else if (cave_known_closed_door_bold(y,x))
 	{
-		/* Bash */
-		do_cmd_bash_aux(y, x);
+		/* Open */
+		do_cmd_open_aux(y, x);
 	}
 
 	/* Disarm known dungeon traps */
