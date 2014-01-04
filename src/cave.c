@@ -4990,9 +4990,6 @@ void monster_race_track(int r_idx)
 	// don't track when hallucinating
 	if (p_ptr->image) return;
 
-    // don't track when raging
-	if (p_ptr->rage) return;
-
 	/* Save this monster ID */
 	p_ptr->monster_race_idx = r_idx;
 

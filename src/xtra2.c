@@ -3371,7 +3371,7 @@ static int target_set_interactive_aux(int y, int x, int mode, cptr info)
 				while (1)
 				{
 					/* Recall, but not when raging */
-					if ((recall) && !p_ptr->rage)
+					if (recall)
 					{
 						/* Save screen */
 						screen_save();
