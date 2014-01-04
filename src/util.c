@@ -3917,6 +3917,11 @@ int get_check_other(cptr prompt, char other)
  */
 bool get_check(cptr prompt)
 {
+	return get_check_force_uppercase(prompt, FALSE);
+}
+
+bool get_check_force_uppercase(cptr prompt, bool uppercase_only)
+{
 	char ch;
 
 	char buf[80];
@@ -3925,7 +3930,10 @@ bool get_check(cptr prompt)
 	message_flush();
 
 	/* Hack -- Build a "useful" prompt */
-	strnfmt(buf, 78, "%.70s[y/n] ", prompt);
+	if (uppercase_only)
+		strnfmt(buf, 78, "%.70s[Y/N] ", prompt);
+	else
+		strnfmt(buf, 78, "%.70s[y/n] ", prompt);
 
 	/* Prompt for it */
 	prt(buf, 0, 0);
@@ -3936,18 +3944,19 @@ bool get_check(cptr prompt)
 		ch = inkey();
 		if (quick_messages) break;
 		if (ch == ESCAPE) break;
-		if (strchr("YyNn", ch)) break;
-		bell("Illegal response to a 'yes/no' question!");
+		if (!uppercase_only && strchr("YyNn", ch)) break;
+		if (uppercase_only && strchr("YN", ch)) break;
+		bell(uppercase_only ? "Illegal response to a 'Y/N' question!" : "Illegal response to a 'yes/no' question!");
 	}
 
 	/* Erase the prompt */
 	prt("", 0, 0);
 
-	/* Normal negation */
-	if ((ch != 'Y') && (ch != 'y')) return (FALSE);
-
 	/* Success */
-	return (TRUE);
+	if ((ch == 'Y') || ((ch == 'y') && !uppercase_only)) return (TRUE);
+
+	/* Whatever else */
+	return (FALSE);
 }
 
 /*
