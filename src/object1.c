@@ -10,6 +10,64 @@
 
 #include "angband.h"
 
+/* Mark items as tainted for the purposes of Lore-Keeper */
+bool item_is_tainted(const object_type *o_ptr)
+{
+	u32b f1, f2, f3;
+	object_flags(o_ptr, &f1, &f2, &f3);
+
+	switch (o_ptr->tval)
+	{
+		case TV_FOOD:
+			if (o_ptr->sval == SV_FOOD_TERROR || o_ptr->sval == SV_FOOD_HUNGER || o_ptr->sval == SV_FOOD_VISIONS || o_ptr->sval == SV_FOOD_ENTRANCEMENT || o_ptr->sval == SV_FOOD_WEAKNESS || o_ptr->sval == SV_FOOD_SICKNESS)
+				return TRUE;
+			break;
+		case TV_POTION:
+			if (o_ptr->sval == SV_POTION_SLOWNESS || o_ptr->sval == SV_POTION_POISON || o_ptr->sval == SV_POTION_BLINDNESS || o_ptr->sval == SV_POTION_CONFUSION || o_ptr->sval == SV_POTION_DEC_DEX || o_ptr->sval == SV_POTION_DEC_GRA)
+				return TRUE;
+			break;
+		case TV_HORN:
+			if (o_ptr->sval == SV_HORN_WARNING)
+				return TRUE;
+			break;
+		case TV_STAFF:
+			if (o_ptr->sval == SV_STAFF_SUMMONING || o_ptr->sval == SV_STAFF_ENTRAPMENT)
+				return TRUE;
+			break;
+		case TV_RING:
+			if (o_ptr->sval == SV_RING_HUNGER)
+				return TRUE;
+			break;
+		case TV_AMULET: // haunted dreams
+			if (f2 & (TR2_HAUNTED))
+				return TRUE;
+			break;
+		case TV_MAIL: // blight
+		case TV_SOFT_ARMOR: // same
+			if (f2 & (TR2_VUL_POIS))
+				return TRUE;
+			break;
+		case TV_CLOAK: // winter's chill
+			if (f2 & (TR2_VUL_COLD))
+				return TRUE;
+			break;
+		case TV_SHIELD: // wrath
+			if (f2 & (TR2_AGGRAVATE))
+				return TRUE;
+			break;
+		case TV_CROWN: // terror
+		case TV_HELM: // same
+			if (f2 & (TR2_FEAR))
+				return TRUE;
+			break;
+		case TV_BOOTS: // treacherous paths
+			if (f2 & (TR2_DANGER))
+				return TRUE;
+			break;
+	}
+
+	return FALSE;
+}
 
 static void flavor_assign_fixed(void)
 {
@@ -1209,6 +1267,18 @@ void object_desc(char *buf, size_t max, const object_type *o_ptr, int pref, int 
 		v = NULL;
 	}
 
+	/* Hack -- Mark as tainted while keeping existing labels (special, empty, tried) */
+	if (!known && item_is_tainted(o_ptr) && p_ptr->active_ability[S_PER][PER_LORE1])
+	{
+		if (v == NULL)
+			v = "tainted";
+		else
+		{
+			char v_ext[160];
+			sprintf(v_ext, "%s, tainted", v);
+			v = v_ext;
+		}
+	}
 
 	/* Inscription */
 	if (u || v)
