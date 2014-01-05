@@ -388,7 +388,7 @@ T:39:0:99  # Light Source
 
 N:83:Lore-Keeper
 I:4:3:4
-D:Lets you tell which items are cursed.
+D:Lets you tell which items are cursed or tainted.
 T:32:0:99  # Helm
 T:33:0:99  # Crown
 
