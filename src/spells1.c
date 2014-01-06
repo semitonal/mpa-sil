@@ -2709,7 +2709,7 @@ static bool project_m(int who, int y, int x, int dd, int ds, int dif, int typ, u
 			delete_monster_idx(cave_m_idx[y][x]);
 
 			/* Create a new monster (no groups) */
-			(void)place_monster_aux(y, x, tmp, FALSE, FALSE);
+			(void)place_monster_aux(y, x, tmp, FALSE, FALSE, FALSE);
 
 			/* Hack -- Assume success XXX XXX XXX */
 
