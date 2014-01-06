@@ -1332,7 +1332,7 @@ D: Shadows darken as it approaches.
 
 N:162:Kemenrauko
 W:16:2
-G:R:s
+G:R:u
 I:2:10d4:0
 A:10:7:0:12
 P:[+12,4d4]
@@ -1623,7 +1623,7 @@ D: warrior is royalty?
 
 N:186:Turkano, Balrog of the Hosts
 W:18:20
-G:R:b
+G:R:G
 I:2:40d4:-3
 A:5:9:1:15
 P:[+19,5d4]
@@ -1967,7 +1967,7 @@ D: them, who could ever compare with the flames of a Dragon?
 
 N:223:Hithrauko
 W:22:2
-G:R:B1
+G:R:b
 I:3:4d4:0
 A:10:9:3:16
 P:[+17,4d4]
