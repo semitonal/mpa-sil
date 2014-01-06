@@ -2710,7 +2710,7 @@ static void place_monster_escort(int y, int x, int leader_idx, bool slp, monster
  * Note the use of the new "monster allocation table" code to restrict
  * the "get_mon_num()" function to "legal" escort types.
  */
-bool place_monster_aux(int y, int x, int r_idx, bool slp, bool grp)
+bool place_monster_aux(int y, int x, int r_idx, bool slp, bool grp, bool ignore_depth)
 {
 	monster_race *r_ptr = &r_info[r_idx];
 	monster_type *m_ptr;
@@ -2740,7 +2740,7 @@ bool place_monster_aux(int y, int x, int r_idx, bool slp, bool grp)
 	if (dieroll(4) <= monster_level - r_ptr->level + 2) friend_amount++;
 
 	/* Place one monster, or fail */
-	if (!place_monster_one(y, x, r_idx, slp, FALSE, NULL)) return (FALSE);
+	if (!place_monster_one(y, x, r_idx, slp, ignore_depth, NULL)) return (FALSE);
 	
 	if (cave_m_idx[y][x] > 0)
 	{
@@ -2799,7 +2799,7 @@ bool place_monster(int y, int x, bool slp, bool grp, bool vault)
 	if (!r_idx) return (FALSE);
 
 	/* Attempt to place the monster */
-	if (place_monster_aux(y, x, r_idx, slp, grp)) return (TRUE);
+	if (place_monster_aux(y, x, r_idx, slp, grp, FALSE)) return (TRUE);
 
 	/* Oops */
 	return (FALSE);
@@ -3265,7 +3265,7 @@ bool summon_specific(int y1, int x1, int lev, int type)
 	if (!r_idx) return (FALSE);
 
 	/* Attempt to place the monster (awake, allow groups) */
-	if (!place_monster_aux(y, x, r_idx, FALSE, TRUE)) return (FALSE);
+	if (!place_monster_aux(y, x, r_idx, FALSE, TRUE, FALSE)) return (FALSE);
 
 	/* Success */
 	return (TRUE);
@@ -3318,7 +3318,7 @@ bool multiply_monster(int m_idx)
 	x = GRID_X(grid[i]);
 
 	/* Create a new monster (awake, no groups) */
-	result = place_monster_aux(y, x, m_ptr->r_idx, FALSE, FALSE);
+	result = place_monster_aux(y, x, m_ptr->r_idx, FALSE, FALSE, FALSE);
 
  	/* Result */
  	return (result);
