@@ -153,7 +153,7 @@ G:^:B1
 # 0x16 --> visible trap -- alarm
 
 N:22:alarm trap
-G:^:U1
+G:^:o
 
 # 0x17 --> visible trap -- flash
 
@@ -168,7 +168,7 @@ G:^:w
 # 0x19 --> visible trap -- roost
 
 N:25:roost
-G:^:D1
+G:^:B
 
 # 0x1A --> visible trap - web
 
