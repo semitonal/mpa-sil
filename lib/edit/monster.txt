@@ -1182,7 +1182,7 @@ D: almost that of a person. A cold gleaming blade is in its hand.
 
 N:144:Deathblade
 W:14:8
-G:|:D
+G:|:v
 I:3:6d4:0
 A:0:10:20:10
 P:[+17,5d4]
@@ -1299,7 +1299,7 @@ D: speed and agility.
 
 N:155:The Deathblade 'Delmereth'
 W:15:50
-G:|:D
+G:|:r
 I:3:10d4:0
 A:0:10:20:13
 P:[+19,5d4]
