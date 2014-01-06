@@ -1092,7 +1092,7 @@ void prise_silmaril(void)
 	if ((pd == 30) && freed)
 	{
 		msg_print("Until you escape you must now roll twice for every skill check, taking the worse result each time.");
-		msg_print("You hear a cry of veangance echo through the iron hells.");
+		msg_print("You hear a cry of vengeance echo through the iron hells.");
 		wake_all_monsters(0);
 	}
 }
