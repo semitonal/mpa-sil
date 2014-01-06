@@ -587,7 +587,6 @@ T:40:0:99  # Amulet
 
 N:143:Song of Freedom
 I:7:3:4
-P:7/0
 D:Discovers and overcomes nearby doors, traps, and rubble.
 T:33:0:99  # Crown
 T:40:0:99  # Amulet
@@ -623,7 +622,7 @@ T:40:0:99  # Amulet
 
 N:148:Song of Este
 I:7:8:9
-P:7/4
+P:7/3:7/4
 D:Provides a bonus to your regeneration and your recovery
 D: from all negative timed effects (such as confusion or poison)
 D: with every 4 points of Song.
