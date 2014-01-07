@@ -559,9 +559,8 @@
 #define	SNG_ESTE					 8
 #define	SNG_SHARPNESS				 9
 #define	SNG_MASTERY					10
-#define	SNG_VOICE					11
-#define	SNG_WOVEN_THEMES			12
-#define	SNG_GRA						13
+#define	SNG_WOVEN_THEMES			11
+#define	SNG_GRA						12
 
 #define	SNG_BINDING					50 /* monster songs */
 #define	SNG_PIERCING				51 /* monster songs */

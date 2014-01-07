@@ -450,7 +450,7 @@ void show_songs(void)
 	char out_desc[24][80];
 		
 	/* Display the songs */
-	for (k = 0, i = 0; i < SNG_VOICE; i++)
+	for (k = 0, i = 0; i < SNG_WOVEN_THEMES; i++)
 	{
 		/* Is this song acceptable? */
 		if (!p_ptr->active_ability[S_SNG][i]) continue;
@@ -532,7 +532,7 @@ void do_cmd_change_song()
 	char which;
 
 	// count the abilities
-	for (i = 0; i < SNG_VOICE; i++)
+	for (i = 0; i < SNG_WOVEN_THEMES; i++)
 	{
 		// keep track of the number of options and final song
 		if (p_ptr->active_ability[S_SNG][i])
@@ -574,7 +574,7 @@ void do_cmd_change_song()
 		sprintf(out_val, "Songs: s");
 
 		// count the abilities
-		for (i = 0; i < SNG_VOICE; i++)
+		for (i = 0; i < SNG_WOVEN_THEMES; i++)
 		{
 			// keep track of the number of options and final song
 			if (p_ptr->active_ability[S_SNG][i])
@@ -672,7 +672,7 @@ void do_cmd_change_song()
 
 			default:
 			{
-				if ((which >= 'a') && (which < 'a' + SNG_VOICE))
+				if ((which >= 'a') && (which < 'a' + SNG_WOVEN_THEMES))
 				{
 					song_choice = (int) which - 'a';
 					if (p_ptr->active_ability[S_SNG][song_choice])
