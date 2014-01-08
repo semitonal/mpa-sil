@@ -4234,6 +4234,7 @@ void move_player(int dir)
 			{
 				message(MSG_HITWALL, 0, "You feel a pile of rubble blocking your way.");
 				cave_info[y][x] |= (CAVE_MARK);
+                                cave_info[y][x] |= (CAVE_KNOWN);
 				lite_spot(y, x);
 			}
 
@@ -4242,6 +4243,7 @@ void move_player(int dir)
 			{
 				message(MSG_HITWALL, 0, "You feel a door blocking your way.");
 				cave_info[y][x] |= (CAVE_MARK);
+                                cave_info[y][x] |= (CAVE_KNOWN);
 				lite_spot(y, x);
 			}
 
@@ -4250,6 +4252,7 @@ void move_player(int dir)
 			{
 				message(MSG_HITWALL, 0, "You feel a wall blocking your way.");
 				cave_info[y][x] |= (CAVE_MARK);
+                                cave_info[y][x] |= (CAVE_KNOWN);
 				lite_spot(y, x);
 			}
 		}
@@ -4584,6 +4587,8 @@ void move_player(int dir)
 			cave_info[y][x] |= (CAVE_MARK);
 			lite_spot(y, x);
 		}
+
+                cave_info[y][x] |= (CAVE_KNOWN);
 
 		/* Remark on Forge and discover it if blind */
 		if (cave_forge_bold(p_ptr->py, p_ptr->px))
@@ -5285,11 +5290,11 @@ static bool run_test(void)
 		{
 			/* Primary option */
 			p_ptr->run_cur_dir = option;
-
+                        msg_print("A");
                         /* Stop in the doorway of a room */
                         row = py + 2*ddy[option];
                         col = px + 2*ddx[option];
-                        if ((cave_info[row][col] & CAVE_MARK) &&
+                        if ((cave_info[row][col] & CAVE_KNOWN) &&
                             !cave_wall_bold(row,col))
 			{
 			        return (TRUE);
