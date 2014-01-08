@@ -4040,7 +4040,7 @@ void do_cmd_throw(bool automatic)
     }
     
 	// Otherwise get a direction (or cancel) */
-	if (!get_aim_dir(&dir, tdis, FALSE)) return;
+	else if (!get_aim_dir(&dir, tdis, FALSE)) return;
 
 	/* Take off equipment first */
 	if (item >= INVEN_WIELD)
