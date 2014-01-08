@@ -2702,6 +2702,7 @@ void do_cmd_alter(void)
 		else
 		{
 			msg_print("You hit something hard.");
+                        cave_info[y][x] |= (CAVE_KNOWN);
 			cave_info[y][x] |= (CAVE_MARK);
 			lite_spot(y, x);
 		}
@@ -3169,6 +3170,7 @@ bool do_radiance(int y, int x, const object_type *j_ptr)
 		
 		// Remember the grid
 		cave_info[y][x] |= (CAVE_MARK);
+                cave_info[y][x] |= (CAVE_KNOWN);
 
 		// Fully update the visuals
 		p_ptr->update |= (PU_FORGET_VIEW | PU_UPDATE_VIEW | PU_MONSTERS);
