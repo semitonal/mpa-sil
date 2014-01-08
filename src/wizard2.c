@@ -1518,6 +1518,7 @@ static void do_cmd_wiz_query(void)
 		case '7': mask = (1 << 7); break;
 
 		case 'm': mask |= (CAVE_MARK); break;
+                case 'k': mask |= (CAVE_KNOWN); break;
 		case 'g': mask |= (CAVE_GLOW); break;
 		case 'r': mask |= (CAVE_ROOM); break;
 		case 'i': mask |= (CAVE_ICKY); break;

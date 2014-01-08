@@ -1061,7 +1061,7 @@ static void wr_notes(void)
  * The cave grid flags that get saved in the savefile
  */
 #define IMPORTANT_FLAGS (CAVE_MARK | CAVE_GLOW | CAVE_ICKY | \
-						 CAVE_ROOM | CAVE_G_VAULT | CAVE_HIDDEN)
+						 CAVE_ROOM | CAVE_G_VAULT | CAVE_HIDDEN | CAVE_KNOWN)
 
 
 /*

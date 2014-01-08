@@ -2688,7 +2688,7 @@ void destroy_area(int y1, int x1, int r, bool full)
 			cave_info[y][x] &= ~(CAVE_ROOM | CAVE_ICKY);
 
 			/* Lose light and knowledge */
-			cave_info[y][x] &= ~(CAVE_GLOW | CAVE_MARK);
+			cave_info[y][x] &= ~(CAVE_GLOW | CAVE_MARK | CAVE_KNOWN);
 
 			/* Hack -- Notice player affect */
 			if (cave_m_idx[y][x] < 0)

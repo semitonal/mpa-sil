@@ -1572,7 +1572,7 @@
 #define CAVE_OLD_VIEW   0x0800  /* was square in view last update? */
 #define CAVE_OLD_LIT    0x1000  /* was square lit last update? */
 #define CAVE_OLD_TORCH  0x2000  /* was square in torch radius last update? */
-#define CAVE_ATT2       0x4000  /* unused */
+#define CAVE_KNOWN      0x4000  /* seen by the player previously */
 #define CAVE_ATT3       0x8000  /* unused */
 
 
