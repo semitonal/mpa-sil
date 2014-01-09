@@ -5280,7 +5280,7 @@ static bool run_test(void)
 		{
 			/* Primary option */
 			p_ptr->run_cur_dir = option;
-                        msg_print("A");
+
                         /* Stop in the doorway of a room */
                         row = py + 2*ddy[option];
                         col = px + 2*ddx[option];
