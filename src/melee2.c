@@ -3480,6 +3480,9 @@ void monster_exchange_places(monster_type *m_ptr)
         msg_format("You attack %s as %s slips past.", m_name2, m_name3);
         py_attack_aux(m_ptr->fy, m_ptr->fx, ATT_OPPORTUNITY);
     }
+
+    if (!m_ptr->r_idx)
+        return;
     
     // remember that the monster can do this
     if (m_ptr->ml)  l_ptr->flags2 |= (RF2_EXCHANGE_PLACES);
