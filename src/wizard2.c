@@ -1733,7 +1733,12 @@ void do_cmd_debug(void)
 		/* Summon Named Monster */
 		case 'n':
 		{
-			do_cmd_wiz_named(p_ptr->command_arg, TRUE);
+			char prompt[80];
+			char buf[80];
+			sprintf(prompt, "%s", "Index: ");
+			sprintf(buf, "%d", 0);
+			if(term_get_string(prompt, buf, 0))
+				do_cmd_wiz_named(atoi(buf), TRUE);
 			break;
 		}
 
