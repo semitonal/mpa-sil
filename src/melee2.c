@@ -3472,8 +3472,11 @@ void monster_exchange_places(monster_type *m_ptr)
     {
         // this might be the most complicated auto-grammatical message in the game...
         msg_format("You attack %s as %s slips past.", m_name2, m_name3);
-        make_attack_normal(m_ptr);
+        py_attack_aux(m_ptr->fy, m_ptr->fx, ATT_OPPORTUNITY);
     }
+
+    if (!m_ptr->r_idx)
+        return;
     
     // swap positions with the player
     monster_swap(m_ptr->fy, m_ptr->fx, p_ptr->py, p_ptr->px);
