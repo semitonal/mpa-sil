@@ -1581,7 +1581,7 @@ static void place_traps(void)
             // randomly determine whether to place a trap based on the above
             if (dieroll(1000) <= trap_placement_chance(y, x))
             {
-                place_trap(y,x);
+                place_trap(y,x, TRUE);
             }
 		}
 	}
@@ -2698,7 +2698,7 @@ static bool build_vault(int y0, int x0, vault_type *v_ptr, bool flip_d)
             // so traps in interesting rooms and vaults are a total of 5 times more likely
             if (dieroll(1000) <= trap_placement_chance(y, x) * (multiplier-1))
             {
-                place_trap(y,x);
+                place_trap(y,x, TRUE);
             }
             
             // webbed vaults also have a large chance of receiving webs
