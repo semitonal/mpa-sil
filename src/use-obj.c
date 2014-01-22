@@ -25,7 +25,13 @@ static bool eat_food(object_type *o_ptr, bool *ident)
 
 		case SV_FOOD_SUSTENANCE:
 		{
-			if (set_food(p_ptr->food + 2000)) *ident = TRUE;
+			if (p_ptr->food < PY_FOOD_MAX)
+			{
+				if (set_food(p_ptr->food + 2000))
+					*ident = TRUE;
+			}
+			else
+				msg_print("You are too full to gain nourishment from it.");
 			break;
 		}
 
@@ -137,7 +143,10 @@ static bool eat_food(object_type *o_ptr, bool *ident)
 
 		case SV_FOOD_LEMBAS:
 		{
-			msg_print("It fills you with renewed energy and spirit.");
+			if (p_ptr->food < PY_FOOD_MAX)
+				msg_print("It fills you with renewed energy and spirit.");
+			else
+				msg_print("It fills you with renewed spirit.");
 			if (do_res_stat(A_GRA, 1)) *ident = TRUE;
 			*ident = TRUE;
 			break;
@@ -145,8 +154,11 @@ static bool eat_food(object_type *o_ptr, bool *ident)
 
 	}
 
-	/* Food can feed the player */
-	(void)set_food(p_ptr->food + o_ptr->pval);
+	/* Food can feed the player, but only if not gorged already */
+	if (p_ptr->food < PY_FOOD_MAX)
+		(void)set_food(p_ptr->food + o_ptr->pval);
+	else if (o_ptr->pval > 0)
+		msg_print("You are too full to gain nourishment from it.");
 
 	return (TRUE);
 }
@@ -380,9 +392,11 @@ static bool quaff_potion(object_type *o_ptr, bool *ident)
 
 	}
 
-	/* Potions can feed the player */
-	(void)set_food(p_ptr->food + o_ptr->pval);
-
+	/* Potions can feed the player, but only if not gorged already */
+	if (p_ptr->food < PY_FOOD_MAX)
+		(void)set_food(p_ptr->food + o_ptr->pval);
+	else if (o_ptr->pval > 0)
+		msg_print("You are too full to gain nourishment from it.");
 
 	return (TRUE);
 }

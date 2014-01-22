@@ -1470,7 +1470,6 @@ bool set_food(int v)
 			case 5:
 			{
 				msg_print("You have gorged yourself!");
-				msg_print("You can't eat or drink any more until you recover.");
 				break;
 			}
 		}

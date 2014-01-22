@@ -93,13 +93,6 @@ void do_cmd_eat_food(object_type *default_o_ptr, int default_item)
 			o_ptr = &o_list[0 - item];
 		}
 	}
-
-	/* If gorged, you cannot eat food */
-	if ((p_ptr->food >= PY_FOOD_MAX) && ((o_ptr->pval > 0) || (o_ptr->sval == SV_FOOD_SUSTENANCE)))
-	{
-		msg_print("You are too full to eat it.");
-		return;
-	}
 		
 	/* Sound */
 	sound(MSG_EAT);
@@ -166,8 +159,6 @@ void do_cmd_eat_food(object_type *default_o_ptr, int default_item)
 }
 
 
-
-
 /*
  * Quaff a potion (from the pack or the floor)
  */
@@ -208,13 +199,6 @@ void do_cmd_quaff_potion(object_type *default_o_ptr, int default_item)
 		{
 			o_ptr = &o_list[0 - item];
 		}
-	}
-
-	/* If gorged, you cannot drink potions */
-	if ((p_ptr->food >= PY_FOOD_MAX) && (o_ptr->pval > 0))
-	{
-		msg_print("You are too full to drink it.");
-		return;
 	}
 	
 	/* Sound */
