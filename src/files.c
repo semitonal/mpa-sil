@@ -4555,7 +4555,7 @@ errr file_character(cptr name, bool full)
 		}
 	}
 
-	fprintf(fff, "\n\n  [Dudes]\n\n");
+	fprintf(fff, "\n\n  [Enemies]\n\n");
 
 	for (i = 1; i < z_info->r_max - 1; i++)
 	{
