@@ -917,7 +917,8 @@ void prise_silmaril(void)
 	int prt_percent = 0;
 	int hit_result = 0;
 	int crit_bonus_dice = 0;
-	int pd = 0;
+	int pd = 15;
+	int step = 0;
 	int noise = 0;
 	u32b dummy_noticed_flag;
 	
@@ -933,14 +934,13 @@ void prise_silmaril(void)
 	{
 		case ART_MORGOTH_3:
 		{
-			pd = 15;
 			noise = 5;
 			freed_msg = "You have freed a Silmaril!";
 			break;
 		}
 		case ART_MORGOTH_2:
 		{
-			pd = 25;
+			step = 1;
 			noise = 10;
 						
 			if (p_ptr->crown_shatter)	freed_msg = "The fates be damned! You free a second Silmaril.";
@@ -950,7 +950,7 @@ void prise_silmaril(void)
 		}
 		case ART_MORGOTH_1:
 		{
-			pd = 30;
+			step = 2;
 			noise = 15;
 			
 			freed_msg = "You free the final Silmaril. You have a very bad feeling about this.";
@@ -1082,14 +1082,14 @@ void prise_silmaril(void)
 		msg_print("Try though you might, you were unable to free a Silmaril.");
 		msg_print("Perhaps you should try again or use a different weapon.");
 
-		if (pd == 15) msg_print("(The combat rolls window shows what is happening.)");
+		if (step == 0) msg_print("(The combat rolls window shows what is happening.)");
 
 		// Break the truce if creatures see
 		break_truce(FALSE);
 	}
 
 	// check for taking of final Silmaril
-	if ((pd == 30) && freed)
+	if ((step == 2) && freed)
 	{
 		msg_print("Until you escape you must now roll twice for every skill check, taking the worse result each time.");
 		msg_print("You hear a cry of vengeance echo through the iron hells.");
