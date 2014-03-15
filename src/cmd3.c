@@ -1082,8 +1082,6 @@ void prise_silmaril(void)
 		msg_print("Try though you might, you were unable to free a Silmaril.");
 		msg_print("Perhaps you should try again or use a different weapon.");
 
-		if (step == 0) msg_print("(The combat rolls window shows what is happening.)");
-
 		// Break the truce if creatures see
 		break_truce(FALSE);
 	}
@@ -1091,7 +1089,6 @@ void prise_silmaril(void)
 	// check for taking of final Silmaril
 	if ((step == 2) && freed)
 	{
-		msg_print("Until you escape you must now roll twice for every skill check, taking the worse result each time.");
 		msg_print("You hear a cry of vengeance echo through the iron hells.");
 		wake_all_monsters(0);
 	}
