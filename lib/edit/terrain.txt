@@ -53,7 +53,7 @@ G:.:W
 # 0x02 --> unused
 
 N:2:chasm
-G:%:D
+G:;:s
 
 # 0x03 --> glyph of warding
 
