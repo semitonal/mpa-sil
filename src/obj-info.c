@@ -249,7 +249,12 @@ static bool describe_brand(const object_type *o_ptr, u32b f1)
 	if (f1 & (TR1_BRAND_COLD)) descs[cnt++] = "frost";
 	if (f1 & (TR1_BRAND_POIS)) descs[cnt++] = "venom";
 
-	if (o_ptr->number == 1)
+	if (o_ptr->tval == TV_RING || o_ptr->tval == TV_AMULET)
+	{
+		/* Describe brands */
+		output_desc_list("It will brand your wielded weapon with ", descs, cnt);
+	}
+	else if (o_ptr->number == 1)
 	{
 		/* Describe brands */
 		output_desc_list("It is branded with ", descs, cnt);
@@ -278,13 +283,15 @@ static bool describe_misc_weapon_attributes(const object_type *o_ptr, u32b f1)
 
 	if (f1 & (TR1_SHARPNESS))
 	{
-		if (o_ptr->number == 1)	p_text_out("It cuts easily through armour.  ");
+		if (o_ptr->tval == TV_RING || o_ptr->tval == TV_AMULET) p_text_out("It allows you to cut easily through armour.  ");
+		else if (o_ptr->number == 1)	p_text_out("It cuts easily through armour.  ");
 		else					p_text_out("They cut easily through armour.  ");
 		message = TRUE;
 	}
 	if (f1 & (TR1_SHARPNESS2))
 	{
-		p_text_out("It cuts very easily through armour.  ");
+		if (o_ptr->tval == TV_RING || o_ptr->tval == TV_AMULET) p_text_out("It allows you to cut very easily through armour.  ");
+		else p_text_out("It cuts very easily through armour.  ");
 		message = TRUE;
 	}
 	if (f1 & (TR1_VAMPIRIC))
@@ -934,4 +941,3 @@ void object_info_screen(const object_type *o_ptr)
 
 	return;
 }
-

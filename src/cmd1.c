@@ -1907,9 +1907,9 @@ void ident_bow_arrow_by_use(object_type *j_ptr, object_type *i_ptr, object_type 
 
 u32b maybe_notice_slay(const object_type *o_ptr, u32b flag)
 {
-	u32b noticed_flag = 0L;
+	u32b noticed_flag = 0L, f1, f2, f3;
 	
-	if (!object_known_p(o_ptr))
+	if ((f1 & flag) && !object_known_p(o_ptr))
 	{
 		noticed_flag = flag;
 	}
@@ -1951,7 +1951,7 @@ int slay_bonus(const object_type *o_ptr, const monster_type *m_ptr, u32b *notice
 		case TV_DIGGING:
 		{
 			/* Slay Wolf */
-			if ((f1 & (TR1_SLAY_WOLF)) &&
+			if ((p_ptr->slay_wolf) &&
 			    (r_ptr->flags3 & (RF3_WOLF)))
 			{
 				if (m_ptr->ml)
@@ -1965,7 +1965,7 @@ int slay_bonus(const object_type *o_ptr, const monster_type *m_ptr, u32b *notice
 			}
 
 			/* Slay Spider */
-			if ((f1 & (TR1_SLAY_SPIDER)) &&
+			if ((p_ptr->slay_spider) &&
 			    (r_ptr->flags3 & (RF3_SPIDER)))
 			{
 				if (m_ptr->ml)
@@ -1979,7 +1979,7 @@ int slay_bonus(const object_type *o_ptr, const monster_type *m_ptr, u32b *notice
 			}
 			
 			/* Slay Undead */
-			if ((f1 & (TR1_SLAY_UNDEAD)) &&
+			if ((p_ptr->slay_undead) &&
 			    (r_ptr->flags3 & (RF3_UNDEAD)))
 			{
 				if (m_ptr->ml)
@@ -1993,7 +1993,7 @@ int slay_bonus(const object_type *o_ptr, const monster_type *m_ptr, u32b *notice
 			}
 
 			/* Slay Rauko */
-			if ((f1 & (TR1_SLAY_RAUKO)) &&
+			if ((p_ptr->slay_rauko) &&
 			    (r_ptr->flags3 & (RF3_RAUKO)))
 			{
 				if (m_ptr->ml)
@@ -2007,7 +2007,7 @@ int slay_bonus(const object_type *o_ptr, const monster_type *m_ptr, u32b *notice
 			}
 
 			/* Slay Orc */
-			if ((f1 & (TR1_SLAY_ORC)) &&
+			if ((p_ptr->slay_orc) &&
 			    (r_ptr->flags3 & (RF3_ORC)))
 			{
 				if (m_ptr->ml)
@@ -2021,7 +2021,7 @@ int slay_bonus(const object_type *o_ptr, const monster_type *m_ptr, u32b *notice
 			}
 
 			/* Slay Troll */
-			if ((f1 & (TR1_SLAY_TROLL)) &&
+			if ((p_ptr->slay_troll) &&
 			    (r_ptr->flags3 & (RF3_TROLL)))
 			{
 				if (m_ptr->ml)
@@ -2035,7 +2035,7 @@ int slay_bonus(const object_type *o_ptr, const monster_type *m_ptr, u32b *notice
 			}
 
 			/* Slay Dragon */
-			if ((f1 & (TR1_SLAY_DRAGON)) &&
+			if ((p_ptr->slay_dragon) &&
 			    (r_ptr->flags3 & (RF3_DRAGON)))
 			{
 				if (m_ptr->ml)
@@ -2070,7 +2070,7 @@ int slay_bonus(const object_type *o_ptr, const monster_type *m_ptr, u32b *notice
 			}
 
 			/* Brand (Fire) */
-			if (f1 & (TR1_BRAND_FIRE))
+			if (p_ptr->fire_branded)
 			{
 				/* Notice immunity */
 				if (r_ptr->flags3 & (RF3_RES_FIRE))
@@ -2101,7 +2101,7 @@ int slay_bonus(const object_type *o_ptr, const monster_type *m_ptr, u32b *notice
 			}
 
 			/* Brand (Cold) */
-			if (f1 & (TR1_BRAND_COLD))
+			if (p_ptr->cold_branded)
 			{
 				/* Notice immunity */
 				if (r_ptr->flags3 & (RF3_RES_COLD))
@@ -2131,7 +2131,7 @@ int slay_bonus(const object_type *o_ptr, const monster_type *m_ptr, u32b *notice
 			}
 
 			/* Brand (Poison) */
-			if (f1 & (TR1_BRAND_POIS))
+			if (p_ptr->poison_branded)
 			{
 				/* Notice immunity */
 				if (r_ptr->flags3 & (RF3_RES_POIS))
@@ -2177,14 +2177,14 @@ extern int prt_after_sharpness(const object_type *o_ptr, u32b *noticed_flag)
 	object_flags(o_ptr, &f1, &f2, &f3);
 
 	/* Sharpness */
-	if (f1 & (TR1_SHARPNESS))
+	if (p_ptr->sharp)
 	{
 		*noticed_flag = maybe_notice_slay(o_ptr, TR1_SHARPNESS);
 		protection = 50;
 	}
 
 	/* Sharpness 2 */
-	if (f1 & (TR1_SHARPNESS2))
+	if (p_ptr->sharpest)
 	{
 		*noticed_flag = maybe_notice_slay(o_ptr, TR1_SHARPNESS2);
 		protection = 0;
@@ -3859,10 +3859,11 @@ void py_attack_aux(int y, int x, int attack_type)
 			// deal with killing blows
 			if (fatal_blow)
 			{
-				// heal with a vampiric weapon
-				if ((f1 & (TR1_VAMPIRIC)) && !monster_nonliving(r_ptr))
+				// heal when having the vampiric quality
+				if (p_ptr->vampiric && !monster_nonliving(r_ptr))
 				{
-					if (hp_player(7, FALSE, FALSE) && !object_known_p(o_ptr))
+					//chance to identify the weapon if it was indeed the weapon the provider of the vampiric quality
+					if (hp_player(7, FALSE, FALSE) && (f1 & (TR1_VAMPIRIC)) && !object_known_p(o_ptr))
 					{
 						ident_weapon_by_use(o_ptr, m_ptr, TR1_VAMPIRIC);
 					}
@@ -5360,5 +5361,3 @@ void run_step(int dir)
 	/* Move the player */
 	move_player(p_ptr->run_cur_dir);
 }
-
-

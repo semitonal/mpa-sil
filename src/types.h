@@ -1050,6 +1050,22 @@ struct player_type
 	int cowardice;		/* Occasionally become afraid on taking damage */
 	int haunted;		/* Occasionally attract wraiths to your level */
 
+	int tunneling; /* Capacity for tunneling */
+
+	bool fire_branded; /* Fire-branded attacks */
+	bool cold_branded; /* Cold-branded attacks */
+	bool poison_branded; /* Poison-branded attacks */
+	bool vampiric; /* Life-draining attacks */
+	bool sharp; /* Attacks ignore some protection */
+	bool sharpest; /* Attacks ignore all protection */
+	bool slay_orc; /* Attacks slay orcs */
+	bool slay_wolf; /* Attacks slay wolfs */
+	bool slay_troll; /* Attacks slay trolls */
+	bool slay_spider; /* Attacks slay spiders */
+	bool slay_undead; /* Attacks slay undead */
+	bool slay_rauko; /* Attacks slay rauko */
+	bool slay_dragon; /* Attacks slay dragons */
+
 	s16b to_mdd;		/* Bonus to melee damage dice */
 	s16b mdd;			/* Total melee damage dice */
 	s16b to_mds;		/* Bonus to melee damage sides */
@@ -1210,5 +1226,3 @@ struct autoinscription
 	s16b	kindIdx;
 	s16b	inscriptionIdx;
 };
-
-

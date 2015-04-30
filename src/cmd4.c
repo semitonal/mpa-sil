@@ -1734,8 +1734,9 @@ int att_valid(void)
 		}
 			
 		case TV_RING:
+		case TV_AMULET:
 		{
-			if (smith_o_ptr->sval == SV_RING_ACCURACY) return (TRUE);
+			if (smith_o_ptr->sval == SV_RING_ACCURACY || smith_o_ptr->name1) return (TRUE);
 		}
 	}
 	
@@ -1950,8 +1951,9 @@ int evn_valid(void)
 		}
 			
 		case TV_RING:
+		case TV_AMULET:
 		{
-			if (smith_o_ptr->sval == SV_RING_EVASION) return (TRUE);
+			if (smith_o_ptr->sval == SV_RING_EVASION || smith_o_ptr->name1) return (TRUE);
 		}
 	}
 	
@@ -2073,8 +2075,9 @@ int ps_valid(void)
 		}
 			
 		case TV_RING:
+		case TV_AMULET:
 		{
-			if (smith_o_ptr->sval == SV_RING_PROTECTION) return (TRUE);
+			if (smith_o_ptr->sval == SV_RING_PROTECTION || smith_o_ptr->name1) return (TRUE);
 		}
 	}
 	
@@ -4297,6 +4300,12 @@ bool applicable_ability(ability_type *b_ptr, object_type *o_ptr)
 	
 	u32b f1, f2, f3;
 	
+	// Everything is fair game for rings and amulets
+	if (o_ptr->tval == TV_RING || o_ptr->tval == TV_AMULET)
+	{
+		return TRUE;
+	}
+
 	/* Test if this is a legal item type for this ability */
 	for (j = 0; j < ABILITY_TVALS_MAX; j++)
 	{
