@@ -8,8 +8,8 @@
 
 CC = gcc
 WRES = windres
-LIBS = -s -mno-cygwin -mwindows -e _mainCRTStartup -lwinmm
-CFLAGS = -Wall -mno-cygwin -O2 -fno-strength-reduce -DWINDOWS
+LIBS = -s -mwindows -e _mainCRTStartup -lwinmm
+CFLAGS = -Wall -O2 -fno-strength-reduce -DWINDOWS
 
 EXOBJS = \
 	sil.res \
@@ -158,7 +158,7 @@ generate.o: generate.c $(INCS)
 init1.o: init1.c $(INCS) init.h
 	$(CC) $(CFLAGS) $(INCDIRS) -c -o $@ $<
 
-init2.o: init2.c $(INCS) init.h 
+init2.o: init2.c $(INCS) init.h
 	$(CC) $(CFLAGS) $(INCDIRS) -c -o $@ $<
 
 load.o: load.c $(INCS)  init.h
@@ -226,13 +226,13 @@ variable.o: variable.c $(INCS)
 wizard1.o: wizard1.c $(INCS)
 	$(CC) $(CFLAGS) $(INCDIRS) -c -o $@ $<
 
-wizard2.o: wizard2.c $(INCS) 
+wizard2.o: wizard2.c $(INCS)
 	$(CC) $(CFLAGS) $(INCDIRS) -c -o $@ $<
 
 squelch.o: squelch.c $(INCS)
 	$(CC) $(CFLAGS) $(INCDIRS) -c -o $@ $<
 
-xtra1.o: xtra1.c $(INCS) 
+xtra1.o: xtra1.c $(INCS)
 	$(CC) $(CFLAGS) $(INCDIRS) -c -o $@ $<
 
 xtra2.o: xtra2.c $(INCS)
@@ -258,4 +258,3 @@ z-virt.o: z-virt.c $(HDRS) z-virt.h z-util.h
 
 .c.o:
 	$(CC) $(CFLAGS) $(INCDIRS) -c -o $@ $<
-

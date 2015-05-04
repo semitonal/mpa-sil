@@ -2172,6 +2172,20 @@ static void calc_bonuses(void)
 	p_ptr->resist_confu = 0;
 	p_ptr->resist_stun = 0;
 	p_ptr->resist_hallu = 0;
+	p_ptr->tunneling = 0;
+	p_ptr->fire_branded = FALSE;
+	p_ptr->cold_branded = FALSE;
+	p_ptr->poison_branded = FALSE;
+	p_ptr->vampiric = FALSE;
+	p_ptr->sharp = FALSE;
+	p_ptr->sharpest = FALSE;
+	p_ptr->slay_orc = FALSE;
+	p_ptr->slay_wolf = FALSE;
+	p_ptr->slay_troll = FALSE;
+	p_ptr->slay_spider = FALSE;
+	p_ptr->slay_undead = FALSE;
+	p_ptr->slay_rauko = FALSE;
+	p_ptr->slay_dragon = FALSE;
     
     p_ptr->climbing = FALSE;
 
@@ -2229,6 +2243,22 @@ static void calc_bonuses(void)
 		if (f1 & (TR1_WIL)) p_ptr->skill_equip_mod[S_WIL] += o_ptr->pval;
 		if (f1 & (TR1_SMT)) p_ptr->skill_equip_mod[S_SMT] += o_ptr->pval;
 		if (f1 & (TR1_SNG)) p_ptr->skill_equip_mod[S_SNG] += o_ptr->pval;
+
+		/* Affect attack properties */
+		if (f1 & (TR1_SHARPNESS)) p_ptr->sharp = TRUE;
+		if (f1 & (TR1_SHARPNESS2)) p_ptr->sharpest = TRUE;
+		if (f1 & (TR1_BRAND_FIRE)) p_ptr->fire_branded = TRUE;
+		if (f1 & (TR1_BRAND_COLD)) p_ptr->cold_branded = TRUE;
+		if (f1 & (TR1_BRAND_POIS)) p_ptr->poison_branded = TRUE;
+		if (f1 & (TR1_SLAY_ORC)) p_ptr->slay_orc = TRUE;
+		if (f1 & (TR1_SLAY_TROLL)) p_ptr->slay_troll = TRUE;
+		if (f1 & (TR1_SLAY_WOLF)) p_ptr->slay_wolf = TRUE;
+		if (f1 & (TR1_SLAY_SPIDER)) p_ptr->slay_spider = TRUE;
+		if (f1 & (TR1_SLAY_UNDEAD)) p_ptr->slay_undead = TRUE;
+		if (f1 & (TR1_SLAY_RAUKO)) p_ptr->slay_rauko = TRUE;
+		if (f1 & (TR1_SLAY_DRAGON)) p_ptr->slay_dragon = TRUE;
+
+		if (f1 & (TR1_TUNNEL)) p_ptr->tunneling += o_ptr->pval;
 
 		/* Affect Damage Sides */
 		if (f1 & (TR1_DAMAGE_SIDES))
@@ -3354,6 +3384,3 @@ void handle_stuff(void)
 	/* Window stuff */
 	if (p_ptr->window) window_stuff();
 }
-
-
-

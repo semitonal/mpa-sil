@@ -7,3 +7,5 @@ lib/user/*.prf
 .new
 *~
 *.DS_Store
+sil.INI
+src/sil.res

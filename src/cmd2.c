@@ -1787,7 +1787,6 @@ static bool do_cmd_tunnel_aux(int y, int x)
     bool digger_choice = FALSE;
 	int difficulty;
     int digging_score = 0;
-    char o_name[80];
 	char success_message[80];
 	char failure_message[80];
 	object_type *o_ptr;
@@ -1798,15 +1797,15 @@ static bool do_cmd_tunnel_aux(int y, int x)
 	/* Verify legality */
 	if (!do_cmd_tunnel_test(y, x)) return (FALSE);
 
-    // examine the wielded weapon
-    o_ptr = &inventory[INVEN_WIELD];
-    object_flags(o_ptr, &f1, &f2, &f3);
-
-    // if it is a digger, then use it
-    if (f1 & (TR1_TUNNEL))
+    // check to see if some equipment is allowing us to tunnel
+    if (p_ptr->tunneling > 0)
     {
-        digging_score = o_ptr->pval;
-        digger_ptr = o_ptr;
+        digging_score = p_ptr->tunneling;
+
+        // examine the wielded weapon to see if it was the equipment in question
+        o_ptr = &inventory[INVEN_WIELD];
+        object_flags(o_ptr, &f1, &f2, &f3);
+        if (f1 & (TR1_TUNNEL)) digger_ptr = o_ptr;
     }
     else
     {
@@ -1834,7 +1833,7 @@ static bool do_cmd_tunnel_aux(int y, int x)
             item_tester_hook = item_tester_hook_digger;
             
             /* Get an item */
-            if (!get_item(&item, "Use which digger? ", "You are not carrying a shovel or mattock.", (USE_INVEN))) return (FALSE);
+            if (!get_item(&item, "Use which digger? ", "You are not carrying an item which lets you dig.", (USE_INVEN))) return (FALSE);
             else
             {
                 /* Get the object */
@@ -1855,7 +1854,7 @@ static bool do_cmd_tunnel_aux(int y, int x)
     // abort if you have no digger
     if (digging_score == 0)
     {
-        msg_print("You are not carrying a shovel or mattock.");
+        msg_print("You are not carrying an item which lets you dig.");
 
         // reset the action type
         p_ptr->previous_action[0] = ACTION_NOTHING;
@@ -1866,9 +1865,6 @@ static bool do_cmd_tunnel_aux(int y, int x)
         return (FALSE);
     }
     
-    // get the short name of the item
-    object_desc(o_name, sizeof(o_name), digger_ptr, FALSE, -1);
-        
 	/* Granite */
     if (cave_feat[y][x] >= FEAT_WALL_EXTRA)
 	{
@@ -1877,7 +1873,7 @@ static bool do_cmd_tunnel_aux(int y, int x)
         
         if (difficulty > digging_score)
         {
-            strnfmt(failure_message, sizeof(failure_message), "You are unable to break the granite with your %s.", o_name);
+            strnfmt(failure_message, sizeof(failure_message), "You are unable to break the granite.");
         }
         else 
         {
@@ -1892,7 +1888,7 @@ static bool do_cmd_tunnel_aux(int y, int x)
         
         if (difficulty > digging_score)
         {
-            strnfmt(failure_message, sizeof(failure_message), "You are unable to break the quartz with your %s.", o_name);
+            strnfmt(failure_message, sizeof(failure_message), "You are unable to break the quartz.");
         }
         else
         {
@@ -1907,7 +1903,7 @@ static bool do_cmd_tunnel_aux(int y, int x)
         
         if (difficulty > digging_score)
         {
-            strnfmt(failure_message, sizeof(failure_message), "You are unable to shift the rubble with your %s.", o_name);
+            strnfmt(failure_message, sizeof(failure_message), "You are unable to shift the rubble.");
         }
         else
         {
@@ -1922,7 +1918,7 @@ static bool do_cmd_tunnel_aux(int y, int x)
 
         if (difficulty > digging_score)
         {
-            strnfmt(failure_message, sizeof(failure_message), "You are unable to break the granite with your %s.", o_name);
+            strnfmt(failure_message, sizeof(failure_message), "You are unable to break the granite.");
         }
         else
         {
@@ -1934,7 +1930,7 @@ static bool do_cmd_tunnel_aux(int y, int x)
 	if ((difficulty <= digging_score) && (difficulty <= p_ptr->stat_use[A_STR]))
 	{
 		u32b f1, f2, f3;
-		object_flags(digger_ptr, &f1, &f2, &f3);
+		if (digger_ptr) object_flags(digger_ptr, &f1, &f2, &f3);
 		
 		/* Make a lot of noise */
 		monster_perception(TRUE, FALSE, -10);
@@ -1943,7 +1939,7 @@ static bool do_cmd_tunnel_aux(int y, int x)
 		msg_print(success_message);
 
 		// Possibly identify the digger
-		if (!object_known_p(digger_ptr) && (f1 & (TR1_TUNNEL)))
+		if (digger_ptr && !object_known_p(digger_ptr) && (f1 & (TR1_TUNNEL)))
 		{ 
             char o_short_name[80];
             char o_full_name[80];
@@ -4427,4 +4423,3 @@ void do_cmd_throw(bool automatic)
 	// Break the truce if creatures see
 	break_truce(FALSE);
 }
-
