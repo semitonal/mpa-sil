@@ -2561,6 +2561,22 @@ void dif_mod(int value, int positive_base, int *dif_inc)
 	}
 }
 
+/*
+* Determines the difficulty modifier for pvals, with the possibility of a negative one.
+*
+* It uses dif_mod (see above) and applies to the increment or the decrement as appropiate.
+*/
+void neg_dif_mod(int value, int base, int *dif_inc, int *dif_dec)
+{
+	int mod = 0;
+
+	dif_mod(ABS(value), base, &mod);
+
+	if (value > 0)
+		*dif_inc += mod;
+	else
+		*dif_dec += mod / 2;
+}
 
 /*
  * Determines the difficulty of a given object.
@@ -2578,6 +2594,7 @@ int object_difficulty(object_type *o_ptr)
 	int brands = 0;
 	int dif_mult = 100;
     int cat = 0; // default to soothe compilation warnings
+	bool smithing_gear = FALSE;
 		
 	// reset smithing costs
 	smithing_cost.str = 0;
@@ -2695,29 +2712,47 @@ int object_difficulty(object_type *o_ptr)
 		dif_mod(x, 10, &dif_inc);
 		smithing_cost.str += (x > 0) ? x : 0;
 	}
+	
+	// Abilities
+	for (i = 0; i < o_ptr->abilities; i++)
+	{
+		dif_inc += 5 + (&b_info[ability_index(o_ptr->skilltype[i],o_ptr->abilitynum[i])])->level / 2;
+		smithing_cost.exp += 500;
+		// if it has a smithing ability, flag it as smithing gear
+		if (o_ptr->skilltype[i] == S_SMT) smithing_gear = TRUE;
+	}
+	
 	if (o_ptr->pval != 0)
 	{
-		x = (o_ptr->pval > 0) ? o_ptr->pval : 0;
+		x = o_ptr->pval;
 		
-		if (f1 & TR1_DAMAGE_SIDES)	{	dif_mod(x, 15, &dif_inc);	smithing_cost.str += x;		}
-		if (f1 & TR1_STR)			{	dif_mod(x, 12, &dif_inc);	smithing_cost.str += x;		}
-		if (f1 & TR1_DEX)			{	dif_mod(x, 12, &dif_inc);	smithing_cost.dex += x;		}
-		if (f1 & TR1_CON)			{	dif_mod(x, 12, &dif_inc);	smithing_cost.con += x;		}
-		if (f1 & TR1_GRA)			{	dif_mod(x, 12, &dif_inc);	smithing_cost.gra += x;		}
-		if (f1 & TR1_MEL)			{	dif_mod(x, 4, &dif_inc);	smithing_cost.exp += x*100;	}
-		if (f1 & TR1_ARC)			{	dif_mod(x, 4, &dif_inc);	smithing_cost.exp += x*100;	}
-		if (f1 & TR1_STL)			{	dif_mod(x, 4, &dif_inc);	smithing_cost.exp += x*100;	}
-		if (f1 & TR1_PER)			{	dif_mod(x, 4, &dif_inc);	smithing_cost.exp += x*100;	}
-		if (f1 & TR1_WIL)			{	dif_mod(x, 4, &dif_inc);	smithing_cost.exp += x*100;	}
-		if (f1 & TR1_SMT)			{	dif_mod(x, 4, &dif_inc);	smithing_cost.exp += x*100;	}
-		if (f1 & TR1_SNG)			{	dif_mod(x, 4, &dif_inc);	smithing_cost.exp += x*100;	}
+		// if it has a smithing skill modifier
+		if (f1 & TR1_SMT)
+		{
+			// flag it as smithing gear
+			smithing_gear = TRUE;
+			dif_mod(x, 4, &dif_inc);
+			if (x > 0) smithing_cost.exp += x*100;
+		}
+		
+		if (smithing_gear) x = (x > 0) ? x : 0; // do not allow negative difficulty modifiers if it is smithing gear
+		
+		if (f1 & TR1_DAMAGE_SIDES)	{	neg_dif_mod(x, 15, &dif_inc, &dif_dec);	smithing_cost.str += x;		}
+		if (f1 & TR1_STR)			{	neg_dif_mod(x, 12, &dif_inc, &dif_dec);	smithing_cost.str += x;		}
+		if (f1 & TR1_DEX)			{	neg_dif_mod(x, 12, &dif_inc, &dif_dec);	smithing_cost.dex += x;		}
+		if (f1 & TR1_CON)			{	neg_dif_mod(x, 12, &dif_inc, &dif_dec);	smithing_cost.con += x;		}
+		if (f1 & TR1_GRA)			{	neg_dif_mod(x, 12, &dif_inc, &dif_dec);	smithing_cost.gra += x;		}
+		if (f1 & TR1_MEL)			{	neg_dif_mod(x, 4, &dif_inc, &dif_dec);	smithing_cost.exp += x*100;	}
+		if (f1 & TR1_ARC)			{	neg_dif_mod(x, 4, &dif_inc, &dif_dec);	smithing_cost.exp += x*100;	}
+		if (f1 & TR1_STL)			{	neg_dif_mod(x, 4, &dif_inc, &dif_dec);	smithing_cost.exp += x*100;	}
+		if (f1 & TR1_PER)			{	neg_dif_mod(x, 4, &dif_inc, &dif_dec);	smithing_cost.exp += x*100;	}
+		if (f1 & TR1_WIL)			{	neg_dif_mod(x, 4, &dif_inc, &dif_dec);	smithing_cost.exp += x*100;	}
+		if (f1 & TR1_SNG)			{	neg_dif_mod(x, 4, &dif_inc, &dif_dec);	smithing_cost.exp += x*100;	}
 
-		x = (o_ptr->pval < 0) ? o_ptr->pval : 0;
-
-		if (f1 & TR1_NEG_STR)		{	dif_mod(-x, 12, &dif_inc);	smithing_cost.str -= x;		}
-		if (f1 & TR1_NEG_DEX)		{	dif_mod(-x, 12, &dif_inc);	smithing_cost.dex -= x;		}
-		if (f1 & TR1_NEG_CON)		{	dif_mod(-x, 12, &dif_inc);	smithing_cost.con -= x;		}
-		if (f1 & TR1_NEG_GRA)		{	dif_mod(-x, 12, &dif_inc);	smithing_cost.gra -= x;		}
+		if (f1 & TR1_NEG_STR)		{	neg_dif_mod(-x, 12, &dif_inc, &dif_dec);	smithing_cost.str -= x;		}
+		if (f1 & TR1_NEG_DEX)		{	neg_dif_mod(-x, 12, &dif_inc, &dif_dec);	smithing_cost.dex -= x;		}
+		if (f1 & TR1_NEG_CON)		{	neg_dif_mod(-x, 12, &dif_inc, &dif_dec);	smithing_cost.con -= x;		}
+		if (f1 & TR1_NEG_GRA)		{	neg_dif_mod(-x, 12, &dif_inc, &dif_dec);	smithing_cost.gra -= x;		}
 	}
 	
 	// Sustains
@@ -2749,32 +2784,26 @@ int object_difficulty(object_type *o_ptr)
 	if (f2 & TR2_RES_HALLU)		{	dif_inc += 3;							}
 
 	// Penalty Flags
-	if (f2 & TR2_FEAR)			{	dif_dec += 0;	}
-	if (f2 & TR2_HUNGER)		{	dif_dec += 0;	}
-	if (f2 & TR2_DARKNESS)		{	dif_dec += 0;	}
-	if (f2 & TR2_DANGER)		{	dif_dec += 5;	} // only Danger counts
-	if (f2 & TR2_AGGRAVATE)		{	dif_dec += 0;	}
-	if (f2 & TR2_HAUNTED)		{	dif_dec += 0;	}
-	if (f2 & TR2_VUL_COLD)		{	dif_dec += 0;	}
-	if (f2 & TR2_VUL_FIRE)		{	dif_dec += 0;	}
-	if (f2 & TR2_VUL_POIS)		{	dif_dec += 0;	}
+	if (f2 & TR2_FEAR)			{	if (!smithing_gear) dif_dec += 1; }
+	if (f2 & TR2_HUNGER)		{	dif_dec += 2;	}
+	if (f2 & TR2_DARKNESS)		{	if (!smithing_gear) dif_dec += 4;	}
+	if (f2 & TR2_DANGER)		{	dif_dec += 8;	}
+	if (f2 & TR2_AGGRAVATE)		{	if (!smithing_gear) dif_dec += 1;	}
+	if (f2 & TR2_HAUNTED)		{	dif_dec += 6;	}
+	if (f2 & TR2_VUL_COLD)		{	if (!smithing_gear) dif_dec += 4;	}
+	if (f2 & TR2_VUL_FIRE)		{	if (!smithing_gear) dif_dec += 4;	}
+	if (f2 & TR2_VUL_POIS)		{	if (!smithing_gear) dif_dec += 4;	}
+	if (f2 & TR2_VUL_POIS)		{	if (!smithing_gear) dif_dec += 4;	}	
+	if (f3 & TR3_LIGHT_CURSE)		{	dif_dec += 4; /* representative of the 4 points in will necessary to break it */	}	
 	
-
-	// Abilities
-	for (i = 0; i < o_ptr->abilities; i++)
-	{
-		dif_inc += 5 + (&b_info[ability_index(o_ptr->skilltype[i],o_ptr->abilitynum[i])])->level / 2;
-		smithing_cost.exp += 500;
-	}
-	
-	// Mithirl
+	// Mithril
 	if (k_ptr->flags3 & TR3_MITHRIL)	{	smithing_cost.mithril += o_ptr->weight;	}
 	
 	// Penalty for being an artefact
 	if (o_ptr->name1)					{	smithing_cost.uses += 2;	}
 	
-	// Cap the difficulty reduction at 8
-	if (dif_dec > 8) dif_dec = 8;
+	// Cap the difficulty reduction at half of the current difficulty
+	dif_dec = MIN(dif_inc / 2, dif_dec);
 	
 	// Set the overall difficulty
 	dif = dif_inc - dif_dec;
