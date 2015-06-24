@@ -2737,7 +2737,9 @@ static bool build_type6(int y0, int x0)
 
 		/* Get a random vault record */
 		v_ptr = &v_info[rand_int(z_info->v_max)];
-		
+
+	    // Phaethon: if forges are more tightly controlled, I'll have to make sure !v_ptr->forge when generating rooms
+    
 		// if forcing a forge, then skip vaults without forges in them
 		if (p_ptr->force_forge && !v_ptr->forge) continue;
         
@@ -3320,9 +3322,16 @@ static bool cave_gen(void)
 	/* No rooms yet */
 	dun->cent_n = 0;
 
-	// guarantee a forge if one hasn't been generated in a while
+    // Phaethon: new forge generation scheme
 	//if (cheat_room) msg_format("Forge Drought = %d.", p_ptr->forge_drought);
-	if ((p_ptr->forge_drought >= rand_range(2000, 5000)) && (playerturn > 0))
+    int forgeTurnCount = MIN(playerturn,30000); // limit turn count to 30k for forge spawn calculation
+    const int forgeTurnWeight=6; // e.g. forces 6 forges to be spawned from turn count
+    const int forgeDepthWeight=4; // e.g. forces 4 forges to be spawned from maxDepth
+    // FYI, maxForges=turnWeight+depthWeight
+    // forgeChance will be a percentage times a thousand to keep it an integer (e.g. 100% = 1000)
+    int forgeChance = (forgeTurnCount*forgeTurnWeight*1000/30000) + (p_ptr->depth*forgeDepthWeight*1000/19)-(p_ptr->forge_count*1000);
+    // the if statement prevents a forge on the first level and forces one on the second level
+	if ((playerturn > 0) && ((forgeChance >= rand_range(1, 1000)) || (p_ptr->forge_count == 0)))
 	{
 		if (cheat_room) msg_format("Trying to force a forge:");
 		p_ptr->force_forge = TRUE;
