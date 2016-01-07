@@ -1,0 +1,9 @@
+*.o
+*.raw
+sil
+sil.exe
+lib/user/*.txt
+lib/user/*.prf
+.new
+*~
+*.DS_Store
