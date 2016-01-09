@@ -159,6 +159,12 @@ void do_cmd_go_up(void)
 		new = p_ptr->depth - 1;
 	}	
 
+        // Cover more distance when escaping.
+        if (p_ptr->on_the_run && new > 0)
+        {
+            new = new - 1;
+        }
+
 	// deal with most cases where you can't find your way
 	if ((new < min) && (p_ptr->depth != MORGOTH_DEPTH))
 	{
