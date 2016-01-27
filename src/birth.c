@@ -1885,9 +1885,6 @@ static bool player_birth_aux(void)
 	/* Point-based skills */
 	if (!gain_skills()) return (FALSE);
 
-	/* Choose sex */
-	if (!get_sex()) return (FALSE);
-
 	/* Roll for history */
 	if (!get_history()) return (FALSE);
 
