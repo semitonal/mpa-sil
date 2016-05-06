@@ -347,6 +347,12 @@ void do_cmd_go_down(void)
 		new = p_ptr->depth + 1;
 	}	
 
+        // Cover more distance when escaping.
+        if (p_ptr->on_the_run && new < MORGOTH_DEPTH)
+        {
+            new = new + 1;
+        }
+
 	// warn players if this could lead them to Morgoth's Throne Room
 	if (new == MORGOTH_DEPTH)
 	{
