@@ -529,7 +529,7 @@ static bool use_staff(object_type *o_ptr, bool *ident)
 
 		case SV_STAFF_EARTHQUAKES:
 		{
-			int radius = 3 + p_ptr->skill_use[S_WIL] / 5;
+			int radius = 3 + will_score / 5;
 			earthquake(py, px, -1, -1, radius, -1);
 			*ident = TRUE;
 			break;
