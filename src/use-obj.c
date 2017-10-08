@@ -413,13 +413,6 @@ static bool use_staff(object_type *o_ptr, bool *ident)
 	
 	int will_score = p_ptr->skill_use[S_WIL];
 	
-	// bonus to roll for 'channeling' ability
-	if (p_ptr->active_ability[S_WIL][WIL_CHANNELING])
-	{
-		will_score += 5;
-	}
-	
-
 	/* Analyze the staff */
 	switch (o_ptr->sval)
 	{
@@ -537,7 +530,7 @@ static bool use_staff(object_type *o_ptr, bool *ident)
 
 		case SV_STAFF_RECHARGING:
 		{
-			if (!recharge(1)) use_charge = FALSE;
+			if (!recharge(CHANNELING_CHARGE_MULTIPLIER)) use_charge = FALSE;
 			*ident = TRUE;
 			break;
 		}
@@ -604,12 +597,6 @@ static bool play_instrument(object_type *o_ptr, bool *ident)
 	/* Base chance of success */
 	will_score = p_ptr->skill_use[S_WIL];
 
-	// bonus to roll for 'channeling' ability
-	if (p_ptr->active_ability[S_WIL][WIL_CHANNELING])
-	{
-		will_score += 5;
-	}
-	
 	p_ptr->csp -= voice_cost;
 
 	/* Redraw voice */
@@ -1077,7 +1064,7 @@ static bool activate_object(object_type *o_ptr)
 			case ACT_RECHARGE1:
 			{
 				msg_format("Your %s glows bright yellow...", o_name);
-				recharge(1);
+				recharge(CHANNELING_CHARGE_MULTIPLIER);
 				break;
 			}
 
