@@ -2290,7 +2290,6 @@ s32b adjusted_mon_exp(const monster_race *r_ptr, bool kill)
 	int mexp = r_ptr->level * 10;
 
 	int mkills = l_list[r_ptr - r_info].pkills;
-	int mscares = l_list[r_ptr - r_info].pscares;
 	int msights = l_list[r_ptr - r_info].psights;
 	
 	if (kill)
@@ -2301,7 +2300,7 @@ s32b adjusted_mon_exp(const monster_race *r_ptr, bool kill)
 		}
 		else
 		{
-			exp = (mexp) / (mkills + mscares + 1);
+			exp = (mexp) / (mkills + 1);
 		}
 	}
 	else
