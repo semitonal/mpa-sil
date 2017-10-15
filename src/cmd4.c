@@ -9511,7 +9511,6 @@ static cptr monster_group_text[] =
 	/*Unused*/						/*'Z'*/
 	"Plants",						/*'&'*/
 	"People",						/*'@'*/
-	"Blades",					    /*'|'*/
 	NULL
 };
 
@@ -9576,7 +9575,6 @@ static cptr monster_group_char[] =
 	/*"Z", Unused*/
 	"&",  // plants
 	"@",  // human/elf/dwarf
-	"|",  // deathblades
 	NULL
 };
 
