@@ -2580,8 +2580,6 @@ void py_pickup(void)
 	/* Scan the pile of objects */
 	for (this_o_idx = cave_o_idx[py][px]; this_o_idx; this_o_idx = next_o_idx)
 	{
-		bool do_not_pickup = FALSE;
-
 		/* Get the object */
 		o_ptr = &o_list[this_o_idx];
 
@@ -2599,45 +2597,6 @@ void py_pickup(void)
 	    	(k_info[o_ptr->k_idx].aware))
 		{
 			next_o_idx = 0;
-			continue;
-		}
-
-		/*some items are marked to never pickup*/
-		if ((k_info[o_ptr->k_idx].squelch == NO_SQUELCH_NEVER_PICKUP)
-		    && object_aware_p(o_ptr))
-		{
-			do_not_pickup = TRUE;
-		}
-
-		// Special case for prising Silmarils from the Iron Crown of Morgoth
-		if ((o_ptr->name1 >= ART_MORGOTH_1) && (o_ptr->name1 <= ART_MORGOTH_3))
-		{
-			// Select the melee weapon
-			o_ptr = &inventory[INVEN_WIELD];
-
-			// No weapon
-			if (!o_ptr->k_idx)
-			{
-				msg_print("To prise a Silmaril from the crown, you would need to wield a weapon.");
-			}
-
-			// Wielding a weapon
-			else
-			{
-				if (get_check("Will you try to prise a Silmaril from the Iron Crown? "))
-				{
-					prise_silmaril();
-
-					/* Take a turn */
-					p_ptr->energy_use = 100;
-
-					// store the action type
-					p_ptr->previous_action[0] = ACTION_MISC;
-
-					return;
-				}
-			}
-
 			continue;
 		}
 
