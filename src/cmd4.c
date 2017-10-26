@@ -2642,16 +2642,16 @@ int object_difficulty(object_type *o_ptr)
 	// normal costs for other items
 	else
 	{
-		dif_mod(x, 5, &dif_inc);
+		dif_mod(x, 6, &dif_inc);
 	}
 	
 	// evasion bonus
 	x = o_ptr->evn - k_ptr->evn;
-	dif_mod(x, 5, &dif_inc);
+	dif_mod(x, 6, &dif_inc);
 	
 	// damage bonus
 	x = (o_ptr->ds - k_ptr->ds);
-	dif_mod(x, 8 + o_ptr->dd, &dif_inc);
+	dif_mod(x, 9 + o_ptr->dd, &dif_inc);
 
 
 	// protection bonus
@@ -2687,7 +2687,7 @@ int object_difficulty(object_type *o_ptr)
 	
 	if (f1 & TR1_SHARPNESS)			{	dif_inc += 24;	smithing_cost.str += 2;	}
 	if (f1 & TR1_SHARPNESS2)		{	dif_inc += 40;	smithing_cost.str += 4;	} // not available in smithing
-	if (f1 & TR1_VAMPIRIC)			{	dif_inc += 8;	smithing_cost.str += 1;	}
+	if (f1 & TR1_VAMPIRIC)			{	dif_inc += 6;	smithing_cost.str += 1;	}
 	
 	// pval dependent bonuses
 	if (f1 & TR1_TUNNEL)
@@ -2734,7 +2734,7 @@ int object_difficulty(object_type *o_ptr)
 	if (f2 & TR2_REGEN) 		{	dif_inc += 8;	smithing_cost.con += 1;	}
 	if (f2 & TR2_SEE_INVIS) 	{	dif_inc += 8;	}
 	if (f2 & TR2_FREE_ACT) 		{	dif_inc += 7;	}
-	if (f2 & TR2_SPEED)		{	dif_inc += 30;	smithing_cost.con += 5;	}
+	if (f2 & TR2_SPEED)		{	dif_inc += 40;	smithing_cost.con += 5;	}
 	
 	// Elemental Resistances
 	if (f2 & TR2_RES_COLD)		{	dif_inc += 7;	smithing_cost.con += 1;	}
@@ -2805,7 +2805,7 @@ int object_difficulty(object_type *o_ptr)
 	// Decreased difficulties for easily enchatable items
 	if (k_ptr->flags3 & (TR3_ENCHANTABLE))
 	{
-		dif_mult -= 40;
+		dif_mult -= 30;
 	}
 
 	// Mithril

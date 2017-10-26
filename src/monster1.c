@@ -1346,8 +1346,6 @@ void describe_monster(int r_idx, bool spoilers)
 	const monster_race *r_ptr = &r_info[r_idx];
 	monster_lore *l_ptr = &l_list[r_idx];
 
-	/* XXX XXX XXX */
-
 	/* Hack -- save memory */
 	COPY(&save_mem, l_ptr, monster_lore);
 
