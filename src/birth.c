@@ -127,13 +127,6 @@ static bool get_history(void)
 	
 	// hack to see whether we are opening an old player file
 	bool roll_history = !(p_ptr->history[0]);
-
-        if (roll_history)
-	{
-		/*get the random history, display for approval. */
-		get_history_aux();
-	}
-        return (TRUE);
 		
 	while (loopagain == TRUE)
 	{
@@ -247,8 +240,6 @@ static bool get_sex(void)
 		p_ptr->psex = SEX_FEMALE;
 		sp_ptr = &sex_info[SEX_FEMALE];
 	}
-
-        return (TRUE);
 	
 	while (loopagain == TRUE)
 	{
@@ -337,12 +328,6 @@ static bool get_ahw(void)
 	bool roll_ahw = !p_ptr->age;
 	
 	//put_str("(a)ccept age/height/weight, (r)eroll, (m)anually enter ", 0, 0);
-	if (roll_ahw)
-	{
-		/*get the random age/height/weight, display for approval. */
-		get_ahw_aux();
-	}
-        return (TRUE);
 	
 	while (loopagain == TRUE)
 	{

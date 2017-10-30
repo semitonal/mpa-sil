@@ -626,7 +626,7 @@ int main(int argc, char *argv[])
 	for (i = 0; i < (int)N_ELEMENTS(modules); i++)
 	{
 		/* User requested a specific module? */
-		if (streq("gcu", modules[i].name))
+		if (!mstr || (streq(mstr, modules[i].name)))
 		{
 			if (0 == modules[i].init(argc, argv))
 			{
@@ -694,7 +694,7 @@ int main(int argc, char *argv[])
 							bool name_selected = FALSE;
 							
 							// Default name
-							my_strcpy(tmp, "elliptic", sizeof(tmp));
+							my_strcpy(tmp, "<name>", sizeof(tmp));
 
 							Term_gotoxy(50, 21);
 							
