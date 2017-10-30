@@ -1287,19 +1287,6 @@ void object_desc(char *buf, size_t max, const object_type *o_ptr, int pref, int 
 		v = NULL;
 	}
 
-	/* Hack -- Mark as tainted while keeping existing labels (special, empty, tried) */
-	if (!known && item_is_tainted(o_ptr) && p_ptr->active_ability[S_PER][PER_LORE1])
-	{
-		if (v == NULL)
-			v = "tainted";
-		else
-		{
-			char v_ext[160];
-			sprintf(v_ext, "%s, tainted", v);
-			v = v_ext;
-		}
-	}
-
 	/* Inscription */
 	if (u || v)
 	{
